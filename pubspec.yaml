@@ -1,6 +1,6 @@
 name: bakumote
 description: A new Flutter application.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: 'none'
 version: 1.0.0+1
 
 environment:
@@ -14,17 +14,19 @@ dependencies:
   # Widget
   bubble:
   photo_view:
+  image_picker:
   image_cropper:
   pull_to_refresh:
   auto_size_text:
   adaptive_dialog:
+  flutter_picker:
 
   # Database
   shared_preferences:
   objectbox:
   objectbox_flutter_libs:
 
-  # Remi special
+  # RemiSpecial
   flutter_hooks:
   hooks_riverpod:
   freezed_annotation:
@@ -33,6 +35,8 @@ dependencies:
   package_info:
   rxdart:
   path_provider:
+  simple_logger:
+  date_calc:
 
 dev_dependencies:
   flutter_test:
