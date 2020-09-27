@@ -1,0 +1,9 @@
+{
+  "@@locale": "messages",
+  "@@last_modified": "2020-09-27T16:56:23.174009",
+  "title": "爆モテ",
+  "@title": {
+    "type": "text",
+    "placeholders": {}
+  }
+}
