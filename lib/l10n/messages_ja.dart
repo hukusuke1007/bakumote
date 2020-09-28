@@ -21,6 +21,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "tabSearch" : MessageLookupByLibrary.simpleMessage("さがす"),
+    "tabSetting" : MessageLookupByLibrary.simpleMessage("マイページ"),
+    "tabTalkList" : MessageLookupByLibrary.simpleMessage("やりとり"),
     "title" : MessageLookupByLibrary.simpleMessage("爆モテ")
   };
 }
