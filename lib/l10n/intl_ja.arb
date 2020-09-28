@@ -1,6 +1,6 @@
 {
   "@@locale": "ja",
-  "@@last_modified": "2020-09-28T13:31:28.182014",
+  "@@last_modified": "2020-09-28T15:19:59.049180",
   "title": "爆モテ",
   "@title": {
     "type": "text",
@@ -18,6 +18,26 @@
   },
   "tabSetting": "マイページ",
   "@tabSetting": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hobby": "趣味",
+  "@hobby": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "favoriteType": "好きなタイプ",
+  "@favoriteType": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "like": "いいね",
+  "@like": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "liked": "いいね済み",
+  "@liked": {
     "type": "text",
     "placeholders": {}
   }

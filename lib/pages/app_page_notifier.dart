@@ -45,7 +45,7 @@ class AppPageNotifier extends StateNotifier<AppPageState> with LocatorMixin {
     2: GlobalKey<NavigatorState>(),
   };
 
-  void onItemTapped(int index) async {
+  void onItemTapped(int index) {
     widgetList[index].onBottomNavigationTap();
     state = state.copyWith(selectedIndex: index);
   }
