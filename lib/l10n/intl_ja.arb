@@ -1,8 +1,23 @@
 {
   "@@locale": "ja",
-  "@@last_modified": "2020-09-27T16:56:23.174009",
+  "@@last_modified": "2020-09-28T13:31:28.182014",
   "title": "爆モテ",
   "@title": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tabSearch": "さがす",
+  "@tabSearch": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tabTalkList": "やりとり",
+  "@tabTalkList": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tabSetting": "マイページ",
+  "@tabSetting": {
     "type": "text",
     "placeholders": {}
   }
