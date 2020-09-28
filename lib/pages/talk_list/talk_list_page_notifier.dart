@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bakumote/notifiers/rooms/rooms_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -28,6 +29,8 @@ class TalkListPageNotifier extends StateNotifier<TalkListPageState>
 
   final Reader _read;
 
+  RoomsNotifier get roomsNotifier => _read(roomsNotifierProvider);
+
   final ScrollController scrollController = ScrollController();
   final RefreshController refreshController = RefreshController();
 
@@ -40,6 +43,6 @@ class TalkListPageNotifier extends StateNotifier<TalkListPageState>
   }
 
   Future _configure() async {
-    // nothing
+    await roomsNotifier.load();
   }
 }
