@@ -1,6 +1,7 @@
 import 'package:bakumote/extensions/context_extension.dart';
 import 'package:bakumote/master/assets.dart';
 import 'package:bakumote/pages/app_tab_navigator.dart';
+import 'package:bakumote/pages/user_profile/user_profile_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -29,7 +30,13 @@ class SearchPage extends TabWidgetPage {
               Assets.womanSample.assetName,
               fit: BoxFit.fitWidth,
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context, rootNavigator: true).push<void>(
+                CupertinoPageRoute(
+                  builder: (BuildContext context) => UserProfilePage(),
+                ),
+              );
+            },
           );
         }),
       ),
