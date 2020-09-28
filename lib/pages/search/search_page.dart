@@ -1,10 +1,13 @@
 import 'package:bakumote/extensions/context_extension.dart';
 import 'package:bakumote/master/assets.dart';
+import 'package:bakumote/notifiers/users/users_notifier.dart';
+import 'package:bakumote/notifiers/users/users_state.dart';
 import 'package:bakumote/pages/app_tab_navigator.dart';
 import 'package:bakumote/pages/user_profile/user_profile_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/all.dart';
 
 class SearchPage extends TabWidgetPage {
   @override
@@ -14,31 +17,38 @@ class SearchPage extends TabWidgetPage {
 
   @override
   Widget build(BuildContext context) {
+    final provider = usersNotifierProvider;
     return Scaffold(
       appBar: AppBar(
         title: Text(context.l10n.title),
       ),
       body: GridView.count(
-        // Create a grid with 2 columns. If you change the scrollDirection to
-        // horizontal, this produces 2 rows.
         crossAxisCount: 2,
-        // Generate 100 widgets that display their index in the List.
-        children: List.generate(100, (index) {
-          return SearchTile(
-            title: 'かおり 20',
-            image: Image.asset(
-              Assets.womanSample.assetName,
-              fit: BoxFit.fitWidth,
+        children:
+            useProvider(provider.state.select((UsersState state) => state))
+                .users
+                .map((e) {
+          return Hero(
+            tag: e.id,
+            child: SearchTile(
+              title: e.nameWithAge,
+              image: Image.asset(
+                Assets.womanSample.assetName,
+                fit: BoxFit.fitWidth,
+              ),
+              onTap: () {
+                Navigator.of(context, rootNavigator: true).push<void>(
+                  CupertinoPageRoute(
+                    builder: (BuildContext context) => UserProfilePage(
+                      heroTag: e.id,
+                      userState: e,
+                    ),
+                  ),
+                );
+              },
             ),
-            onTap: () {
-              Navigator.of(context, rootNavigator: true).push<void>(
-                CupertinoPageRoute(
-                  builder: (BuildContext context) => UserProfilePage(),
-                ),
-              );
-            },
           );
-        }),
+        }).toList(),
       ),
     );
   }
