@@ -1,6 +1,6 @@
 {
   "@@locale": "ja",
-  "@@last_modified": "2020-09-28T18:44:30.478577",
+  "@@last_modified": "2020-09-29T07:47:15.885865",
   "title": "爆モテ",
   "@title": {
     "type": "text",
@@ -48,6 +48,26 @@
   },
   "send": "送信",
   "@send": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "today": "今日",
+  "@today": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "yesterday": "昨日",
+  "@yesterday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "dayBeforeYesterday": "一昨日",
+  "@dayBeforeYesterday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "messagePlaceholder": "Aa",
+  "@messagePlaceholder": {
     "type": "text",
     "placeholders": {}
   }

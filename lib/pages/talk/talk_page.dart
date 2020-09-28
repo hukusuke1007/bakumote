@@ -1,5 +1,8 @@
 import 'package:bakumote/extensions/index.dart';
-import 'package:bakumote/notifiers/rooms/room_state.dart';
+import 'package:bakumote/helpers/talk_helper.dart';
+import 'package:bakumote/notifiers/messages/messages_notifier.dart';
+import 'package:bakumote/notifiers/messages/messages_state.dart';
+import 'package:bakumote/notifiers/rooms/rooms_state.dart';
 import 'package:bakumote/pages/talk/talk_page_notifier.dart';
 import 'package:bakumote/widgets/smart_refresher_custom.dart';
 import 'package:bubble/bubble.dart';
@@ -20,6 +23,9 @@ class TalkPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final notifier = useProvider(talkPageNotifierProvider);
+    final messages = useProvider(messagesNotifierProvider.state
+        .select((MessagesState state) => state)).messages;
+    print('messages ${messages.length}');
     return Scaffold(
       appBar: AppBar(
         title: Text(roomState.name),
@@ -44,12 +50,17 @@ class TalkPage extends HookWidget {
                   controller: notifier.scrollController,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (BuildContext context, int index) {
+                    final data = messages[index];
                     return TalkTile(
+                      key: UniqueKey(),
                       isFriend: index % 2 == 0,
                       imageName: roomState.imageName,
+                      message: data.text,
+                      date: TalkHelper.getDateLabel(context, data.createdAt),
+                      isRead: data.isRead,
                     );
                   },
-                  itemCount: 10,
+                  itemCount: messages.length,
                 ),
               ),
             ),
@@ -81,7 +92,7 @@ class TalkPage extends HookWidget {
                             padding: const EdgeInsets.all(8),
                             style: const TextStyle(
                                 fontSize: 16, color: Colors.black),
-                            placeholder: 'Aa',
+                            placeholder: context.l10n.messagePlaceholder,
                             minLines: 1,
                             maxLines: 128,
                             clearButtonMode: OverlayVisibilityMode.editing,
@@ -111,6 +122,7 @@ class TalkPage extends HookWidget {
                                   fontSize: 14, color: Colors.grey),
                             ),
                             onPressed: () {
+                              notifier.onSend();
                               context.hideKeyboard();
                             },
                           ),
@@ -134,14 +146,16 @@ class TalkTile extends HookWidget {
     Key key,
     @required this.isFriend,
     this.imageName,
-    this.message,
-    this.date,
+    @required this.message,
+    @required this.date,
+    this.isRead = false,
   }) : super(key: key);
 
   final bool isFriend;
   final String imageName;
   final String message;
   final String date;
+  final bool isRead;
 
   @override
   Widget build(BuildContext context) {
@@ -173,7 +187,7 @@ class TalkTile extends HookWidget {
                   nip: BubbleNip.leftBottom,
                   color: Colors.grey[350],
                   child: SelectableText(
-                    'LINEおしえてくださいあああああああああああああああああああああああ！',
+                    message,
                     textAlign: TextAlign.left,
                     style: const TextStyle(
                       color: Colors.black,
@@ -185,7 +199,7 @@ class TalkTile extends HookWidget {
                   padding:
                       const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
                   child: Text(
-                    '10:20',
+                    date,
                     style: const TextStyle(fontSize: 14, color: Colors.grey),
                   ),
                 )

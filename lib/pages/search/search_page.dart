@@ -33,6 +33,7 @@ class SearchPage extends TabWidgetPage {
           return Hero(
             tag: e.id,
             child: SearchTile(
+              key: UniqueKey(),
               title: e.nameWithAge,
               image: Image.asset(
                 Assets.womanSample.assetName,

@@ -21,15 +21,19 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "dayBeforeYesterday" : MessageLookupByLibrary.simpleMessage("一昨日"),
     "favoriteType" : MessageLookupByLibrary.simpleMessage("好きなタイプ"),
     "hobby" : MessageLookupByLibrary.simpleMessage("趣味"),
     "like" : MessageLookupByLibrary.simpleMessage("いいね"),
     "liked" : MessageLookupByLibrary.simpleMessage("いいね済み"),
+    "messagePlaceholder" : MessageLookupByLibrary.simpleMessage("Aa"),
     "send" : MessageLookupByLibrary.simpleMessage("送信"),
     "tabSearch" : MessageLookupByLibrary.simpleMessage("さがす"),
     "tabSetting" : MessageLookupByLibrary.simpleMessage("マイページ"),
     "tabTalkList" : MessageLookupByLibrary.simpleMessage("やりとり"),
     "talkList" : MessageLookupByLibrary.simpleMessage("やりとり一覧"),
-    "title" : MessageLookupByLibrary.simpleMessage("爆モテ")
+    "title" : MessageLookupByLibrary.simpleMessage("爆モテ"),
+    "today" : MessageLookupByLibrary.simpleMessage("今日"),
+    "yesterday" : MessageLookupByLibrary.simpleMessage("昨日")
   };
 }

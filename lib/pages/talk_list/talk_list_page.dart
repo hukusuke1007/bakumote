@@ -1,4 +1,5 @@
 import 'package:bakumote/extensions/index.dart';
+import 'package:bakumote/helpers/talk_helper.dart';
 import 'package:bakumote/notifiers/rooms/rooms_notifier.dart';
 import 'package:bakumote/notifiers/rooms/rooms_state.dart';
 import 'package:bakumote/pages/app_tab_navigator.dart';
@@ -46,6 +47,7 @@ class TalkListPage extends TabWidgetPage {
           itemBuilder: (BuildContext context, int index) {
             final room = rooms[index];
             return ListTile(
+              key: UniqueKey(),
               leading: SizedBox(
                 width: 56,
                 height: 56,
@@ -71,25 +73,33 @@ class TalkListPage extends TabWidgetPage {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
-              trailing: room.unreadCount > 0
-                  ? CircleText(
-                      size: 28,
-                      color: Colors.redAccent,
-                      child: Text(
-                        room.unreadLabel,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    )
-                  : Text(
-                      room.dateLabel,
-                      style: const TextStyle(fontSize: 14, color: Colors.grey),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+              trailing: Column(
+                children: [
+                  Text(
+                    TalkHelper.getDateLabel(context, room.latestDate),
+                    style: const TextStyle(fontSize: 14, color: Colors.grey),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: room.unreadCount > 0
+                        ? CircleText(
+                            size: 28,
+                            color: Colors.redAccent,
+                            child: Text(
+                              room.unreadLabel,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          )
+                        : const SizedBox.shrink(),
+                  ),
+                ],
+              ),
               onTap: () {
                 Navigator.of(context, rootNavigator: true).push<void>(
                   CupertinoPageRoute(

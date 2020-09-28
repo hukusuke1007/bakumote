@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bakumote/notifiers/messages/messages_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -27,6 +28,8 @@ class TalkPageNotifier extends StateNotifier<TalkPageState> with LocatorMixin {
 
   final Reader _read;
 
+  MessagesNotifier get messagesNotifier => _read(messagesNotifierProvider);
+
   final ScrollController scrollController = ScrollController();
   final RefreshController refreshController = RefreshController();
   final TextEditingController textEditingController = TextEditingController();
@@ -41,7 +44,12 @@ class TalkPageNotifier extends StateNotifier<TalkPageState> with LocatorMixin {
     // TODO(shohei): not implement.
   }
 
+  Future onSend() async {
+    await messagesNotifier.save(text: textEditingController.text);
+    textEditingController.clear();
+  }
+
   Future _configure() async {
-    // TODO(shohei): not implement.
+    await messagesNotifier.load();
   }
 }

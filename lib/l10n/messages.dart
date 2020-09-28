@@ -11,4 +11,10 @@ mixin Messages {
   String get liked => Intl.message('いいね済み', name: 'liked');
   String get talkList => Intl.message('やりとり一覧', name: 'talkList');
   String get send => Intl.message('送信', name: 'send');
+  String get today => Intl.message('今日', name: 'today');
+  String get yesterday => Intl.message('昨日', name: 'yesterday');
+  String get dayBeforeYesterday =>
+      Intl.message('一昨日', name: 'dayBeforeYesterday');
+  String get messagePlaceholder =>
+      Intl.message('Aa', name: 'messagePlaceholder');
 }
