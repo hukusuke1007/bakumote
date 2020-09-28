@@ -25,9 +25,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "hobby" : MessageLookupByLibrary.simpleMessage("趣味"),
     "like" : MessageLookupByLibrary.simpleMessage("いいね"),
     "liked" : MessageLookupByLibrary.simpleMessage("いいね済み"),
+    "send" : MessageLookupByLibrary.simpleMessage("送信"),
     "tabSearch" : MessageLookupByLibrary.simpleMessage("さがす"),
     "tabSetting" : MessageLookupByLibrary.simpleMessage("マイページ"),
     "tabTalkList" : MessageLookupByLibrary.simpleMessage("やりとり"),
+    "talkList" : MessageLookupByLibrary.simpleMessage("やりとり一覧"),
     "title" : MessageLookupByLibrary.simpleMessage("爆モテ")
   };
 }

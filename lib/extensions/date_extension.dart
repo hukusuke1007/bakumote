@@ -11,9 +11,4 @@ extension DateExtension on DateTime {
     final formatter = DateFormat(f, 'ja_JP');
     return formatter.format(this);
   }
-
-  DateTime toYearMonthDay() {
-    final date = DateTime(year, month, day, 0, 0, 0);
-    return date.add(date.timeZoneOffset).toUtc();
-  }
 }

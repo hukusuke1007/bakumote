@@ -1,8 +1,8 @@
 import 'package:bakumote/extensions/index.dart';
-import 'package:bakumote/master/assets.dart';
 import 'package:bakumote/notifiers/rooms/rooms_notifier.dart';
 import 'package:bakumote/notifiers/rooms/rooms_state.dart';
 import 'package:bakumote/pages/app_tab_navigator.dart';
+import 'package:bakumote/pages/talk/talk_page.dart';
 import 'package:bakumote/pages/talk_list/talk_list_page_notifier.dart';
 import 'package:bakumote/widgets/circle_text.dart';
 import 'package:bakumote/widgets/smart_refresher_custom.dart';
@@ -22,7 +22,7 @@ class TalkListPage extends TabWidgetPage {
   @override
   Widget build(BuildContext context) {
     final notifier = useProvider(talkListPageNotifierProvider);
-    final roooms = useProvider(
+    final rooms = useProvider(
         roomsNotifierProvider.state.select((RoomsState state) => state)).rooms;
     return Scaffold(
       appBar: AppBar(
@@ -44,14 +44,14 @@ class TalkListPage extends TabWidgetPage {
           controller: notifier.scrollController,
           scrollDirection: Axis.vertical,
           itemBuilder: (BuildContext context, int index) {
-            final room = roooms[index];
+            final room = rooms[index];
             return ListTile(
               leading: SizedBox(
                 width: 56,
                 height: 56,
                 child: CircleAvatar(
                   backgroundImage: Image.asset(
-                    Assets.womanSample.assetName,
+                    room.imageName,
                     fit: BoxFit.fill,
                   ).image,
                 ),
@@ -90,10 +90,19 @@ class TalkListPage extends TabWidgetPage {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
+              onTap: () {
+                Navigator.of(context, rootNavigator: true).push<void>(
+                  CupertinoPageRoute(
+                    builder: (context) => TalkPage(
+                      roomState: room,
+                    ),
+                  ),
+                );
+              },
             );
           },
           separatorBuilder: (context, _) => const Divider(),
-          itemCount: roooms.length,
+          itemCount: rooms.length,
         ),
       ),
     );

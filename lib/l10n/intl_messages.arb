@@ -1,6 +1,6 @@
 {
   "@@locale": "messages",
-  "@@last_modified": "2020-09-28T15:19:59.049180",
+  "@@last_modified": "2020-09-28T18:44:30.478577",
   "title": "爆モテ",
   "@title": {
     "type": "text",
@@ -38,6 +38,16 @@
   },
   "liked": "いいね済み",
   "@liked": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "talkList": "やりとり一覧",
+  "@talkList": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "send": "送信",
+  "@send": {
     "type": "text",
     "placeholders": {}
   }

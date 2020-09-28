@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bakumote/master/assets.dart';
 import 'package:bakumote/notifiers/rooms/room_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -25,6 +26,7 @@ class RoomsNotifier extends StateNotifier<RoomsState> with LocatorMixin {
         name: 'かおり',
         latestMessage: 'イケメンですね！',
         latestDate: DateTime.now(),
+        imageName: Assets.womanSample.assetName,
         unreadCount: index < 3 ? 100 : 0,
       ),
     );

@@ -34,9 +34,9 @@ class AppPageNotifier extends StateNotifier<AppPageState> with LocatorMixin {
   final Reader _read;
 
   final List<TabWidgetPage> widgetList = [
-    SearchPage(),
-    TalkListPage(),
-    SettingPage(),
+    const SearchPage(),
+    const TalkListPage(),
+    const SettingPage(),
   ];
 
   final Map<int, GlobalKey<NavigatorState>> navigatorKeys = {

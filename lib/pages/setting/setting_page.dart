@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SettingPage extends TabWidgetPage {
+  const SettingPage({Key key}) : super(key: key);
+
   @override
   void onBottomNavigationTap() {
     // TODO: implement onBottomNavigationTap

@@ -10,4 +10,5 @@ mixin Messages {
   String get like => Intl.message('いいね', name: 'like');
   String get liked => Intl.message('いいね済み', name: 'liked');
   String get talkList => Intl.message('やりとり一覧', name: 'talkList');
+  String get send => Intl.message('送信', name: 'send');
 }

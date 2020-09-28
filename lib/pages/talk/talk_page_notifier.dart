@@ -1,38 +1,35 @@
 import 'dart:async';
 
-import 'package:bakumote/notifiers/rooms/rooms_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-part 'talk_list_page_notifier.freezed.dart';
+part 'talk_page_notifier.freezed.dart';
 
-final talkListPageNotifierProvider =
-    StateNotifierProvider.autoDispose<TalkListPageNotifier>(
-        (ref) => TalkListPageNotifier(ref.read));
+final talkPageNotifierProvider =
+    StateNotifierProvider.autoDispose<TalkPageNotifier>(
+        (ref) => TalkPageNotifier(ref.read));
 
 @freezed
-abstract class TalkListPageState with _$TalkListPageState {
-  const factory TalkListPageState({
+abstract class TalkPageState with _$TalkPageState {
+  const factory TalkPageState({
     @Default(false) bool isLoading,
-  }) = _TalkListPageState;
+  }) = _TalkPageState;
 }
 
-class TalkListPageNotifier extends StateNotifier<TalkListPageState>
-    with LocatorMixin {
-  TalkListPageNotifier(
+class TalkPageNotifier extends StateNotifier<TalkPageState> with LocatorMixin {
+  TalkPageNotifier(
     this._read,
-  ) : super(const TalkListPageState()) {
+  ) : super(const TalkPageState()) {
     _configure();
   }
 
   final Reader _read;
 
-  RoomsNotifier get roomsNotifier => _read(roomsNotifierProvider);
-
   final ScrollController scrollController = ScrollController();
   final RefreshController refreshController = RefreshController();
+  final TextEditingController textEditingController = TextEditingController();
 
   Future reload() async {
     refreshController.refreshCompleted();
@@ -45,6 +42,6 @@ class TalkListPageNotifier extends StateNotifier<TalkListPageState>
   }
 
   Future _configure() async {
-    await roomsNotifier.load();
+    // TODO(shohei): not implement.
   }
 }

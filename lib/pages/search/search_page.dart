@@ -10,6 +10,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
 
 class SearchPage extends TabWidgetPage {
+  const SearchPage({Key key}) : super(key: key);
+
   @override
   void onBottomNavigationTap() {
     // TODO: implement onBottomNavigationTap
