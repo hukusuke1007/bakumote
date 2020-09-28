@@ -10,6 +10,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
 
 class SearchPage extends TabWidgetPage {
+  const SearchPage({Key key}) : super(key: key);
+
   @override
   void onBottomNavigationTap() {
     // TODO: implement onBottomNavigationTap
@@ -31,6 +33,7 @@ class SearchPage extends TabWidgetPage {
           return Hero(
             tag: e.id,
             child: SearchTile(
+              key: UniqueKey(),
               title: e.nameWithAge,
               image: Image.asset(
                 Assets.womanSample.assetName,

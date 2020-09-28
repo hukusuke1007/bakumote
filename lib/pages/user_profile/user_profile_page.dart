@@ -2,7 +2,7 @@ import 'package:bakumote/extensions/context_extension.dart';
 import 'package:bakumote/master/assets.dart';
 import 'package:bakumote/notifiers/like/like_notifier.dart';
 import 'package:bakumote/notifiers/like/like_state.dart';
-import 'package:bakumote/notifiers/users/user_state.dart';
+import 'package:bakumote/notifiers/users/users_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
