@@ -24,15 +24,15 @@ class AppPage extends HookWidget {
         bottomNavigationBar: BottomNavigationBar(
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.search),
+              icon: const Icon(Icons.search),
               title: Text(context.l10n.tabSearch),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.message),
+              icon: const Icon(Icons.message),
               title: Text(context.l10n.tabTalkList),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.perm_identity),
+              icon: const Icon(Icons.perm_identity),
               title: Text(context.l10n.tabSetting),
             ),
           ],

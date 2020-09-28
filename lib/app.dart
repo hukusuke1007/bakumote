@@ -17,7 +17,7 @@ class App extends HookWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      localizationsDelegates: [
+      localizationsDelegates: const [
         L10n.delegate,
         RefreshLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
