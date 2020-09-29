@@ -16,9 +16,9 @@ class _$MyProfileStateTearOff {
 // ignore: unused_element
   _MyProfileState call(
       {String name = '',
-      int age,
-      String gender = '',
-      String prefectures = '',
+      DateTime birthday,
+      int genderId = 0,
+      int prefectureId = 0,
       File image,
       String description = '',
       String hobby = '',
@@ -26,9 +26,9 @@ class _$MyProfileStateTearOff {
       bool isLoading = false}) {
     return _MyProfileState(
       name: name,
-      age: age,
-      gender: gender,
-      prefectures: prefectures,
+      birthday: birthday,
+      genderId: genderId,
+      prefectureId: prefectureId,
       image: image,
       description: description,
       hobby: hobby,
@@ -45,9 +45,9 @@ const $MyProfileState = _$MyProfileStateTearOff();
 /// @nodoc
 mixin _$MyProfileState {
   String get name;
-  int get age;
-  String get gender;
-  String get prefectures;
+  DateTime get birthday;
+  int get genderId;
+  int get prefectureId;
   File get image;
   String get description;
   String get hobby;
@@ -64,9 +64,9 @@ abstract class $MyProfileStateCopyWith<$Res> {
       _$MyProfileStateCopyWithImpl<$Res>;
   $Res call(
       {String name,
-      int age,
-      String gender,
-      String prefectures,
+      DateTime birthday,
+      int genderId,
+      int prefectureId,
       File image,
       String description,
       String hobby,
@@ -86,9 +86,9 @@ class _$MyProfileStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object name = freezed,
-    Object age = freezed,
-    Object gender = freezed,
-    Object prefectures = freezed,
+    Object birthday = freezed,
+    Object genderId = freezed,
+    Object prefectureId = freezed,
     Object image = freezed,
     Object description = freezed,
     Object hobby = freezed,
@@ -97,10 +97,10 @@ class _$MyProfileStateCopyWithImpl<$Res>
   }) {
     return _then(_value.copyWith(
       name: name == freezed ? _value.name : name as String,
-      age: age == freezed ? _value.age : age as int,
-      gender: gender == freezed ? _value.gender : gender as String,
-      prefectures:
-          prefectures == freezed ? _value.prefectures : prefectures as String,
+      birthday: birthday == freezed ? _value.birthday : birthday as DateTime,
+      genderId: genderId == freezed ? _value.genderId : genderId as int,
+      prefectureId:
+          prefectureId == freezed ? _value.prefectureId : prefectureId as int,
       image: image == freezed ? _value.image : image as File,
       description:
           description == freezed ? _value.description : description as String,
@@ -122,9 +122,9 @@ abstract class _$MyProfileStateCopyWith<$Res>
   @override
   $Res call(
       {String name,
-      int age,
-      String gender,
-      String prefectures,
+      DateTime birthday,
+      int genderId,
+      int prefectureId,
       File image,
       String description,
       String hobby,
@@ -146,9 +146,9 @@ class __$MyProfileStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object name = freezed,
-    Object age = freezed,
-    Object gender = freezed,
-    Object prefectures = freezed,
+    Object birthday = freezed,
+    Object genderId = freezed,
+    Object prefectureId = freezed,
     Object image = freezed,
     Object description = freezed,
     Object hobby = freezed,
@@ -157,10 +157,10 @@ class __$MyProfileStateCopyWithImpl<$Res>
   }) {
     return _then(_MyProfileState(
       name: name == freezed ? _value.name : name as String,
-      age: age == freezed ? _value.age : age as int,
-      gender: gender == freezed ? _value.gender : gender as String,
-      prefectures:
-          prefectures == freezed ? _value.prefectures : prefectures as String,
+      birthday: birthday == freezed ? _value.birthday : birthday as DateTime,
+      genderId: genderId == freezed ? _value.genderId : genderId as int,
+      prefectureId:
+          prefectureId == freezed ? _value.prefectureId : prefectureId as int,
       image: image == freezed ? _value.image : image as File,
       description:
           description == freezed ? _value.description : description as String,
@@ -177,17 +177,17 @@ class __$MyProfileStateCopyWithImpl<$Res>
 class _$_MyProfileState extends _MyProfileState {
   _$_MyProfileState(
       {this.name = '',
-      this.age,
-      this.gender = '',
-      this.prefectures = '',
+      this.birthday,
+      this.genderId = 0,
+      this.prefectureId = 0,
       this.image,
       this.description = '',
       this.hobby = '',
       this.favoriteType = '',
       this.isLoading = false})
       : assert(name != null),
-        assert(gender != null),
-        assert(prefectures != null),
+        assert(genderId != null),
+        assert(prefectureId != null),
         assert(description != null),
         assert(hobby != null),
         assert(favoriteType != null),
@@ -198,13 +198,13 @@ class _$_MyProfileState extends _MyProfileState {
   @override
   final String name;
   @override
-  final int age;
-  @JsonKey(defaultValue: '')
+  final DateTime birthday;
+  @JsonKey(defaultValue: 0)
   @override
-  final String gender;
-  @JsonKey(defaultValue: '')
+  final int genderId;
+  @JsonKey(defaultValue: 0)
   @override
-  final String prefectures;
+  final int prefectureId;
   @override
   final File image;
   @JsonKey(defaultValue: '')
@@ -222,7 +222,7 @@ class _$_MyProfileState extends _MyProfileState {
 
   @override
   String toString() {
-    return 'MyProfileState(name: $name, age: $age, gender: $gender, prefectures: $prefectures, image: $image, description: $description, hobby: $hobby, favoriteType: $favoriteType, isLoading: $isLoading)';
+    return 'MyProfileState(name: $name, birthday: $birthday, genderId: $genderId, prefectureId: $prefectureId, image: $image, description: $description, hobby: $hobby, favoriteType: $favoriteType, isLoading: $isLoading)';
   }
 
   @override
@@ -231,13 +231,15 @@ class _$_MyProfileState extends _MyProfileState {
         (other is _MyProfileState &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.age, age) ||
-                const DeepCollectionEquality().equals(other.age, age)) &&
-            (identical(other.gender, gender) ||
-                const DeepCollectionEquality().equals(other.gender, gender)) &&
-            (identical(other.prefectures, prefectures) ||
+            (identical(other.birthday, birthday) ||
                 const DeepCollectionEquality()
-                    .equals(other.prefectures, prefectures)) &&
+                    .equals(other.birthday, birthday)) &&
+            (identical(other.genderId, genderId) ||
+                const DeepCollectionEquality()
+                    .equals(other.genderId, genderId)) &&
+            (identical(other.prefectureId, prefectureId) ||
+                const DeepCollectionEquality()
+                    .equals(other.prefectureId, prefectureId)) &&
             (identical(other.image, image) ||
                 const DeepCollectionEquality().equals(other.image, image)) &&
             (identical(other.description, description) ||
@@ -257,9 +259,9 @@ class _$_MyProfileState extends _MyProfileState {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(age) ^
-      const DeepCollectionEquality().hash(gender) ^
-      const DeepCollectionEquality().hash(prefectures) ^
+      const DeepCollectionEquality().hash(birthday) ^
+      const DeepCollectionEquality().hash(genderId) ^
+      const DeepCollectionEquality().hash(prefectureId) ^
       const DeepCollectionEquality().hash(image) ^
       const DeepCollectionEquality().hash(description) ^
       const DeepCollectionEquality().hash(hobby) ^
@@ -275,9 +277,9 @@ abstract class _MyProfileState extends MyProfileState {
   _MyProfileState._() : super._();
   factory _MyProfileState(
       {String name,
-      int age,
-      String gender,
-      String prefectures,
+      DateTime birthday,
+      int genderId,
+      int prefectureId,
       File image,
       String description,
       String hobby,
@@ -287,11 +289,11 @@ abstract class _MyProfileState extends MyProfileState {
   @override
   String get name;
   @override
-  int get age;
+  DateTime get birthday;
   @override
-  String get gender;
+  int get genderId;
   @override
-  String get prefectures;
+  int get prefectureId;
   @override
   File get image;
   @override

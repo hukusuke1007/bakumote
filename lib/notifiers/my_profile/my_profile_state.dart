@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bakumote/notifiers/masters/masters_state.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'my_profile_state.freezed.dart';
@@ -8,9 +9,9 @@ part 'my_profile_state.freezed.dart';
 abstract class MyProfileState with _$MyProfileState {
   factory MyProfileState({
     @Default('') String name,
-    int age,
-    @Default('') String gender,
-    @Default('') String prefectures,
+    DateTime birthday,
+    @Default(0) int genderId,
+    @Default(0) int prefectureId,
     File image,
     @Default('') String description,
     @Default('') String hobby,
@@ -19,7 +20,8 @@ abstract class MyProfileState with _$MyProfileState {
   }) = _MyProfileState;
   MyProfileState._();
 
-  String get ageWithPref {
-    return '$age $prefectures';
+  String ageWithPref(List<MasterLabelState> prefectures) {
+    // ignore: lines_longer_than_80_chars
+    return '00 ${prefectures.firstWhere((element) => element.id == prefectureId).text}';
   }
 }

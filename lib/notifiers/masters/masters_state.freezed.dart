@@ -116,9 +116,10 @@ class __$MastersStateCopyWithImpl<$Res> extends _$MastersStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_MastersState implements _MastersState {
+class _$_MastersState extends _MastersState {
   _$_MastersState({this.prefectures, this.gender, this.isLoading = false})
-      : assert(isLoading != null);
+      : assert(isLoading != null),
+        super._();
 
   @override
   final List<MasterLabelState> prefectures;
@@ -159,7 +160,8 @@ class _$_MastersState implements _MastersState {
       __$MastersStateCopyWithImpl<_MastersState>(this, _$identity);
 }
 
-abstract class _MastersState implements MastersState {
+abstract class _MastersState extends MastersState {
+  _MastersState._() : super._();
   factory _MastersState(
       {List<MasterLabelState> prefectures,
       List<MasterLabelState> gender,

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:bakumote/notifiers/masters/masters_notifier.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -28,6 +29,7 @@ class MyProfileNotifier extends StateNotifier<MyProfileState>
   }
 
   final Reader _read;
+  MastersNotifier get mastersNotifier => _read(mastersNotifierProvider);
 
   final _myProfile = BehaviorSubject<MyProfileState>.seeded(null);
   ValueStream<MyProfileState> get myProfile => _myProfile;
@@ -40,8 +42,9 @@ class MyProfileNotifier extends StateNotifier<MyProfileState>
     // TODO(shohei): not implement
     state = state.copyWith(
       name: 'しょうへい',
-      age: 31,
-      prefectures: '大阪',
+      birthday: DateTime(1988, 10, 7),
+      genderId: 0,
+      prefectureId: 0,
       hobby: 'バスケ',
       favoriteType: '目が大きい',
       isLoading: false,
@@ -55,13 +58,20 @@ class MyProfileNotifier extends StateNotifier<MyProfileState>
 
   Future saveProfile({
     String name,
-    int prefecturesId,
     DateTime birthday,
+    int genderId,
+    int prefectureId,
     String hobby,
     String favoriteType,
   }) async {
-    state =
-        state.copyWith(name: name, hobby: hobby, favoriteType: favoriteType);
+    state = state.copyWith(
+      name: name,
+      birthday: birthday,
+      genderId: genderId,
+      prefectureId: prefectureId,
+      hobby: hobby ?? '',
+      favoriteType: favoriteType ?? '',
+    );
     // TODO(shohei): not implement
   }
 

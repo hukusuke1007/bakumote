@@ -1,6 +1,8 @@
 import 'package:bakumote/extensions/index.dart';
 import 'package:bakumote/notifiers/app_info/app_info_notifier.dart';
 import 'package:bakumote/notifiers/app_info/app_info_state.dart';
+import 'package:bakumote/notifiers/masters/masters_notifier.dart';
+import 'package:bakumote/notifiers/masters/masters_state.dart';
 import 'package:bakumote/notifiers/my_profile/my_profile_notifier.dart';
 import 'package:bakumote/notifiers/my_profile/my_profile_state.dart';
 import 'package:bakumote/pages/app_tab_navigator.dart';
@@ -80,7 +82,9 @@ class SettingPage extends TabWidgetPage {
                     padding: const EdgeInsets.symmetric(horizontal: 16)
                         .copyWith(top: 4),
                     child: Text(
-                      profile.ageWithPref,
+                      profile.ageWithPref(useProvider(mastersNotifierProvider
+                          .state
+                          .select((MastersState state) => state)).prefectures),
                       style: const TextStyle(
                           fontSize: 17, fontWeight: FontWeight.bold),
                     ),

@@ -7,6 +7,7 @@ import 'package:bakumote/pages/edit_profile/edit_profile_page_notifier.dart';
 import 'package:bakumote/widgets/dialog/photo_bottom_sheet.dart';
 import 'package:bakumote/widgets/edit_text_field.dart';
 import 'package:bakumote/widgets/profile_avatar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
@@ -21,6 +22,8 @@ class EditProfilePage extends HookWidget {
         .select((MyProfileState state) => state));
     final master = useProvider(
         mastersNotifierProvider.state.select((MastersState state) => state));
+    final editProfile = useProvider(editProfilePageNotifierProvider.state
+        .select((EditProfilePageState state) => state));
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -80,6 +83,113 @@ class EditProfilePage extends HookWidget {
                       labelText: context.l10n.name,
                       controller: notifier.nameTextEditController,
                       onChanged: (value) {},
+                    ),
+                    InkWell(
+                      child: IgnorePointer(
+                        child: EditTextFiled(
+                          controller: notifier.birthdayEditingController,
+                          suffixText: context.l10n.required,
+                          labelText: context.l10n.birth,
+                          onChanged: null,
+                        ),
+                      ),
+                      onTap: () {
+                        showModalBottomSheet<void>(
+                          context: context,
+                          builder: (BuildContext builder) {
+                            return SizedBox(
+                              height: context.deviceHeight / 3,
+                              child: CupertinoDatePicker(
+                                initialDateTime: profile.birthday,
+                                onDateTimeChanged: notifier.onSaveBirthday,
+                                minimumYear: 1950,
+                                mode: CupertinoDatePickerMode.date,
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                    InkWell(
+                      child: IgnorePointer(
+                        child: EditTextFiled(
+                          controller: notifier.genderEditingController,
+                          suffixText: context.l10n.required,
+                          labelText: context.l10n.gender,
+                          onChanged: null,
+                        ),
+                      ),
+                      onTap: () {
+                        showModalBottomSheet<void>(
+                          context: context,
+                          builder: (BuildContext builder) {
+                            return SizedBox(
+                              height: context.deviceHeight / 3,
+                              child: CupertinoPicker.builder(
+                                scrollController: FixedExtentScrollController(
+                                  initialItem: editProfile.genderId,
+                                ),
+                                itemBuilder: (context, index) {
+                                  final data = master.gender[index].text;
+                                  return Center(
+                                    child: Text(
+                                      data,
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                childCount: master.gender.length,
+                                itemExtent: 40,
+                                onSelectedItemChanged: notifier.onSaveGender,
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                    InkWell(
+                      child: IgnorePointer(
+                        child: EditTextFiled(
+                          controller: notifier.prefectureEditingController,
+                          suffixText: context.l10n.required,
+                          labelText: context.l10n.prefectures,
+                          onChanged: null,
+                        ),
+                      ),
+                      onTap: () {
+                        showModalBottomSheet<void>(
+                          context: context,
+                          builder: (BuildContext builder) {
+                            return SizedBox(
+                              height: context.deviceHeight / 3,
+                              child: CupertinoPicker.builder(
+                                scrollController: FixedExtentScrollController(
+                                  initialItem: editProfile.prefectureId,
+                                ),
+                                itemBuilder: (context, index) {
+                                  final data = master.prefectures[index].text;
+                                  return Center(
+                                    child: Text(
+                                      data,
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                childCount: master.prefectures.length,
+                                itemExtent: 40,
+                                onSelectedItemChanged:
+                                    notifier.onSavePrefecture,
+                              ),
+                            );
+                          },
+                        );
+                      },
                     ),
                     EditTextFiled(
                       suffixText: context.l10n.required,
