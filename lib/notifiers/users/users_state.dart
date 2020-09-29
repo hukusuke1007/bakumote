@@ -15,14 +15,14 @@ abstract class UsersState with _$UsersState {
 abstract class UserState with _$UserState {
   factory UserState({
     String id,
-    String name,
+    @Default('') String name,
     int age,
-    String gender,
-    String prefectures,
-    String imageName,
-    String description,
-    String hobby,
-    String favoriteType,
+    @Default('') String gender,
+    @Default('') String prefectures,
+    @Default('') String imageName,
+    @Default('') String description,
+    @Default('') String hobby,
+    @Default('') String favoriteType,
   }) = _UserState;
   UserState._();
 

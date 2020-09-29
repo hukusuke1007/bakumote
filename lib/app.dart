@@ -1,6 +1,8 @@
+import 'package:bakumote/app_notifier.dart';
 import 'package:bakumote/l10n/l10n.dart';
 import 'package:bakumote/pages/app_page.dart';
 import 'package:bakumote/providers/navigator.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -26,7 +28,15 @@ class App extends HookWidget {
       localeResolutionCallback: (deviceLocale, supportedLocales) {
         return const Locale('ja');
       },
-      home: AppPage(),
+      home: useProvider(
+                  appNotifierProvider.state.select((AppState state) => state))
+              .isLoading
+          ? Container(
+              alignment: Alignment.center,
+              color: Colors.white,
+              child: const CupertinoActivityIndicator(),
+            )
+          : AppPage(),
     );
   }
 }

@@ -17,4 +17,14 @@ mixin Messages {
       Intl.message('一昨日', name: 'dayBeforeYesterday');
   String get messagePlaceholder =>
       Intl.message('Aa', name: 'messagePlaceholder');
+  String get appVersion => Intl.message('アプリバージョン', name: 'appVersion');
+  String get editProfile => Intl.message('プロフィール編集', name: 'editProfile');
+  String get photoCamera => Intl.message('カメラで撮影', name: 'photoCamera');
+  String get photoAlbum => Intl.message('写真から選択', name: 'photoAlbum');
+  String get name => Intl.message('名前', name: 'name');
+  String get gender => Intl.message('性別', name: 'gender');
+  String get birth => Intl.message('生年月日', name: 'birth');
+  String get prefectures => Intl.message('都道府県', name: 'prefectures');
+  String get required => Intl.message('必須', name: 'required');
+  String get saveProfile => Intl.message('プロフィールを保存', name: 'saveProfile');
 }

@@ -21,12 +21,21 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "appVersion" : MessageLookupByLibrary.simpleMessage("アプリバージョン"),
+    "birth" : MessageLookupByLibrary.simpleMessage("生年月日"),
     "dayBeforeYesterday" : MessageLookupByLibrary.simpleMessage("一昨日"),
+    "editProfile" : MessageLookupByLibrary.simpleMessage("プロフィール編集"),
     "favoriteType" : MessageLookupByLibrary.simpleMessage("好きなタイプ"),
+    "gender" : MessageLookupByLibrary.simpleMessage("性別"),
     "hobby" : MessageLookupByLibrary.simpleMessage("趣味"),
     "like" : MessageLookupByLibrary.simpleMessage("いいね"),
     "liked" : MessageLookupByLibrary.simpleMessage("いいね済み"),
     "messagePlaceholder" : MessageLookupByLibrary.simpleMessage("Aa"),
+    "name" : MessageLookupByLibrary.simpleMessage("名前"),
+    "photoAlbum" : MessageLookupByLibrary.simpleMessage("写真から選択"),
+    "photoCamera" : MessageLookupByLibrary.simpleMessage("カメラで撮影"),
+    "prefectures" : MessageLookupByLibrary.simpleMessage("都道府県"),
+    "required" : MessageLookupByLibrary.simpleMessage("必須"),
     "send" : MessageLookupByLibrary.simpleMessage("送信"),
     "tabSearch" : MessageLookupByLibrary.simpleMessage("さがす"),
     "tabSetting" : MessageLookupByLibrary.simpleMessage("マイページ"),

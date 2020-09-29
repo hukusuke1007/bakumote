@@ -1,6 +1,6 @@
 {
   "@@locale": "ja",
-  "@@last_modified": "2020-09-29T07:47:15.885865",
+  "@@last_modified": "2020-09-29T20:56:28.434679",
   "title": "爆モテ",
   "@title": {
     "type": "text",
@@ -68,6 +68,51 @@
   },
   "messagePlaceholder": "Aa",
   "@messagePlaceholder": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "appVersion": "アプリバージョン",
+  "@appVersion": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "editProfile": "プロフィール編集",
+  "@editProfile": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "photoCamera": "カメラで撮影",
+  "@photoCamera": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "photoAlbum": "写真から選択",
+  "@photoAlbum": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "name": "名前",
+  "@name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "gender": "性別",
+  "@gender": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "birth": "生年月日",
+  "@birth": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "prefectures": "都道府県",
+  "@prefectures": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "required": "必須",
+  "@required": {
     "type": "text",
     "placeholders": {}
   }
