@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bakumote/helpers/date_helper.dart';
 import 'package:bakumote/notifiers/masters/masters_state.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -21,7 +22,10 @@ abstract class MyProfileState with _$MyProfileState {
   MyProfileState._();
 
   String ageWithPref(List<MasterLabelState> prefectures) {
+    if (birthday == null) {
+      return '';
+    }
     // ignore: lines_longer_than_80_chars
-    return '00 ${prefectures.firstWhere((element) => element.id == prefectureId).text}';
+    return '${DateHelper.calculateAge(birthday)} ${prefectures.firstWhere((element) => element.id == prefectureId).text}';
   }
 }

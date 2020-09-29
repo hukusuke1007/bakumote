@@ -192,13 +192,11 @@ class EditProfilePage extends HookWidget {
                       },
                     ),
                     EditTextFiled(
-                      suffixText: context.l10n.required,
                       labelText: context.l10n.hobby,
                       controller: notifier.hobbyTextEditController,
                       onChanged: (value) {},
                     ),
                     EditTextFiled(
-                      suffixText: context.l10n.required,
                       labelText: context.l10n.favoriteType,
                       controller: notifier.favoriteTypeTextEditController,
                       onChanged: (value) {},

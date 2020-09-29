@@ -115,4 +115,21 @@ class DateHelper {
       return false;
     }
   }
+
+  static int calculateAge(DateTime birth) {
+    final now = DateTime.now();
+    var age = now.year - birth.year;
+    final month1 = now.month;
+    final month2 = birth.month;
+    if (month2 > month1) {
+      age--;
+    } else if (month1 == month2) {
+      final day1 = now.day;
+      final day2 = birth.day;
+      if (day2 > day1) {
+        age--;
+      }
+    }
+    return age;
+  }
 }
