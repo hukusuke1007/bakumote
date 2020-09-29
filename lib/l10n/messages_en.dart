@@ -21,12 +21,16 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "appVersion" : MessageLookupByLibrary.simpleMessage("アプリバージョン"),
     "dayBeforeYesterday" : MessageLookupByLibrary.simpleMessage("一昨日"),
+    "editProfile" : MessageLookupByLibrary.simpleMessage("プロフィール編集"),
     "favoriteType" : MessageLookupByLibrary.simpleMessage("好きなタイプ"),
     "hobby" : MessageLookupByLibrary.simpleMessage("趣味"),
     "like" : MessageLookupByLibrary.simpleMessage("いいね"),
     "liked" : MessageLookupByLibrary.simpleMessage("いいね済み"),
     "messagePlaceholder" : MessageLookupByLibrary.simpleMessage("Aa"),
+    "photoAlbum" : MessageLookupByLibrary.simpleMessage("写真から選択"),
+    "photoCamera" : MessageLookupByLibrary.simpleMessage("カメラで撮影"),
     "send" : MessageLookupByLibrary.simpleMessage("送信"),
     "tabSearch" : MessageLookupByLibrary.simpleMessage("さがす"),
     "tabSetting" : MessageLookupByLibrary.simpleMessage("マイページ"),

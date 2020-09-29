@@ -17,4 +17,8 @@ mixin Messages {
       Intl.message('一昨日', name: 'dayBeforeYesterday');
   String get messagePlaceholder =>
       Intl.message('Aa', name: 'messagePlaceholder');
+  String get appVersion => Intl.message('アプリバージョン', name: 'appVersion');
+  String get editProfile => Intl.message('プロフィール編集', name: 'editProfile');
+  String get photoCamera => Intl.message('カメラで撮影', name: 'photoCamera');
+  String get photoAlbum => Intl.message('写真から選択', name: 'photoAlbum');
 }

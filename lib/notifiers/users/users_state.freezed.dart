@@ -151,14 +151,14 @@ class _$UserStateTearOff {
 // ignore: unused_element
   _UserState call(
       {String id,
-      String name,
+      String name = '',
       int age,
-      String gender,
-      String prefectures,
-      String imageName,
-      String description,
-      String hobby,
-      String favoriteType}) {
+      String gender = '',
+      String prefectures = '',
+      String imageName = '',
+      String description = '',
+      String hobby = '',
+      String favoriteType = ''}) {
     return _UserState(
       id: id,
       name: name,
@@ -307,32 +307,46 @@ class __$UserStateCopyWithImpl<$Res> extends _$UserStateCopyWithImpl<$Res>
 class _$_UserState extends _UserState {
   _$_UserState(
       {this.id,
-      this.name,
+      this.name = '',
       this.age,
-      this.gender,
-      this.prefectures,
-      this.imageName,
-      this.description,
-      this.hobby,
-      this.favoriteType})
-      : super._();
+      this.gender = '',
+      this.prefectures = '',
+      this.imageName = '',
+      this.description = '',
+      this.hobby = '',
+      this.favoriteType = ''})
+      : assert(name != null),
+        assert(gender != null),
+        assert(prefectures != null),
+        assert(imageName != null),
+        assert(description != null),
+        assert(hobby != null),
+        assert(favoriteType != null),
+        super._();
 
   @override
   final String id;
+  @JsonKey(defaultValue: '')
   @override
   final String name;
   @override
   final int age;
+  @JsonKey(defaultValue: '')
   @override
   final String gender;
+  @JsonKey(defaultValue: '')
   @override
   final String prefectures;
+  @JsonKey(defaultValue: '')
   @override
   final String imageName;
+  @JsonKey(defaultValue: '')
   @override
   final String description;
+  @JsonKey(defaultValue: '')
   @override
   final String hobby;
+  @JsonKey(defaultValue: '')
   @override
   final String favoriteType;
 

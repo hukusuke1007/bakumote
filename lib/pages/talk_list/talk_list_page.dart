@@ -74,6 +74,8 @@ class TalkListPage extends TabWidgetPage {
                 overflow: TextOverflow.ellipsis,
               ),
               trailing: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
                     TalkHelper.getDateLabel(context, room.latestDate),
