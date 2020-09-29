@@ -69,7 +69,6 @@ class EditProfilePageNotifier extends StateNotifier<EditProfilePageState>
   }
 
   Future _configure() async {
-    await myProfileNotifier.load();
     final profile = myProfileNotifier.state;
     nameTextEditController.text = profile.name;
     hobbyTextEditController.text = profile.hobby;

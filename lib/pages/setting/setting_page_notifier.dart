@@ -66,7 +66,6 @@ class SettingPageNotifier extends StateNotifier<SettingPageState>
   }
 
   Future _configure() async {
-    await myProfileNotifier.load();
     await appInfoNotifier.load();
   }
 }

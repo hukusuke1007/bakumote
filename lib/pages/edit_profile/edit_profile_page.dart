@@ -1,4 +1,6 @@
 import 'package:bakumote/extensions/index.dart';
+import 'package:bakumote/notifiers/masters/masters_notifier.dart';
+import 'package:bakumote/notifiers/masters/masters_state.dart';
 import 'package:bakumote/notifiers/my_profile/my_profile_notifier.dart';
 import 'package:bakumote/notifiers/my_profile/my_profile_state.dart';
 import 'package:bakumote/pages/edit_profile/edit_profile_page_notifier.dart';
@@ -17,6 +19,8 @@ class EditProfilePage extends HookWidget {
     final notifier = useProvider(editProfilePageNotifierProvider);
     final profile = useProvider(myProfileNotifierProvider.state
         .select((MyProfileState state) => state));
+    final master = useProvider(
+        mastersNotifierProvider.state.select((MastersState state) => state));
     return Scaffold(
       appBar: AppBar(
         title: Text(
