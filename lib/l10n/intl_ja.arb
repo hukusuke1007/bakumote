@@ -1,6 +1,6 @@
 {
   "@@locale": "ja",
-  "@@last_modified": "2020-09-29T19:43:16.040671",
+  "@@last_modified": "2020-09-29T20:56:28.434679",
   "title": "爆モテ",
   "@title": {
     "type": "text",
@@ -88,6 +88,31 @@
   },
   "photoAlbum": "写真から選択",
   "@photoAlbum": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "name": "名前",
+  "@name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "gender": "性別",
+  "@gender": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "birth": "生年月日",
+  "@birth": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "prefectures": "都道府県",
+  "@prefectures": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "required": "必須",
+  "@required": {
     "type": "text",
     "placeholders": {}
   }

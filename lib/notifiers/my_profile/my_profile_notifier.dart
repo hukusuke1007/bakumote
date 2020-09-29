@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rxdart/rxdart.dart';
 
 import 'my_profile_state.dart';
 
@@ -14,7 +15,22 @@ class MyProfileNotifier extends StateNotifier<MyProfileState>
     this._read,
   ) : super(MyProfileState());
 
+  @override
+  Future dispose() async {
+    super.dispose();
+    await _myProfile.close();
+  }
+
+  @override
+  set state(MyProfileState value) {
+    super.state = value;
+    _myProfile.add(value);
+  }
+
   final Reader _read;
+
+  final _myProfile = BehaviorSubject<MyProfileState>.seeded(null);
+  ValueStream<MyProfileState> get myProfile => _myProfile;
 
   Future load() async {
     if (state.isLoading) {
@@ -23,7 +39,13 @@ class MyProfileNotifier extends StateNotifier<MyProfileState>
     state = state.copyWith(isLoading: true);
     // TODO(shohei): not implement
     state = state.copyWith(
-        name: 'しょうへい', age: 31, prefectures: '大阪', isLoading: false);
+      name: 'しょうへい',
+      age: 31,
+      prefectures: '大阪',
+      hobby: 'バスケ',
+      favoriteType: '目が大きい',
+      isLoading: false,
+    );
   }
 
   Future saveProfileImage(File file) async {
@@ -33,15 +55,13 @@ class MyProfileNotifier extends StateNotifier<MyProfileState>
 
   Future saveProfile({
     String name,
-    String prefectures,
+    int prefecturesId,
+    DateTime birthday,
     String hobby,
     String favoriteType,
   }) async {
-    state = state.copyWith(
-        name: name,
-        prefectures: prefectures,
-        hobby: hobby,
-        favoriteType: favoriteType);
+    state =
+        state.copyWith(name: name, hobby: hobby, favoriteType: favoriteType);
     // TODO(shohei): not implement
   }
 

@@ -18,6 +18,7 @@ class SettingPage extends TabWidgetPage {
   void onBottomNavigationTap() {
     // TODO: implement onBottomNavigationTap
   }
+
   @override
   Widget build(BuildContext context) {
     final notifier = useProvider(settingPageNotifierProvider);
@@ -27,10 +28,8 @@ class SettingPage extends TabWidgetPage {
       appBar: AppBar(
         title: Text(
           context.l10n.tabSetting,
-          textAlign: TextAlign.center,
           style: const TextStyle(
             color: Colors.white,
-            fontWeight: FontWeight.bold,
           ),
         ),
       ),
@@ -102,7 +101,7 @@ class SettingPage extends TabWidgetPage {
                             color: Colors.white,
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () => notifier.onShowEditProfile(context),
                       ),
                     ),
                   ),
