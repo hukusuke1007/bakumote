@@ -2,6 +2,8 @@ import 'package:bakumote/extensions/context_extension.dart';
 import 'package:bakumote/master/assets.dart';
 import 'package:bakumote/notifiers/like/like_notifier.dart';
 import 'package:bakumote/notifiers/like/like_state.dart';
+import 'package:bakumote/notifiers/masters/masters_notifier.dart';
+import 'package:bakumote/notifiers/masters/masters_state.dart';
 import 'package:bakumote/notifiers/users/users_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +25,9 @@ class UserProfilePage extends HookWidget {
     final notifier = useProvider(likeNotifierProvider);
     final isLiked = useProvider(
         likeNotifierProvider.state.select((LikeState state) => state)).isLiked;
+    final prefectures = useProvider(
+            mastersNotifierProvider.state.select((MastersState state) => state))
+        .prefectures;
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -70,7 +75,7 @@ class UserProfilePage extends HookWidget {
                             Align(
                               alignment: Alignment.topLeft,
                               child: Text(
-                                userState.nameWithAgePref,
+                                userState.nameWithAgePref(prefectures),
                                 style: const TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                                 maxLines: 1,

@@ -4,6 +4,8 @@ import os
 import csv
 import json
 import random
+import uuid
+import datetime
 from models.user import User
 from helpers.file_helper import default_method
 
@@ -25,7 +27,14 @@ def description_temp(name):
   else:
     return 'こんにちは、%sと言います。最近YouTubeにハマっています。ジャニヲタなんでそんな私でもよければ仲良くしてください。よろしくです。' % name
 
+def get_birthday():
+  year = random.randrange(1988, 2001, 1)
+  month = random.randrange(1, 13, 1)
+  day = random.randrange(1, 25, 1)
+  return '%s-%s-%s' % (year, month, day)
+
 def output_json():
+    # CSV => List
     nameList = []
     hobbyList = []
     favoriteTypeList = []
@@ -39,18 +48,22 @@ def output_json():
           if len(row[3]) != 0:
             favoriteTypeList.append(row[3])
         # print(row)
-    userList = []
+    
+    # List => users
+    users = []
     for name in nameList:
+      id = str(uuid.uuid4())
+      birthday = get_birthday()
       description = description_temp(name)
       hobbyIndex = random.randrange(len(hobbyList))
       favoriteTypeIndex = random.randrange(len(favoriteTypeList))
       prefectureId = random.randrange(PREFECTURE_MAX)
       imageName = 'woman_example.jpg'
-      user = User(name, description, GENDER_ID, prefectureId, imageName, hobbyList[hobbyIndex], favoriteTypeList[favoriteTypeIndex])
-      userList.append(user)
+      user = User(id, name, birthday, description, GENDER_ID, prefectureId, imageName, hobbyList[hobbyIndex], favoriteTypeList[favoriteTypeIndex])
+      users.append(user)
 
     with open(OUTPUT_PATH, 'w') as f:
-      json.dump({'data': userList }, f, default=default_method, ensure_ascii=False, indent=2,)
+      json.dump({'data': users }, f, default=default_method, ensure_ascii=False, indent=2,)
 
 print('--- [Start] ---')
 output_json()

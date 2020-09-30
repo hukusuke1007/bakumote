@@ -15,7 +15,8 @@ class _$MyProfileStateTearOff {
 
 // ignore: unused_element
   _MyProfileState call(
-      {String name = '',
+      {String id,
+      String name = '',
       DateTime birthday,
       int genderId = 0,
       int prefectureId = 0,
@@ -25,6 +26,7 @@ class _$MyProfileStateTearOff {
       String favoriteType = '',
       bool isLoading = false}) {
     return _MyProfileState(
+      id: id,
       name: name,
       birthday: birthday,
       genderId: genderId,
@@ -44,6 +46,7 @@ const $MyProfileState = _$MyProfileStateTearOff();
 
 /// @nodoc
 mixin _$MyProfileState {
+  String get id;
   String get name;
   DateTime get birthday;
   int get genderId;
@@ -63,7 +66,8 @@ abstract class $MyProfileStateCopyWith<$Res> {
           MyProfileState value, $Res Function(MyProfileState) then) =
       _$MyProfileStateCopyWithImpl<$Res>;
   $Res call(
-      {String name,
+      {String id,
+      String name,
       DateTime birthday,
       int genderId,
       int prefectureId,
@@ -85,6 +89,7 @@ class _$MyProfileStateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object id = freezed,
     Object name = freezed,
     Object birthday = freezed,
     Object genderId = freezed,
@@ -96,6 +101,7 @@ class _$MyProfileStateCopyWithImpl<$Res>
     Object isLoading = freezed,
   }) {
     return _then(_value.copyWith(
+      id: id == freezed ? _value.id : id as String,
       name: name == freezed ? _value.name : name as String,
       birthday: birthday == freezed ? _value.birthday : birthday as DateTime,
       genderId: genderId == freezed ? _value.genderId : genderId as int,
@@ -121,7 +127,8 @@ abstract class _$MyProfileStateCopyWith<$Res>
       __$MyProfileStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String name,
+      {String id,
+      String name,
       DateTime birthday,
       int genderId,
       int prefectureId,
@@ -145,6 +152,7 @@ class __$MyProfileStateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object id = freezed,
     Object name = freezed,
     Object birthday = freezed,
     Object genderId = freezed,
@@ -156,6 +164,7 @@ class __$MyProfileStateCopyWithImpl<$Res>
     Object isLoading = freezed,
   }) {
     return _then(_MyProfileState(
+      id: id == freezed ? _value.id : id as String,
       name: name == freezed ? _value.name : name as String,
       birthday: birthday == freezed ? _value.birthday : birthday as DateTime,
       genderId: genderId == freezed ? _value.genderId : genderId as int,
@@ -176,7 +185,8 @@ class __$MyProfileStateCopyWithImpl<$Res>
 /// @nodoc
 class _$_MyProfileState extends _MyProfileState {
   _$_MyProfileState(
-      {this.name = '',
+      {this.id,
+      this.name = '',
       this.birthday,
       this.genderId = 0,
       this.prefectureId = 0,
@@ -194,6 +204,8 @@ class _$_MyProfileState extends _MyProfileState {
         assert(isLoading != null),
         super._();
 
+  @override
+  final String id;
   @JsonKey(defaultValue: '')
   @override
   final String name;
@@ -222,13 +234,15 @@ class _$_MyProfileState extends _MyProfileState {
 
   @override
   String toString() {
-    return 'MyProfileState(name: $name, birthday: $birthday, genderId: $genderId, prefectureId: $prefectureId, image: $image, description: $description, hobby: $hobby, favoriteType: $favoriteType, isLoading: $isLoading)';
+    return 'MyProfileState(id: $id, name: $name, birthday: $birthday, genderId: $genderId, prefectureId: $prefectureId, image: $image, description: $description, hobby: $hobby, favoriteType: $favoriteType, isLoading: $isLoading)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _MyProfileState &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.birthday, birthday) ||
@@ -258,6 +272,7 @@ class _$_MyProfileState extends _MyProfileState {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(birthday) ^
       const DeepCollectionEquality().hash(genderId) ^
@@ -276,7 +291,8 @@ class _$_MyProfileState extends _MyProfileState {
 abstract class _MyProfileState extends MyProfileState {
   _MyProfileState._() : super._();
   factory _MyProfileState(
-      {String name,
+      {String id,
+      String name,
       DateTime birthday,
       int genderId,
       int prefectureId,
@@ -286,6 +302,8 @@ abstract class _MyProfileState extends MyProfileState {
       String favoriteType,
       bool isLoading}) = _$_MyProfileState;
 
+  @override
+  String get id;
   @override
   String get name;
   @override

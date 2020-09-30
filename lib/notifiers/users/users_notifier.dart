@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bakumote/repositories/bakumote_repository/bakumote_repository.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'users_state.dart';
@@ -15,21 +16,23 @@ class UsersNotifier extends StateNotifier<UsersState> with LocatorMixin {
   }
 
   final Reader _read;
+  BakumoteRepository get bakumoteRepository =>
+      _read(bakumoteRepositoryProvider);
 
   Future _configure() async {
     await load();
   }
 
   Future load() async {
-    // TODO(shohei): stub
+    final data = await bakumoteRepository.loadUsers();
     final list = List.generate(
       100,
       (index) => UserState(
         id: '$index',
         name: 'かおり',
-        age: 20,
-        gender: '女性',
-        prefectures: '大阪府',
+        birthday: DateTime(2000, 1, 1),
+        genderId: 1,
+        prefectureId: 2,
         description:
             'はじめまして！かおりといいます。趣味は料理で好きなタイプはタレ目で目の下にホクロがある男らしい人です！いい出会いがあれば一緒に退会したいです。\n\nよろしくお願いします。',
         hobby: '料理（カレーライス）',

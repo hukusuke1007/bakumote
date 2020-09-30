@@ -152,9 +152,9 @@ class _$UserStateTearOff {
   _UserState call(
       {String id,
       String name = '',
-      int age,
-      String gender = '',
-      String prefectures = '',
+      DateTime birthday,
+      int genderId = 0,
+      int prefectureId = 0,
       String imageName = '',
       String description = '',
       String hobby = '',
@@ -162,9 +162,9 @@ class _$UserStateTearOff {
     return _UserState(
       id: id,
       name: name,
-      age: age,
-      gender: gender,
-      prefectures: prefectures,
+      birthday: birthday,
+      genderId: genderId,
+      prefectureId: prefectureId,
       imageName: imageName,
       description: description,
       hobby: hobby,
@@ -181,9 +181,9 @@ const $UserState = _$UserStateTearOff();
 mixin _$UserState {
   String get id;
   String get name;
-  int get age;
-  String get gender;
-  String get prefectures;
+  DateTime get birthday;
+  int get genderId;
+  int get prefectureId;
   String get imageName;
   String get description;
   String get hobby;
@@ -199,9 +199,9 @@ abstract class $UserStateCopyWith<$Res> {
   $Res call(
       {String id,
       String name,
-      int age,
-      String gender,
-      String prefectures,
+      DateTime birthday,
+      int genderId,
+      int prefectureId,
       String imageName,
       String description,
       String hobby,
@@ -220,9 +220,9 @@ class _$UserStateCopyWithImpl<$Res> implements $UserStateCopyWith<$Res> {
   $Res call({
     Object id = freezed,
     Object name = freezed,
-    Object age = freezed,
-    Object gender = freezed,
-    Object prefectures = freezed,
+    Object birthday = freezed,
+    Object genderId = freezed,
+    Object prefectureId = freezed,
     Object imageName = freezed,
     Object description = freezed,
     Object hobby = freezed,
@@ -231,10 +231,10 @@ class _$UserStateCopyWithImpl<$Res> implements $UserStateCopyWith<$Res> {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as String,
       name: name == freezed ? _value.name : name as String,
-      age: age == freezed ? _value.age : age as int,
-      gender: gender == freezed ? _value.gender : gender as String,
-      prefectures:
-          prefectures == freezed ? _value.prefectures : prefectures as String,
+      birthday: birthday == freezed ? _value.birthday : birthday as DateTime,
+      genderId: genderId == freezed ? _value.genderId : genderId as int,
+      prefectureId:
+          prefectureId == freezed ? _value.prefectureId : prefectureId as int,
       imageName: imageName == freezed ? _value.imageName : imageName as String,
       description:
           description == freezed ? _value.description : description as String,
@@ -255,9 +255,9 @@ abstract class _$UserStateCopyWith<$Res> implements $UserStateCopyWith<$Res> {
   $Res call(
       {String id,
       String name,
-      int age,
-      String gender,
-      String prefectures,
+      DateTime birthday,
+      int genderId,
+      int prefectureId,
       String imageName,
       String description,
       String hobby,
@@ -277,9 +277,9 @@ class __$UserStateCopyWithImpl<$Res> extends _$UserStateCopyWithImpl<$Res>
   $Res call({
     Object id = freezed,
     Object name = freezed,
-    Object age = freezed,
-    Object gender = freezed,
-    Object prefectures = freezed,
+    Object birthday = freezed,
+    Object genderId = freezed,
+    Object prefectureId = freezed,
     Object imageName = freezed,
     Object description = freezed,
     Object hobby = freezed,
@@ -288,10 +288,10 @@ class __$UserStateCopyWithImpl<$Res> extends _$UserStateCopyWithImpl<$Res>
     return _then(_UserState(
       id: id == freezed ? _value.id : id as String,
       name: name == freezed ? _value.name : name as String,
-      age: age == freezed ? _value.age : age as int,
-      gender: gender == freezed ? _value.gender : gender as String,
-      prefectures:
-          prefectures == freezed ? _value.prefectures : prefectures as String,
+      birthday: birthday == freezed ? _value.birthday : birthday as DateTime,
+      genderId: genderId == freezed ? _value.genderId : genderId as int,
+      prefectureId:
+          prefectureId == freezed ? _value.prefectureId : prefectureId as int,
       imageName: imageName == freezed ? _value.imageName : imageName as String,
       description:
           description == freezed ? _value.description : description as String,
@@ -308,16 +308,16 @@ class _$_UserState extends _UserState {
   _$_UserState(
       {this.id,
       this.name = '',
-      this.age,
-      this.gender = '',
-      this.prefectures = '',
+      this.birthday,
+      this.genderId = 0,
+      this.prefectureId = 0,
       this.imageName = '',
       this.description = '',
       this.hobby = '',
       this.favoriteType = ''})
       : assert(name != null),
-        assert(gender != null),
-        assert(prefectures != null),
+        assert(genderId != null),
+        assert(prefectureId != null),
         assert(imageName != null),
         assert(description != null),
         assert(hobby != null),
@@ -330,13 +330,13 @@ class _$_UserState extends _UserState {
   @override
   final String name;
   @override
-  final int age;
-  @JsonKey(defaultValue: '')
+  final DateTime birthday;
+  @JsonKey(defaultValue: 0)
   @override
-  final String gender;
-  @JsonKey(defaultValue: '')
+  final int genderId;
+  @JsonKey(defaultValue: 0)
   @override
-  final String prefectures;
+  final int prefectureId;
   @JsonKey(defaultValue: '')
   @override
   final String imageName;
@@ -352,7 +352,7 @@ class _$_UserState extends _UserState {
 
   @override
   String toString() {
-    return 'UserState(id: $id, name: $name, age: $age, gender: $gender, prefectures: $prefectures, imageName: $imageName, description: $description, hobby: $hobby, favoriteType: $favoriteType)';
+    return 'UserState(id: $id, name: $name, birthday: $birthday, genderId: $genderId, prefectureId: $prefectureId, imageName: $imageName, description: $description, hobby: $hobby, favoriteType: $favoriteType)';
   }
 
   @override
@@ -363,13 +363,15 @@ class _$_UserState extends _UserState {
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.age, age) ||
-                const DeepCollectionEquality().equals(other.age, age)) &&
-            (identical(other.gender, gender) ||
-                const DeepCollectionEquality().equals(other.gender, gender)) &&
-            (identical(other.prefectures, prefectures) ||
+            (identical(other.birthday, birthday) ||
                 const DeepCollectionEquality()
-                    .equals(other.prefectures, prefectures)) &&
+                    .equals(other.birthday, birthday)) &&
+            (identical(other.genderId, genderId) ||
+                const DeepCollectionEquality()
+                    .equals(other.genderId, genderId)) &&
+            (identical(other.prefectureId, prefectureId) ||
+                const DeepCollectionEquality()
+                    .equals(other.prefectureId, prefectureId)) &&
             (identical(other.imageName, imageName) ||
                 const DeepCollectionEquality()
                     .equals(other.imageName, imageName)) &&
@@ -388,9 +390,9 @@ class _$_UserState extends _UserState {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(age) ^
-      const DeepCollectionEquality().hash(gender) ^
-      const DeepCollectionEquality().hash(prefectures) ^
+      const DeepCollectionEquality().hash(birthday) ^
+      const DeepCollectionEquality().hash(genderId) ^
+      const DeepCollectionEquality().hash(prefectureId) ^
       const DeepCollectionEquality().hash(imageName) ^
       const DeepCollectionEquality().hash(description) ^
       const DeepCollectionEquality().hash(hobby) ^
@@ -406,9 +408,9 @@ abstract class _UserState extends UserState {
   factory _UserState(
       {String id,
       String name,
-      int age,
-      String gender,
-      String prefectures,
+      DateTime birthday,
+      int genderId,
+      int prefectureId,
       String imageName,
       String description,
       String hobby,
@@ -419,11 +421,11 @@ abstract class _UserState extends UserState {
   @override
   String get name;
   @override
-  int get age;
+  DateTime get birthday;
   @override
-  String get gender;
+  int get genderId;
   @override
-  String get prefectures;
+  int get prefectureId;
   @override
   String get imageName;
   @override
