@@ -117,6 +117,9 @@ class DateHelper {
   }
 
   static int calculateAge(DateTime birth) {
+    if (birth == null) {
+      return -1;
+    }
     final now = DateTime.now();
     var age = now.year - birth.year;
     final month1 = now.month;
