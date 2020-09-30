@@ -2,11 +2,11 @@
 
 import 'package:objectbox/objectbox.dart';
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
+import 'repositories/bakumote_repository/entities/room.dart';
 import 'repositories/bakumote_repository/entities/profile.dart';
+import 'repositories/bakumote_repository/entities/message.dart';
 import 'repositories/bakumote_repository/entities/block_history.dart';
 import 'repositories/bakumote_repository/entities/like_history.dart';
-import 'repositories/bakumote_repository/entities/room.dart';
-import 'repositories/bakumote_repository/entities/message.dart';
 
 ModelDefinition getObjectBoxModel() {
   final model = ModelInfo.fromMap({

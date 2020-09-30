@@ -6,6 +6,7 @@ part 'rooms_state.freezed.dart';
 abstract class RoomsState with _$RoomsState {
   factory RoomsState({
     List<RoomState> rooms,
+    @Default(false) bool isUnreadRoom,
     @Default(false) bool isLoading,
   }) = _RoomsState;
 }

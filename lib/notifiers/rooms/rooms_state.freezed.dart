@@ -14,9 +14,13 @@ class _$RoomsStateTearOff {
   const _$RoomsStateTearOff();
 
 // ignore: unused_element
-  _RoomsState call({List<RoomState> rooms, bool isLoading = false}) {
+  _RoomsState call(
+      {List<RoomState> rooms,
+      bool isUnreadRoom = false,
+      bool isLoading = false}) {
     return _RoomsState(
       rooms: rooms,
+      isUnreadRoom: isUnreadRoom,
       isLoading: isLoading,
     );
   }
@@ -29,6 +33,7 @@ const $RoomsState = _$RoomsStateTearOff();
 /// @nodoc
 mixin _$RoomsState {
   List<RoomState> get rooms;
+  bool get isUnreadRoom;
   bool get isLoading;
 
   $RoomsStateCopyWith<RoomsState> get copyWith;
@@ -39,7 +44,7 @@ abstract class $RoomsStateCopyWith<$Res> {
   factory $RoomsStateCopyWith(
           RoomsState value, $Res Function(RoomsState) then) =
       _$RoomsStateCopyWithImpl<$Res>;
-  $Res call({List<RoomState> rooms, bool isLoading});
+  $Res call({List<RoomState> rooms, bool isUnreadRoom, bool isLoading});
 }
 
 /// @nodoc
@@ -53,10 +58,13 @@ class _$RoomsStateCopyWithImpl<$Res> implements $RoomsStateCopyWith<$Res> {
   @override
   $Res call({
     Object rooms = freezed,
+    Object isUnreadRoom = freezed,
     Object isLoading = freezed,
   }) {
     return _then(_value.copyWith(
       rooms: rooms == freezed ? _value.rooms : rooms as List<RoomState>,
+      isUnreadRoom:
+          isUnreadRoom == freezed ? _value.isUnreadRoom : isUnreadRoom as bool,
       isLoading: isLoading == freezed ? _value.isLoading : isLoading as bool,
     ));
   }
@@ -68,7 +76,7 @@ abstract class _$RoomsStateCopyWith<$Res> implements $RoomsStateCopyWith<$Res> {
           _RoomsState value, $Res Function(_RoomsState) then) =
       __$RoomsStateCopyWithImpl<$Res>;
   @override
-  $Res call({List<RoomState> rooms, bool isLoading});
+  $Res call({List<RoomState> rooms, bool isUnreadRoom, bool isLoading});
 }
 
 /// @nodoc
@@ -84,10 +92,13 @@ class __$RoomsStateCopyWithImpl<$Res> extends _$RoomsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object rooms = freezed,
+    Object isUnreadRoom = freezed,
     Object isLoading = freezed,
   }) {
     return _then(_RoomsState(
       rooms: rooms == freezed ? _value.rooms : rooms as List<RoomState>,
+      isUnreadRoom:
+          isUnreadRoom == freezed ? _value.isUnreadRoom : isUnreadRoom as bool,
       isLoading: isLoading == freezed ? _value.isLoading : isLoading as bool,
     ));
   }
@@ -95,18 +106,22 @@ class __$RoomsStateCopyWithImpl<$Res> extends _$RoomsStateCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_RoomsState implements _RoomsState {
-  _$_RoomsState({this.rooms, this.isLoading = false})
-      : assert(isLoading != null);
+  _$_RoomsState({this.rooms, this.isUnreadRoom = false, this.isLoading = false})
+      : assert(isUnreadRoom != null),
+        assert(isLoading != null);
 
   @override
   final List<RoomState> rooms;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool isUnreadRoom;
   @JsonKey(defaultValue: false)
   @override
   final bool isLoading;
 
   @override
   String toString() {
-    return 'RoomsState(rooms: $rooms, isLoading: $isLoading)';
+    return 'RoomsState(rooms: $rooms, isUnreadRoom: $isUnreadRoom, isLoading: $isLoading)';
   }
 
   @override
@@ -115,6 +130,9 @@ class _$_RoomsState implements _RoomsState {
         (other is _RoomsState &&
             (identical(other.rooms, rooms) ||
                 const DeepCollectionEquality().equals(other.rooms, rooms)) &&
+            (identical(other.isUnreadRoom, isUnreadRoom) ||
+                const DeepCollectionEquality()
+                    .equals(other.isUnreadRoom, isUnreadRoom)) &&
             (identical(other.isLoading, isLoading) ||
                 const DeepCollectionEquality()
                     .equals(other.isLoading, isLoading)));
@@ -124,6 +142,7 @@ class _$_RoomsState implements _RoomsState {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(rooms) ^
+      const DeepCollectionEquality().hash(isUnreadRoom) ^
       const DeepCollectionEquality().hash(isLoading);
 
   @override
@@ -132,10 +151,15 @@ class _$_RoomsState implements _RoomsState {
 }
 
 abstract class _RoomsState implements RoomsState {
-  factory _RoomsState({List<RoomState> rooms, bool isLoading}) = _$_RoomsState;
+  factory _RoomsState(
+      {List<RoomState> rooms,
+      bool isUnreadRoom,
+      bool isLoading}) = _$_RoomsState;
 
   @override
   List<RoomState> get rooms;
+  @override
+  bool get isUnreadRoom;
   @override
   bool get isLoading;
   @override

@@ -24,7 +24,7 @@ class TalkListPageNotifier extends StateNotifier<TalkListPageState>
   TalkListPageNotifier(
     this._read,
   ) : super(const TalkListPageState()) {
-    _configure();
+    Future<void>.delayed(Duration.zero, _configure);
   }
 
   final Reader _read;
