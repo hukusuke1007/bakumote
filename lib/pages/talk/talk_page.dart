@@ -65,7 +65,7 @@ class TalkPage extends HookWidget {
               ),
             ),
             SizedBox(
-              height: 80,
+              height: 72,
               child: Center(
                 child: SizedBox(
                   child: Row(

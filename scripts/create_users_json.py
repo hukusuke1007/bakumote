@@ -9,8 +9,8 @@ import datetime
 from models.user import User
 from helpers.file_helper import default_method
 
-CSV_PATH = os.path.dirname(os.path.abspath(__file__)) + '/../users_data/users_data.csv'
-OUTPUT_PATH = os.path.dirname(os.path.abspath(__file__)) + '/../users_data/users.json'
+CSV_PATH = os.path.dirname(os.path.abspath(__file__)) + '/../csv_data/users/data.csv'
+OUTPUT_PATH = os.path.dirname(os.path.abspath(__file__)) + '/../csv_data/users/users.json'
 GENDER_ID = 1
 PREFECTURE_MAX = 47
 
