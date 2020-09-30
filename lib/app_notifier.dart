@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bakumote/notifiers/masters/masters_notifier.dart';
 import 'package:bakumote/notifiers/my_profile/my_profile_notifier.dart';
+import 'package:bakumote/notifiers/users/users_notifier.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -26,11 +27,13 @@ class AppNotifier extends StateNotifier<AppState> with LocatorMixin {
 
   final Reader _read;
   MastersNotifier get masterNotifier => _read(mastersNotifierProvider);
+  UsersNotifier get usersNotifier => _read(usersNotifierProvider);
   MyProfileNotifier get myProfileNotifier => _read(myProfileNotifierProvider);
 
   Future _configure() async {
     // 起動時の読み込みはここで実施
     await masterNotifier.load();
+    await usersNotifier.load();
     await myProfileNotifier.load();
     state = state.copyWith(isLoading: false);
   }

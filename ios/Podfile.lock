@@ -3,6 +3,8 @@ PODS:
   - image_cropper (0.0.3):
     - Flutter
     - TOCropViewController (~> 2.5.4)
+  - image_picker (0.0.1):
+    - Flutter
   - objectbox_flutter_libs (0.0.1):
     - Flutter
   - package_info (0.0.1):
@@ -16,6 +18,7 @@ PODS:
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - image_cropper (from `.symlinks/plugins/image_cropper/ios`)
+  - image_picker (from `.symlinks/plugins/image_picker/ios`)
   - objectbox_flutter_libs (from `.symlinks/plugins/objectbox_flutter_libs/ios`)
   - package_info (from `.symlinks/plugins/package_info/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
@@ -30,6 +33,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   image_cropper:
     :path: ".symlinks/plugins/image_cropper/ios"
+  image_picker:
+    :path: ".symlinks/plugins/image_picker/ios"
   objectbox_flutter_libs:
     :path: ".symlinks/plugins/objectbox_flutter_libs/ios"
   package_info:
@@ -42,6 +47,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   image_cropper: c8f9b4157933c7bb965a66d1c5e6c8fd408c6eb4
+  image_picker: 9c3312491f862b28d21ecd8fdf0ee14e601b3f09
   objectbox_flutter_libs: 22c73ff60cb67a3d7e347ca4fb32ffd59c415f08
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c

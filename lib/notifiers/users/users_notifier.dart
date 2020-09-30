@@ -5,23 +5,17 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'users_state.dart';
 
-final usersNotifierProvider = StateNotifierProvider.autoDispose<UsersNotifier>(
-    (ref) => UsersNotifier(ref.read));
+final usersNotifierProvider =
+    StateNotifierProvider<UsersNotifier>((ref) => UsersNotifier(ref.read));
 
 class UsersNotifier extends StateNotifier<UsersState> with LocatorMixin {
   UsersNotifier(
     this._read,
-  ) : super(UsersState(users: [])) {
-    _configure();
-  }
+  ) : super(UsersState(users: []));
 
   final Reader _read;
   BakumoteRepository get bakumoteRepository =>
       _read(bakumoteRepositoryProvider);
-
-  Future _configure() async {
-    await load();
-  }
 
   Future load() async {
     if (state.isLoading) {

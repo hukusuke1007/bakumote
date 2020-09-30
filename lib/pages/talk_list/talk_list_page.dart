@@ -84,7 +84,7 @@ class TalkListPage extends TabWidgetPage {
                     overflow: TextOverflow.ellipsis,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 8),
+                    padding: const EdgeInsets.only(top: 4),
                     child: room.unreadCount > 0
                         ? CircleText(
                             size: 28,
@@ -92,10 +92,11 @@ class TalkListPage extends TabWidgetPage {
                             child: Text(
                               room.unreadLabel,
                               style: const TextStyle(
-                                fontSize: 14,
+                                fontSize: 12,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                               ),
+                              textAlign: TextAlign.center,
                             ),
                           )
                         : const SizedBox.shrink(),
