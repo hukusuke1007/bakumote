@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bakumote/notifiers/masters/masters_notifier.dart';
+import 'package:bakumote/repositories/bakumote_repository/bakumote_repository.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -14,7 +15,7 @@ class MyProfileNotifier extends StateNotifier<MyProfileState>
     with LocatorMixin {
   MyProfileNotifier(
     this._read,
-  ) : super(MyProfileState());
+  ) : super(MyProfileState(profile: Profile()));
 
   @override
   Future dispose() async {
@@ -30,32 +31,30 @@ class MyProfileNotifier extends StateNotifier<MyProfileState>
 
   final Reader _read;
   MastersNotifier get mastersNotifier => _read(mastersNotifierProvider);
+  BakumoteRepository get bakumoteRepository =>
+      _read(bakumoteRepositoryProvider);
+
+  bool get _isUpdate => state.profile.id != null;
 
   final _myProfile = BehaviorSubject<MyProfileState>.seeded(null);
   ValueStream<MyProfileState> get myProfile => _myProfile;
 
-  Future load() async {
-    if (state.isLoading) {
-      return;
+  void load() {
+    final profile = bakumoteRepository.loadProfile();
+    if (profile != null) {
+      state = state.copyWith(
+        profile: Profile.fromEntity(profile).copyWith(
+          image: profile.imagePath != null
+              ? bakumoteRepository.loadImage(profile.imagePath)
+              : null,
+        ),
+      );
     }
-    state = state.copyWith(isLoading: true);
-    // TODO(shohei): not implement
-    state = state.copyWith(
-      profile: Profile(
-        name: 'しょうへい',
-        birthday: DateTime(1988, 10, 7),
-        genderId: 0,
-        prefectureId: 0,
-        hobby: 'バスケ',
-        favoriteType: '目が大きい',
-      ),
-      isLoading: false,
-    );
   }
 
   Future saveProfileImage(File file) async {
     state = state.copyWith(profile: state.profile.copyWith(image: file));
-    // TODO(shohei): not implement
+    bakumoteRepository.saveProfileImage(file);
   }
 
   Future saveProfile({
@@ -67,7 +66,7 @@ class MyProfileNotifier extends StateNotifier<MyProfileState>
     String favoriteType,
   }) async {
     state = state.copyWith(
-      profile: Profile(
+      profile: state.profile.copyWith(
         name: name,
         birthday: birthday,
         genderId: genderId,
@@ -76,10 +75,6 @@ class MyProfileNotifier extends StateNotifier<MyProfileState>
         favoriteType: favoriteType ?? '',
       ),
     );
-    // TODO(shohei): not implement
-  }
-
-  Future saveBirthday(DateTime date) async {
-    // TODO(shohei): not implement
+    bakumoteRepository.saveProfile(state.profile);
   }
 }

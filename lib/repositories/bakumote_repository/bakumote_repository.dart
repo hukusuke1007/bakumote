@@ -15,6 +15,7 @@ import 'package:bakumote/repositories/bakumote_repository/entities/profile.dart'
 import 'package:bakumote/repositories/bakumote_repository/entities/room.dart';
 import 'package:bakumote/repositories/bakumote_repository/entities/user/user.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:hooks_riverpod/all.dart';
 import 'package:objectbox/objectbox.dart';
@@ -23,7 +24,8 @@ import 'package:uuid/uuid.dart';
 final bakumoteRepositoryProvider = Provider<BakumoteRepository>((_) {
   final store =
       Store(getObjectBoxModel(), directory: '${appDocumentDir.path}/objectbox');
-  return BakumoteRepositoryImpl(store);
+  final imageDir = Directory('${appDocumentDir.path}/images');
+  return BakumoteRepositoryImpl(store, imageDir);
 });
 
 abstract class BakumoteRepository {
@@ -32,12 +34,14 @@ abstract class BakumoteRepository {
   LikeHistory loadLike(String userId);
   void saveBlockUser(String roomId, User user);
   BlockHistory loadBlockUser(String userId);
-  void saveProfile({
-    @required domain_profile.Profile user,
-    File imageFile,
-    bool isUpdate,
+  void saveProfile(domain_profile.Profile user);
+  void saveProfileImage(File image);
+  String saveImage(
+    File image, {
+    String filename,
   });
   Profile loadProfile();
+  File loadImage(String path);
   void createRoom(domain_room.RoomState room, String myUserId);
   void updateLatestMessage(String roomId, String text);
   void updateUnreadCount(String roomId, int unreadCount);
@@ -55,9 +59,10 @@ abstract class BakumoteRepository {
 }
 
 class BakumoteRepositoryImpl extends BakumoteRepository {
-  BakumoteRepositoryImpl(this._store);
+  BakumoteRepositoryImpl(this._store, this._imageDir);
 
   final Store _store;
+  final Directory _imageDir;
 
   @override
   Future<List<User>> loadUsers() async {
@@ -125,16 +130,14 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
   }
 
   @override
-  void saveProfile({
-    @required domain_profile.Profile user,
-    File imageFile,
-    bool isUpdate = false,
-  }) {
+  void saveProfile(domain_profile.Profile user) {
     final now = DateTime.now();
+    final isUpdate = loadProfile() != null;
     final object = Profile(
       id: Profile.myProfileId(),
       userId: isUpdate ? user.id : Uuid().v4(),
       name: user.name,
+      imagePath: user.image.path,
       birthday: user.birthday.millisecondsSinceEpoch,
       genderId: user.genderId,
       prefectureId: user.prefectureId,
@@ -143,9 +146,6 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
       favoriteType: user.favoriteType,
       updatedAt: now.millisecondsSinceEpoch,
     );
-    if (imageFile != null) {
-      object.imagePath = imageFile.path;
-    }
     if (!isUpdate) {
       object.createdAt = now.millisecondsSinceEpoch;
     }
@@ -153,7 +153,57 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
   }
 
   @override
-  Profile loadProfile() => Box<Profile>(_store).get(Profile.myProfileId());
+  void saveProfileImage(File image) {
+    final path = saveImage(image, filename: Profile.imageFilename());
+    final now = DateTime.now();
+    var object = loadProfile();
+    if (object == null) {
+      object = Profile(
+        id: Profile.myProfileId(),
+        imagePath: path,
+        createdAt: now.millisecondsSinceEpoch,
+        updatedAt: now.millisecondsSinceEpoch,
+      );
+    } else {
+      object
+        ..imagePath = path
+        ..updatedAt = now.millisecondsSinceEpoch;
+    }
+    Box<Profile>(_store).put(object);
+  }
+
+  @override
+  String saveImage(
+    File image, {
+    String filename = 'image',
+  }) {
+    if (!_imageDir.existsSync()) {
+      _imageDir.createSync();
+    }
+    final path = '${_imageDir.path}/$filename';
+    final newFile = image.copySync(path);
+    if (newFile.existsSync()) {
+      newFile.deleteSync();
+    }
+    newFile.writeAsBytesSync(image.readAsBytesSync());
+    return newFile.path;
+  }
+
+  @override
+  Profile loadProfile() {
+    try {
+      return Box<Profile>(_store).get(Profile.myProfileId());
+    } on Exception catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  @override
+  File loadImage(String path) {
+    final file = File(path);
+    return file;
+  }
 
   @override
   void createRoom(domain_room.RoomState room, String myUserId) {
