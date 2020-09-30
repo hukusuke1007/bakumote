@@ -41,18 +41,20 @@ class MyProfileNotifier extends StateNotifier<MyProfileState>
     state = state.copyWith(isLoading: true);
     // TODO(shohei): not implement
     state = state.copyWith(
-      name: 'しょうへい',
-      birthday: DateTime(1988, 10, 7),
-      genderId: 0,
-      prefectureId: 0,
-      hobby: 'バスケ',
-      favoriteType: '目が大きい',
+      profile: Profile(
+        name: 'しょうへい',
+        birthday: DateTime(1988, 10, 7),
+        genderId: 0,
+        prefectureId: 0,
+        hobby: 'バスケ',
+        favoriteType: '目が大きい',
+      ),
       isLoading: false,
     );
   }
 
   Future saveProfileImage(File file) async {
-    state = state.copyWith(image: file);
+    state = state.copyWith(profile: state.profile.copyWith(image: file));
     // TODO(shohei): not implement
   }
 
@@ -65,12 +67,14 @@ class MyProfileNotifier extends StateNotifier<MyProfileState>
     String favoriteType,
   }) async {
     state = state.copyWith(
-      name: name,
-      birthday: birthday,
-      genderId: genderId,
-      prefectureId: prefectureId,
-      hobby: hobby ?? '',
-      favoriteType: favoriteType ?? '',
+      profile: Profile(
+        name: name,
+        birthday: birthday,
+        genderId: genderId,
+        prefectureId: prefectureId,
+        hobby: hobby ?? '',
+        favoriteType: favoriteType ?? '',
+      ),
     );
     // TODO(shohei): not implement
   }

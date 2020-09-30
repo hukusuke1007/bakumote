@@ -19,7 +19,7 @@ class EditProfilePage extends HookWidget {
   Widget build(BuildContext context) {
     final notifier = useProvider(editProfilePageNotifierProvider);
     final profile = useProvider(myProfileNotifierProvider.state
-        .select((MyProfileState state) => state));
+        .select((MyProfileState state) => state)).profile;
     final master = useProvider(
         mastersNotifierProvider.state.select((MastersState state) => state));
     final editProfile = useProvider(editProfilePageNotifierProvider.state

@@ -101,7 +101,7 @@ class EditProfilePageNotifier extends StateNotifier<EditProfilePageState>
   }
 
   Future _configure() async {
-    final profile = myProfileNotifier.state;
+    final profile = myProfileNotifier.state.profile;
     nameTextEditController.text = profile.name;
     birthdayEditingController.text = profile.birthday != null
         ? profile.birthday.format(format: 'yyyy.MM.dd')
