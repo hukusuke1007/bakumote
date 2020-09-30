@@ -1,0 +1,56 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:834508830682371816",
+      "lastPropertyId": "6:3317500008770306545",
+      "name": "LikeHistory",
+      "properties": [
+        {
+          "id": "1:6609023369008064760",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:922906177124181532",
+          "name": "userId",
+          "type": 9
+        },
+        {
+          "id": "3:6053193830208521990",
+          "name": "userName",
+          "type": 9
+        },
+        {
+          "id": "4:7516714234336249220",
+          "name": "userImageName",
+          "type": 9
+        },
+        {
+          "id": "5:5715591065471671332",
+          "name": "createdAt",
+          "type": 6
+        },
+        {
+          "id": "6:3317500008770306545",
+          "name": "updatedAt",
+          "type": 6
+        }
+      ]
+    }
+  ],
+  "lastEntityId": "1:834508830682371816",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}
