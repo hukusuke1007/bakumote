@@ -1,32 +1,39 @@
 import 'dart:async';
 
+import 'package:bakumote/repositories/bakumote_repository/bakumote_repository.dart';
+import 'package:bakumote/repositories/bakumote_repository/entities/user/user.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'like_state.dart';
 
-final likeNotifierProvider = StateNotifierProvider.autoDispose<LikeNotifier>(
-    (ref) => LikeNotifier(ref.read));
+final likeNotifierProvider = StateNotifierProvider.family
+    .autoDispose<LikeNotifier, User>(
+        (ref, user) => LikeNotifier(ref.read, user));
 
 class LikeNotifier extends StateNotifier<LikeState> with LocatorMixin {
   LikeNotifier(
     this._read,
+    this.user,
   ) : super(LikeState()) {
-    _configure();
+    load();
   }
 
   final Reader _read;
+  final User user;
 
-  Future _configure() async {
-    await load();
-  }
+  BakumoteRepository get bakumoteRepository =>
+      _read(bakumoteRepositoryProvider);
 
   Future load() async {
-    // TODO(shohei): stub
-    state = state.copyWith(isLiked: false);
+    final data = bakumoteRepository.loadLike(user.id);
+    state = state.copyWith(isLiked: data != null);
   }
 
   Future onLiked() async {
-    // TODO(shohei): not implement
+    if (state.isLiked) {
+      return;
+    }
+    bakumoteRepository.saveLike(user);
     state = state.copyWith(isLiked: !state.isLiked);
   }
 }

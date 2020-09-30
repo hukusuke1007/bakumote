@@ -4,7 +4,7 @@ import 'package:bakumote/notifiers/like/like_state.dart';
 import 'package:bakumote/notifiers/masters/masters_notifier.dart';
 import 'package:bakumote/notifiers/masters/masters_state.dart';
 import 'package:bakumote/notifiers/users/users_state.dart';
-import 'package:bakumote/repositories/bakumote_repository/entities/user.dart';
+import 'package:bakumote/repositories/bakumote_repository/entities/user/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -22,9 +22,10 @@ class UserProfilePage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final notifier = useProvider(likeNotifierProvider);
-    final isLiked = useProvider(
-        likeNotifierProvider.state.select((LikeState state) => state)).isLiked;
+    final provider = likeNotifierProvider(user);
+    final notifier = useProvider(provider);
+    final isLiked =
+        useProvider(provider.state.select((LikeState state) => state)).isLiked;
     final prefectures = useProvider(
             mastersNotifierProvider.state.select((MastersState state) => state))
         .prefectures;

@@ -25,7 +25,7 @@ class SettingPage extends TabWidgetPage {
   Widget build(BuildContext context) {
     final notifier = useProvider(settingPageNotifierProvider);
     final profile = useProvider(myProfileNotifierProvider.state
-        .select((MyProfileState state) => state));
+        .select((MyProfileState state) => state)).profile;
     return Scaffold(
       appBar: AppBar(
         title: Text(

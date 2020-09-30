@@ -1,6 +1,6 @@
 import 'package:bakumote/helpers/date_helper.dart';
 import 'package:bakumote/notifiers/masters/masters_state.dart';
-import 'package:bakumote/repositories/bakumote_repository/entities/user.dart';
+import 'package:bakumote/repositories/bakumote_repository/entities/user/user.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'users_state.freezed.dart';
