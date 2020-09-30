@@ -5,6 +5,8 @@ export 'package:objectbox/objectbox.dart'; // so that callers only have to impor
 import 'repositories/bakumote_repository/entities/profile.dart';
 import 'repositories/bakumote_repository/entities/block_history.dart';
 import 'repositories/bakumote_repository/entities/like_history.dart';
+import 'repositories/bakumote_repository/entities/room.dart';
+import 'repositories/bakumote_repository/entities/message.dart';
 
 ModelDefinition getObjectBoxModel() {
   final model = ModelInfo.fromMap({
@@ -24,7 +26,7 @@ ModelDefinition getObjectBoxModel() {
       },
       {
         "id": "2:7508321855245374242",
-        "lastPropertyId": "6:7147422365560994248",
+        "lastPropertyId": "7:6084853166829554710",
         "name": "BlockHistory",
         "properties": [
           {"id": "1:5221870660787891588", "name": "id", "type": 6, "flags": 1},
@@ -32,7 +34,8 @@ ModelDefinition getObjectBoxModel() {
           {"id": "3:7312721965252650632", "name": "userName", "type": 9},
           {"id": "4:5175569479374016875", "name": "userImageName", "type": 9},
           {"id": "5:9120802955850607256", "name": "createdAt", "type": 6},
-          {"id": "6:7147422365560994248", "name": "updatedAt", "type": 6}
+          {"id": "6:7147422365560994248", "name": "updatedAt", "type": 6},
+          {"id": "7:6084853166829554710", "name": "roomId", "type": 9}
         ]
       },
       {
@@ -51,12 +54,39 @@ ModelDefinition getObjectBoxModel() {
           {"id": "9:3411924965816063076", "name": "hobby", "type": 9},
           {"id": "10:2909051831281808972", "name": "favoriteType", "type": 9},
           {"id": "11:5114152655753241483", "name": "createdAt", "type": 6},
-          {"id": "12:3193093107236268744", "name": "updatedAt", "type": 6},
-          {"id": "13:1320883142978066224", "name": "myProfileId", "type": 6}
+          {"id": "12:3193093107236268744", "name": "updatedAt", "type": 6}
+        ]
+      },
+      {
+        "id": "4:4231027708447266082",
+        "lastPropertyId": "8:6316478419491217965",
+        "name": "Message",
+        "properties": [
+          {"id": "1:244446210746449362", "name": "id", "type": 6, "flags": 1},
+          {"id": "2:5040718065638545889", "name": "userId", "type": 9},
+          {"id": "3:130275364384676917", "name": "messageId", "type": 9},
+          {"id": "4:8312373972531862069", "name": "roomId", "type": 9},
+          {"id": "5:226367578819678763", "name": "text", "type": 9},
+          {"id": "6:342277152604035024", "name": "isUnread", "type": 1},
+          {"id": "7:625511149703130775", "name": "createdAt", "type": 6},
+          {"id": "8:6316478419491217965", "name": "updatedAt", "type": 6}
+        ]
+      },
+      {
+        "id": "5:7406672419176415625",
+        "lastPropertyId": "6:7367073850068881798",
+        "name": "Room",
+        "properties": [
+          {"id": "1:4452680984568176132", "name": "id", "type": 6, "flags": 1},
+          {"id": "2:5865493986008073286", "name": "roomId", "type": 9},
+          {"id": "3:8662649729934230458", "name": "latestMessage", "type": 9},
+          {"id": "4:2948623920476094551", "name": "unreadCount", "type": 6},
+          {"id": "5:4672184548496578093", "name": "createdAt", "type": 6},
+          {"id": "6:7367073850068881798", "name": "updatedAt", "type": 6}
         ]
       }
     ],
-    "lastEntityId": "3:91527956825714340",
+    "lastEntityId": "5:7406672419176415625",
     "lastIndexId": "0:0",
     "lastRelationId": "0:0",
     "lastSequenceId": "0:0",
@@ -92,7 +122,8 @@ ModelDefinition getObjectBoxModel() {
             "userName": inst.userName,
             "userImageName": inst.userImageName,
             "createdAt": inst.createdAt,
-            "updatedAt": inst.updatedAt
+            "updatedAt": inst.updatedAt,
+            "roomId": inst.roomId
           },
       writer: (Map<String, dynamic> members) {
         BlockHistory r = BlockHistory();
@@ -102,6 +133,7 @@ ModelDefinition getObjectBoxModel() {
         r.userImageName = members["userImageName"];
         r.createdAt = members["createdAt"];
         r.updatedAt = members["updatedAt"];
+        r.roomId = members["roomId"];
         return r;
       });
   bindings[Profile] = EntityDefinition<Profile>(
@@ -118,8 +150,7 @@ ModelDefinition getObjectBoxModel() {
             "hobby": inst.hobby,
             "favoriteType": inst.favoriteType,
             "createdAt": inst.createdAt,
-            "updatedAt": inst.updatedAt,
-            "myProfileId": inst.myProfileId
+            "updatedAt": inst.updatedAt
           },
       writer: (Map<String, dynamic> members) {
         Profile r = Profile();
@@ -135,7 +166,50 @@ ModelDefinition getObjectBoxModel() {
         r.favoriteType = members["favoriteType"];
         r.createdAt = members["createdAt"];
         r.updatedAt = members["updatedAt"];
-        r.myProfileId = members["myProfileId"];
+        return r;
+      });
+  bindings[Message] = EntityDefinition<Message>(
+      model: model.findEntityByUid(4231027708447266082),
+      reader: (Message inst) => {
+            "id": inst.id,
+            "userId": inst.userId,
+            "messageId": inst.messageId,
+            "roomId": inst.roomId,
+            "text": inst.text,
+            "isUnread": inst.isUnread,
+            "createdAt": inst.createdAt,
+            "updatedAt": inst.updatedAt
+          },
+      writer: (Map<String, dynamic> members) {
+        Message r = Message();
+        r.id = members["id"];
+        r.userId = members["userId"];
+        r.messageId = members["messageId"];
+        r.roomId = members["roomId"];
+        r.text = members["text"];
+        r.isUnread = members["isUnread"];
+        r.createdAt = members["createdAt"];
+        r.updatedAt = members["updatedAt"];
+        return r;
+      });
+  bindings[Room] = EntityDefinition<Room>(
+      model: model.findEntityByUid(7406672419176415625),
+      reader: (Room inst) => {
+            "id": inst.id,
+            "roomId": inst.roomId,
+            "latestMessage": inst.latestMessage,
+            "unreadCount": inst.unreadCount,
+            "createdAt": inst.createdAt,
+            "updatedAt": inst.updatedAt
+          },
+      writer: (Map<String, dynamic> members) {
+        Room r = Room();
+        r.id = members["id"];
+        r.roomId = members["roomId"];
+        r.latestMessage = members["latestMessage"];
+        r.unreadCount = members["unreadCount"];
+        r.createdAt = members["createdAt"];
+        r.updatedAt = members["updatedAt"];
         return r;
       });
 
@@ -170,6 +244,8 @@ class BlockHistory_ {
       QueryIntegerProperty(entityId: 2, propertyId: 5, obxType: 6);
   static final updatedAt =
       QueryIntegerProperty(entityId: 2, propertyId: 6, obxType: 6);
+  static final roomId =
+      QueryStringProperty(entityId: 2, propertyId: 7, obxType: 9);
 }
 
 class Profile_ {
@@ -197,6 +273,38 @@ class Profile_ {
       QueryIntegerProperty(entityId: 3, propertyId: 11, obxType: 6);
   static final updatedAt =
       QueryIntegerProperty(entityId: 3, propertyId: 12, obxType: 6);
-  static final myProfileId =
-      QueryIntegerProperty(entityId: 3, propertyId: 13, obxType: 6);
+}
+
+class Message_ {
+  static final id =
+      QueryIntegerProperty(entityId: 4, propertyId: 1, obxType: 6);
+  static final userId =
+      QueryStringProperty(entityId: 4, propertyId: 2, obxType: 9);
+  static final messageId =
+      QueryStringProperty(entityId: 4, propertyId: 3, obxType: 9);
+  static final roomId =
+      QueryStringProperty(entityId: 4, propertyId: 4, obxType: 9);
+  static final text =
+      QueryStringProperty(entityId: 4, propertyId: 5, obxType: 9);
+  static final isUnread =
+      QueryBooleanProperty(entityId: 4, propertyId: 6, obxType: 1);
+  static final createdAt =
+      QueryIntegerProperty(entityId: 4, propertyId: 7, obxType: 6);
+  static final updatedAt =
+      QueryIntegerProperty(entityId: 4, propertyId: 8, obxType: 6);
+}
+
+class Room_ {
+  static final id =
+      QueryIntegerProperty(entityId: 5, propertyId: 1, obxType: 6);
+  static final roomId =
+      QueryStringProperty(entityId: 5, propertyId: 2, obxType: 9);
+  static final latestMessage =
+      QueryStringProperty(entityId: 5, propertyId: 3, obxType: 9);
+  static final unreadCount =
+      QueryIntegerProperty(entityId: 5, propertyId: 4, obxType: 6);
+  static final createdAt =
+      QueryIntegerProperty(entityId: 5, propertyId: 5, obxType: 6);
+  static final updatedAt =
+      QueryIntegerProperty(entityId: 5, propertyId: 6, obxType: 6);
 }

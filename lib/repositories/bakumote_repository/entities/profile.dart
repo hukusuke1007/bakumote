@@ -17,7 +17,7 @@ class Profile {
     this.updatedAt,
   });
 
-  static int get myProfileId => 0;
+  static int myProfileId() => 0;
 
   @Id()
   int id;

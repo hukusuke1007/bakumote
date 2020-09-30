@@ -1,13 +1,13 @@
 import 'package:objectbox/objectbox.dart';
 
 @Entity()
-class BlockHistory {
-  BlockHistory({
+class Room {
+  Room({
     this.id,
     this.roomId,
-    this.userId,
-    this.userName,
-    this.userImageName,
+    this.members,
+    this.latestMessage,
+    this.unreadCount,
     this.createdAt,
     this.updatedAt,
   });
@@ -16,9 +16,9 @@ class BlockHistory {
   int id;
 
   String roomId;
-  String userId;
-  String userName;
-  String userImageName;
+  List<String> members;
+  String latestMessage;
+  int unreadCount;
   int createdAt;
   int updatedAt;
 }

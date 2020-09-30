@@ -2,12 +2,17 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:bakumote/directory.dart';
+import 'package:bakumote/notifiers/messages//messages_state.dart'
+    as domain_message;
 import 'package:bakumote/notifiers/my_profile/my_profile_state.dart'
     as domain_profile;
+import 'package:bakumote/notifiers/rooms/rooms_state.dart' as domain_room;
 import 'package:bakumote/objectbox.g.dart';
 import 'package:bakumote/repositories/bakumote_repository/entities/block_history.dart';
 import 'package:bakumote/repositories/bakumote_repository/entities/like_history.dart';
+import 'package:bakumote/repositories/bakumote_repository/entities/message.dart';
 import 'package:bakumote/repositories/bakumote_repository/entities/profile.dart';
+import 'package:bakumote/repositories/bakumote_repository/entities/room.dart';
 import 'package:bakumote/repositories/bakumote_repository/entities/user/user.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -25,14 +30,28 @@ abstract class BakumoteRepository {
   Future<List<User>> loadUsers();
   void saveLike(User user);
   LikeHistory loadLike(String userId);
-  void saveBlockUser(User user);
+  void saveBlockUser(String roomId, User user);
   BlockHistory loadBlockUser(String userId);
   void saveProfile({
     @required domain_profile.Profile user,
     File imageFile,
     bool isUpdate,
   });
-  Profile loadProfile(int id);
+  Profile loadProfile();
+  void createRoom(domain_room.RoomState room, String myUserId);
+  void updateLatestMessage(String roomId, String text);
+  void updateUnreadCount(String roomId, int unreadCount);
+  Room loadRoom(String roomId);
+  List<Room> loadRooms({
+    int limit = 20,
+    int offset = 0,
+  });
+  void saveMessage(domain_message.MessageState message, String roomId);
+  List<Message> loadMessages({
+    @required String roomId,
+    int limit = 20,
+    int offset = 0,
+  });
 }
 
 class BakumoteRepositoryImpl extends BakumoteRepository {
@@ -77,9 +96,10 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
   }
 
   @override
-  void saveBlockUser(User user) {
+  void saveBlockUser(String roomId, User user) {
     final now = DateTime.now();
     final object = BlockHistory(
+      roomId: roomId,
       userId: user.id,
       userName: user.name,
       userImageName: user.imageName,
@@ -87,6 +107,8 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
       updatedAt: now.millisecondsSinceEpoch,
     );
     Box<BlockHistory>(_store).put(object);
+    final room = loadRoom(roomId);
+    Box<Room>(_store).remove(room.id);
   }
 
   @override
@@ -110,7 +132,7 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
   }) {
     final now = DateTime.now();
     final object = Profile(
-      id: Profile.myProfileId,
+      id: Profile.myProfileId(),
       userId: isUpdate ? user.id : Uuid().v4(),
       name: user.name,
       birthday: user.birthday.millisecondsSinceEpoch,
@@ -131,5 +153,97 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
   }
 
   @override
-  Profile loadProfile(int id) => Box<Profile>(_store).get(id);
+  Profile loadProfile() => Box<Profile>(_store).get(Profile.myProfileId());
+
+  @override
+  void createRoom(domain_room.RoomState room, String myUserId) {
+    final now = DateTime.now();
+    final object = Room(
+      roomId: Uuid().v4(),
+      members: [
+        room.userId,
+        myUserId,
+      ],
+      latestMessage: '',
+      unreadCount: 0,
+      createdAt: now.millisecondsSinceEpoch,
+      updatedAt: now.millisecondsSinceEpoch,
+    );
+    Box<Room>(_store).put(object);
+  }
+
+  @override
+  void updateLatestMessage(String roomId, String text) {
+    final object = loadRoom(roomId);
+    if (object == null) {
+      return;
+    }
+    object.latestMessage = text;
+    Box<Room>(_store).put(object);
+  }
+
+  @override
+  void updateUnreadCount(String roomId, int unreadCount) {
+    final object = loadRoom(roomId);
+    if (object == null) {
+      return;
+    }
+    object.unreadCount = unreadCount;
+    Box<Room>(_store).put(object);
+  }
+
+  @override
+  Room loadRoom(String roomId) {
+    final query = Box<Room>(_store).query(Room_.roomId.equals(roomId)).build();
+    final dynamic item = query.findFirst();
+    query.close();
+    if (item == null) {
+      return null;
+    }
+    return item as Room;
+  }
+
+  @override
+  List<Room> loadRooms({
+    int limit = 20,
+    int offset = 0,
+  }) {
+    final query = Box<Room>(_store)
+        .query(null)
+        .order(Room_.updatedAt, flags: Order.descending)
+        .build();
+    final item = query.find(limit: limit, offset: offset);
+    query.close();
+    return item.map((dynamic e) => e as Room).toList();
+  }
+
+  @override
+  void saveMessage(domain_message.MessageState message, String roomId) {
+    final now = DateTime.now();
+    final object = Message(
+      messageId: Uuid().v4(),
+      userId: message.userId,
+      roomId: roomId,
+      isUnread: true,
+      text: message.text,
+      createdAt: now.millisecondsSinceEpoch,
+      updatedAt: now.millisecondsSinceEpoch,
+    );
+    Box<Message>(_store).put(object);
+  }
+
+  @override
+  List<Message> loadMessages({
+    @required String roomId,
+    int limit = 20,
+    int offset = 0,
+  }) {
+    final query = Box<Message>(_store)
+        .query(Message_.roomId.equals(roomId))
+        .order(Message_.updatedAt, flags: Order.descending)
+        .build();
+    final item = query.find(limit: limit, offset: offset);
+    query.close();
+    return item.map((dynamic e) => e as Message).toList();
+  }
 }
