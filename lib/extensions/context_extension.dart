@@ -9,4 +9,6 @@ extension ContextExtension on BuildContext {
   double get deviceWidth => MediaQuery.of(this).size.width;
   double get deviceHeight => MediaQuery.of(this).size.height;
   void hideKeyboard() => FocusScope.of(this).unfocus();
+  void dismiss<T extends Object>([T result]) =>
+      Navigator.of(this).pop<T>(result);
 }

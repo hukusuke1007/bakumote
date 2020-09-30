@@ -5,19 +5,20 @@ class Profile {
   Profile({
     this.id,
     this.userId,
-    this.name,
+    this.name = '',
     this.birthday,
-    this.genderId,
-    this.prefectureId,
+    this.genderId = 0,
+    this.prefectureId = 0,
     this.imagePath,
-    this.description,
-    this.hobby,
-    this.favoriteType,
+    this.description = '',
+    this.hobby = '',
+    this.favoriteType = '',
     this.createdAt,
     this.updatedAt,
   });
 
-  static int myProfileId() => 0;
+  static int myProfileId() => 1;
+  static String imageFilename() => 'profile_image';
 
   @Id()
   int id;

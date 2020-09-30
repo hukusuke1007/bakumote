@@ -4,6 +4,7 @@ import 'package:bakumote/extensions/index.dart';
 import 'package:bakumote/notifiers/masters/masters_notifier.dart';
 import 'package:bakumote/notifiers/masters/masters_state.dart';
 import 'package:bakumote/notifiers/my_profile/my_profile_notifier.dart';
+import 'package:bakumote/providers/navigator.dart';
 import 'package:bakumote/widgets/image_cropper.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -88,7 +89,7 @@ class EditProfilePageNotifier extends StateNotifier<EditProfilePageState>
         master.prefectures.firstWhere((element) => element.id == value).text;
   }
 
-  Future onSaveProfile(BuildContext context) async {
+  Future onSaveProfile() async {
     await myProfileNotifier.saveProfile(
       name: nameTextEditController.text,
       birthday: state.birthday,
@@ -97,7 +98,7 @@ class EditProfilePageNotifier extends StateNotifier<EditProfilePageState>
       hobby: hobbyTextEditController.text,
       favoriteType: favoriteTypeTextEditController.text,
     );
-    Navigator.of(context).pop();
+    _read(navigatorKeyProvider).currentState.pop();
   }
 
   Future _configure() async {

@@ -105,7 +105,7 @@ class SettingPage extends TabWidgetPage {
                             color: Colors.white,
                           ),
                         ),
-                        onPressed: () => notifier.onShowEditProfile(context),
+                        onPressed: notifier.onShowEditProfile,
                       ),
                     ),
                   ),
