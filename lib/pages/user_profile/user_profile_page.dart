@@ -1,8 +1,10 @@
 import 'package:bakumote/extensions/context_extension.dart';
-import 'package:bakumote/master/assets.dart';
 import 'package:bakumote/notifiers/like/like_notifier.dart';
 import 'package:bakumote/notifiers/like/like_state.dart';
+import 'package:bakumote/notifiers/masters/masters_notifier.dart';
+import 'package:bakumote/notifiers/masters/masters_state.dart';
 import 'package:bakumote/notifiers/users/users_state.dart';
+import 'package:bakumote/repositories/bakumote_repository/entities/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -12,17 +14,20 @@ class UserProfilePage extends HookWidget {
   const UserProfilePage({
     Key key,
     @required this.heroTag,
-    @required this.userState,
+    @required this.user,
   }) : super(key: key);
 
   final String heroTag;
-  final UserState userState;
+  final User user;
 
   @override
   Widget build(BuildContext context) {
     final notifier = useProvider(likeNotifierProvider);
     final isLiked = useProvider(
         likeNotifierProvider.state.select((LikeState state) => state)).isLiked;
+    final prefectures = useProvider(
+            mastersNotifierProvider.state.select((MastersState state) => state))
+        .prefectures;
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -51,7 +56,7 @@ class UserProfilePage extends HookWidget {
                       tag: heroTag,
                       child: SizedBox(
                         child: Image.asset(
-                          Assets.womanSample.assetName,
+                          user.imagePath,
                           fit: BoxFit.fitWidth,
                         ),
                       ),
@@ -70,7 +75,7 @@ class UserProfilePage extends HookWidget {
                             Align(
                               alignment: Alignment.topLeft,
                               child: Text(
-                                userState.nameWithAgePref,
+                                UsersState.getNameAgePref(user, prefectures),
                                 style: const TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                                 maxLines: 1,
@@ -81,7 +86,7 @@ class UserProfilePage extends HookWidget {
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 8),
                               child: Text(
-                                userState.description,
+                                user.description,
                                 style: const TextStyle(
                                   fontSize: 18,
                                 ),
@@ -104,7 +109,7 @@ class UserProfilePage extends HookWidget {
                             Padding(
                               padding: const EdgeInsets.all(0),
                               child: Text(
-                                userState.hobby,
+                                user.hobby,
                                 style: const TextStyle(
                                   fontSize: 18,
                                 ),
@@ -124,7 +129,7 @@ class UserProfilePage extends HookWidget {
                             Padding(
                               padding: const EdgeInsets.all(0),
                               child: Text(
-                                userState.favoriteType,
+                                user.favoriteType,
                                 style: const TextStyle(
                                   fontSize: 18,
                                 ),

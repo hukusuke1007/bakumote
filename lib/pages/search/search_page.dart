@@ -1,5 +1,4 @@
 import 'package:bakumote/extensions/context_extension.dart';
-import 'package:bakumote/master/assets.dart';
 import 'package:bakumote/notifiers/users/users_notifier.dart';
 import 'package:bakumote/notifiers/users/users_state.dart';
 import 'package:bakumote/pages/app_tab_navigator.dart';
@@ -36,7 +35,7 @@ class SearchPage extends TabWidgetPage {
               key: UniqueKey(),
               title: e.nameWithAge,
               image: Image.asset(
-                Assets.womanSample.assetName,
+                e.imagePath,
                 fit: BoxFit.fitWidth,
               ),
               onTap: () {
@@ -44,7 +43,7 @@ class SearchPage extends TabWidgetPage {
                   CupertinoPageRoute(
                     builder: (BuildContext context) => UserProfilePage(
                       heroTag: e.id,
-                      userState: e,
+                      user: e,
                     ),
                   ),
                 );

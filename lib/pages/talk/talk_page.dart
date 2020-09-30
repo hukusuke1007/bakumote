@@ -65,7 +65,7 @@ class TalkPage extends HookWidget {
               ),
             ),
             SizedBox(
-              height: 80,
+              height: 72,
               child: Center(
                 child: SizedBox(
                   child: Row(
@@ -94,7 +94,7 @@ class TalkPage extends HookWidget {
                                 fontSize: 16, color: Colors.black),
                             placeholder: context.l10n.messagePlaceholder,
                             minLines: 1,
-                            maxLines: 128,
+                            maxLines: 256,
                             clearButtonMode: OverlayVisibilityMode.editing,
                             textInputAction: TextInputAction.newline,
                             onChanged: (value) {
@@ -108,9 +108,10 @@ class TalkPage extends HookWidget {
                       ),
                       SizedBox(
                         height: 24,
-                        width: 64,
+                        width: 72,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          padding: const EdgeInsets.symmetric(horizontal: 4)
+                              .copyWith(right: 8),
                           child: OutlineButton(
                             shape: const StadiumBorder(),
                             highlightedBorderColor: Colors.transparent,
@@ -183,7 +184,7 @@ class TalkTile extends HookWidget {
                   padding: const BubbleEdges.all(8),
                   alignment: Alignment.topLeft,
                   radius: const Radius.circular(radius),
-                  elevation: 2,
+                  elevation: 1,
                   nip: BubbleNip.leftBottom,
                   color: Colors.grey[350],
                   child: SelectableText(
@@ -217,7 +218,7 @@ class TalkTile extends HookWidget {
           padding: const BubbleEdges.all(8),
           alignment: Alignment.topRight,
           radius: const Radius.circular(radius),
-          elevation: 2,
+          elevation: 1,
           nip: BubbleNip.rightBottom,
           color: Colors.blueAccent,
           child: SelectableText(

@@ -49,10 +49,12 @@ dev_dependencies:
   intl_translation:
   freezed:
   objectbox_generator:
+  json_serializable:
 
 flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/images/
     - assets/json/
 

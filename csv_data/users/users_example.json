@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "id": "0",
+      "name": "かおり",
+      "description": "はじめまして、かおりです。好きなタイプはタレ目で左目の下にホクロがある人です。一緒に退会できる方を探しています。\n\nよろしくお願いします。",
+      "genderId": 1,
+      "prefectureId": 0,
+      "imageName": "woman_example.jpg",
+      "hobby": "料理",
+      "favoriteType": "金持ち"
+    },
+    {
+      "id": "1",
+      "name": "あおい",
+      "description": "はじめまして、あおいです。好きなタイプはタレ目で左目の下にホクロがある人です。一緒に退会できる方を探しています。\n\nよろしくお願いします。",
+      "genderId": 1,
+      "prefectureId": 0,
+      "imageName": "woman_example.jpg",
+      "hobby": "YouTube",
+      "favoriteType": "金持ち"
+    }
+  ]
+}

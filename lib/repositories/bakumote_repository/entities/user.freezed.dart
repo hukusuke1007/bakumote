@@ -1,91 +1,95 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
-part of 'my_profile_state.dart';
+part of 'user.dart';
 
 // **************************************************************************
 // FreezedGenerator
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+User _$UserFromJson(Map<String, dynamic> json) {
+  return _User.fromJson(json);
+}
 
 /// @nodoc
-class _$MyProfileStateTearOff {
-  const _$MyProfileStateTearOff();
+class _$UserTearOff {
+  const _$UserTearOff();
 
 // ignore: unused_element
-  _MyProfileState call(
-      {String id,
-      String name = '',
-      DateTime birthday,
-      int genderId = 0,
-      int prefectureId = 0,
-      File image,
-      String description = '',
-      String hobby = '',
-      String favoriteType = '',
-      bool isLoading = false}) {
-    return _MyProfileState(
+  _User call(
+      {@required String id,
+      @required String name,
+      @BirthdayConverter() DateTime birthday,
+      @required int genderId,
+      @required int prefectureId,
+      @required String imageName,
+      @required String description,
+      @required String hobby,
+      @required String favoriteType}) {
+    return _User(
       id: id,
       name: name,
       birthday: birthday,
       genderId: genderId,
       prefectureId: prefectureId,
-      image: image,
+      imageName: imageName,
       description: description,
       hobby: hobby,
       favoriteType: favoriteType,
-      isLoading: isLoading,
     );
+  }
+
+// ignore: unused_element
+  User fromJson(Map<String, Object> json) {
+    return User.fromJson(json);
   }
 }
 
 /// @nodoc
 // ignore: unused_element
-const $MyProfileState = _$MyProfileStateTearOff();
+const $User = _$UserTearOff();
 
 /// @nodoc
-mixin _$MyProfileState {
+mixin _$User {
   String get id;
   String get name;
+  @BirthdayConverter()
   DateTime get birthday;
   int get genderId;
   int get prefectureId;
-  File get image;
+  String get imageName;
   String get description;
   String get hobby;
   String get favoriteType;
-  bool get isLoading;
 
-  $MyProfileStateCopyWith<MyProfileState> get copyWith;
+  Map<String, dynamic> toJson();
+  $UserCopyWith<User> get copyWith;
 }
 
 /// @nodoc
-abstract class $MyProfileStateCopyWith<$Res> {
-  factory $MyProfileStateCopyWith(
-          MyProfileState value, $Res Function(MyProfileState) then) =
-      _$MyProfileStateCopyWithImpl<$Res>;
+abstract class $UserCopyWith<$Res> {
+  factory $UserCopyWith(User value, $Res Function(User) then) =
+      _$UserCopyWithImpl<$Res>;
   $Res call(
       {String id,
       String name,
-      DateTime birthday,
+      @BirthdayConverter() DateTime birthday,
       int genderId,
       int prefectureId,
-      File image,
+      String imageName,
       String description,
       String hobby,
-      String favoriteType,
-      bool isLoading});
+      String favoriteType});
 }
 
 /// @nodoc
-class _$MyProfileStateCopyWithImpl<$Res>
-    implements $MyProfileStateCopyWith<$Res> {
-  _$MyProfileStateCopyWithImpl(this._value, this._then);
+class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
+  _$UserCopyWithImpl(this._value, this._then);
 
-  final MyProfileState _value;
+  final User _value;
   // ignore: unused_field
-  final $Res Function(MyProfileState) _then;
+  final $Res Function(User) _then;
 
   @override
   $Res call({
@@ -94,11 +98,10 @@ class _$MyProfileStateCopyWithImpl<$Res>
     Object birthday = freezed,
     Object genderId = freezed,
     Object prefectureId = freezed,
-    Object image = freezed,
+    Object imageName = freezed,
     Object description = freezed,
     Object hobby = freezed,
     Object favoriteType = freezed,
-    Object isLoading = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as String,
@@ -107,48 +110,42 @@ class _$MyProfileStateCopyWithImpl<$Res>
       genderId: genderId == freezed ? _value.genderId : genderId as int,
       prefectureId:
           prefectureId == freezed ? _value.prefectureId : prefectureId as int,
-      image: image == freezed ? _value.image : image as File,
+      imageName: imageName == freezed ? _value.imageName : imageName as String,
       description:
           description == freezed ? _value.description : description as String,
       hobby: hobby == freezed ? _value.hobby : hobby as String,
       favoriteType: favoriteType == freezed
           ? _value.favoriteType
           : favoriteType as String,
-      isLoading: isLoading == freezed ? _value.isLoading : isLoading as bool,
     ));
   }
 }
 
 /// @nodoc
-abstract class _$MyProfileStateCopyWith<$Res>
-    implements $MyProfileStateCopyWith<$Res> {
-  factory _$MyProfileStateCopyWith(
-          _MyProfileState value, $Res Function(_MyProfileState) then) =
-      __$MyProfileStateCopyWithImpl<$Res>;
+abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
+  factory _$UserCopyWith(_User value, $Res Function(_User) then) =
+      __$UserCopyWithImpl<$Res>;
   @override
   $Res call(
       {String id,
       String name,
-      DateTime birthday,
+      @BirthdayConverter() DateTime birthday,
       int genderId,
       int prefectureId,
-      File image,
+      String imageName,
       String description,
       String hobby,
-      String favoriteType,
-      bool isLoading});
+      String favoriteType});
 }
 
 /// @nodoc
-class __$MyProfileStateCopyWithImpl<$Res>
-    extends _$MyProfileStateCopyWithImpl<$Res>
-    implements _$MyProfileStateCopyWith<$Res> {
-  __$MyProfileStateCopyWithImpl(
-      _MyProfileState _value, $Res Function(_MyProfileState) _then)
-      : super(_value, (v) => _then(v as _MyProfileState));
+class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
+    implements _$UserCopyWith<$Res> {
+  __$UserCopyWithImpl(_User _value, $Res Function(_User) _then)
+      : super(_value, (v) => _then(v as _User));
 
   @override
-  _MyProfileState get _value => super._value as _MyProfileState;
+  _User get _value => super._value as _User;
 
   @override
   $Res call({
@@ -157,90 +154,109 @@ class __$MyProfileStateCopyWithImpl<$Res>
     Object birthday = freezed,
     Object genderId = freezed,
     Object prefectureId = freezed,
-    Object image = freezed,
+    Object imageName = freezed,
     Object description = freezed,
     Object hobby = freezed,
     Object favoriteType = freezed,
-    Object isLoading = freezed,
   }) {
-    return _then(_MyProfileState(
+    return _then(_User(
       id: id == freezed ? _value.id : id as String,
       name: name == freezed ? _value.name : name as String,
       birthday: birthday == freezed ? _value.birthday : birthday as DateTime,
       genderId: genderId == freezed ? _value.genderId : genderId as int,
       prefectureId:
           prefectureId == freezed ? _value.prefectureId : prefectureId as int,
-      image: image == freezed ? _value.image : image as File,
+      imageName: imageName == freezed ? _value.imageName : imageName as String,
       description:
           description == freezed ? _value.description : description as String,
       hobby: hobby == freezed ? _value.hobby : hobby as String,
       favoriteType: favoriteType == freezed
           ? _value.favoriteType
           : favoriteType as String,
-      isLoading: isLoading == freezed ? _value.isLoading : isLoading as bool,
     ));
   }
 }
 
+@JsonSerializable()
+
 /// @nodoc
-class _$_MyProfileState extends _MyProfileState {
-  _$_MyProfileState(
-      {this.id,
-      this.name = '',
-      this.birthday,
-      this.genderId = 0,
-      this.prefectureId = 0,
-      this.image,
-      this.description = '',
-      this.hobby = '',
-      this.favoriteType = '',
-      this.isLoading = false})
-      : assert(name != null),
+class _$_User extends _User {
+  _$_User(
+      {@required this.id,
+      @required this.name,
+      @BirthdayConverter() this.birthday,
+      @required this.genderId,
+      @required this.prefectureId,
+      @required this.imageName,
+      @required this.description,
+      @required this.hobby,
+      @required this.favoriteType})
+      : assert(id != null),
+        assert(name != null),
         assert(genderId != null),
         assert(prefectureId != null),
+        assert(imageName != null),
         assert(description != null),
         assert(hobby != null),
         assert(favoriteType != null),
-        assert(isLoading != null),
         super._();
+
+  factory _$_User.fromJson(Map<String, dynamic> json) =>
+      _$_$_UserFromJson(json);
 
   @override
   final String id;
-  @JsonKey(defaultValue: '')
   @override
   final String name;
   @override
+  @BirthdayConverter()
   final DateTime birthday;
-  @JsonKey(defaultValue: 0)
   @override
   final int genderId;
-  @JsonKey(defaultValue: 0)
   @override
   final int prefectureId;
   @override
-  final File image;
-  @JsonKey(defaultValue: '')
+  final String imageName;
   @override
   final String description;
-  @JsonKey(defaultValue: '')
   @override
   final String hobby;
-  @JsonKey(defaultValue: '')
   @override
   final String favoriteType;
-  @JsonKey(defaultValue: false)
+
+  bool _didnameWithAge = false;
+  String _nameWithAge;
+
   @override
-  final bool isLoading;
+  String get nameWithAge {
+    if (_didnameWithAge == false) {
+      _didnameWithAge = true;
+      _nameWithAge = '$name ${DateHelper.calculateAge(birthday)}';
+    }
+    return _nameWithAge;
+  }
+
+  bool _didimagePath = false;
+  String _imagePath;
+
+  @override
+  String get imagePath {
+    if (_didimagePath == false) {
+      _didimagePath = true;
+      _imagePath = 'assets/images/$imageName';
+    }
+    return _imagePath;
+  }
 
   @override
   String toString() {
-    return 'MyProfileState(id: $id, name: $name, birthday: $birthday, genderId: $genderId, prefectureId: $prefectureId, image: $image, description: $description, hobby: $hobby, favoriteType: $favoriteType, isLoading: $isLoading)';
+    return 'User(id: $id, name: $name, birthday: $birthday, genderId: $genderId, prefectureId: $prefectureId, imageName: $imageName, description: $description, hobby: $hobby, favoriteType: $favoriteType, nameWithAge: $nameWithAge, imagePath: $imagePath)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _MyProfileState &&
+        (other is _User &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.name, name) ||
@@ -254,8 +270,9 @@ class _$_MyProfileState extends _MyProfileState {
             (identical(other.prefectureId, prefectureId) ||
                 const DeepCollectionEquality()
                     .equals(other.prefectureId, prefectureId)) &&
-            (identical(other.image, image) ||
-                const DeepCollectionEquality().equals(other.image, image)) &&
+            (identical(other.imageName, imageName) ||
+                const DeepCollectionEquality()
+                    .equals(other.imageName, imageName)) &&
             (identical(other.description, description) ||
                 const DeepCollectionEquality()
                     .equals(other.description, description)) &&
@@ -263,10 +280,7 @@ class _$_MyProfileState extends _MyProfileState {
                 const DeepCollectionEquality().equals(other.hobby, hobby)) &&
             (identical(other.favoriteType, favoriteType) ||
                 const DeepCollectionEquality()
-                    .equals(other.favoriteType, favoriteType)) &&
-            (identical(other.isLoading, isLoading) ||
-                const DeepCollectionEquality()
-                    .equals(other.isLoading, isLoading)));
+                    .equals(other.favoriteType, favoriteType)));
   }
 
   @override
@@ -277,43 +291,49 @@ class _$_MyProfileState extends _MyProfileState {
       const DeepCollectionEquality().hash(birthday) ^
       const DeepCollectionEquality().hash(genderId) ^
       const DeepCollectionEquality().hash(prefectureId) ^
-      const DeepCollectionEquality().hash(image) ^
+      const DeepCollectionEquality().hash(imageName) ^
       const DeepCollectionEquality().hash(description) ^
       const DeepCollectionEquality().hash(hobby) ^
-      const DeepCollectionEquality().hash(favoriteType) ^
-      const DeepCollectionEquality().hash(isLoading);
+      const DeepCollectionEquality().hash(favoriteType);
 
   @override
-  _$MyProfileStateCopyWith<_MyProfileState> get copyWith =>
-      __$MyProfileStateCopyWithImpl<_MyProfileState>(this, _$identity);
+  _$UserCopyWith<_User> get copyWith =>
+      __$UserCopyWithImpl<_User>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_UserToJson(this);
+  }
 }
 
-abstract class _MyProfileState extends MyProfileState {
-  _MyProfileState._() : super._();
-  factory _MyProfileState(
-      {String id,
-      String name,
-      DateTime birthday,
-      int genderId,
-      int prefectureId,
-      File image,
-      String description,
-      String hobby,
-      String favoriteType,
-      bool isLoading}) = _$_MyProfileState;
+abstract class _User extends User {
+  _User._() : super._();
+  factory _User(
+      {@required String id,
+      @required String name,
+      @BirthdayConverter() DateTime birthday,
+      @required int genderId,
+      @required int prefectureId,
+      @required String imageName,
+      @required String description,
+      @required String hobby,
+      @required String favoriteType}) = _$_User;
+
+  factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
   @override
   String get id;
   @override
   String get name;
   @override
+  @BirthdayConverter()
   DateTime get birthday;
   @override
   int get genderId;
   @override
   int get prefectureId;
   @override
-  File get image;
+  String get imageName;
   @override
   String get description;
   @override
@@ -321,7 +341,5 @@ abstract class _MyProfileState extends MyProfileState {
   @override
   String get favoriteType;
   @override
-  bool get isLoading;
-  @override
-  _$MyProfileStateCopyWith<_MyProfileState> get copyWith;
+  _$UserCopyWith<_User> get copyWith;
 }

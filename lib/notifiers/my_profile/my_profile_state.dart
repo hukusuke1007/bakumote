@@ -9,6 +9,7 @@ part 'my_profile_state.freezed.dart';
 @freezed
 abstract class MyProfileState with _$MyProfileState {
   factory MyProfileState({
+    String id,
     @Default('') String name,
     DateTime birthday,
     @Default(0) int genderId,
