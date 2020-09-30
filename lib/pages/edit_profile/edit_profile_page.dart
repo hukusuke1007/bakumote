@@ -13,7 +13,12 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
 
 class EditProfilePage extends HookWidget {
-  const EditProfilePage({Key key}) : super(key: key);
+  const EditProfilePage({
+    Key key,
+    this.isEnableDismiss = true,
+  }) : super(key: key);
+
+  final bool isEnableDismiss;
 
   @override
   Widget build(BuildContext context) {
@@ -32,15 +37,16 @@ class EditProfilePage extends HookWidget {
             color: Colors.white,
           ),
         ),
-        leading: IconButton(
-          icon: const Icon(
-            Icons.clear,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
+        leading: isEnableDismiss
+            ? IconButton(
+                icon: const Icon(
+                  Icons.clear,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  context.dismiss();
+                })
+            : const SizedBox.shrink(),
       ),
       body: GestureDetector(
         child: SingleChildScrollView(
@@ -217,7 +223,7 @@ class EditProfilePage extends HookWidget {
                             color: Colors.white,
                           ),
                         ),
-                        onPressed: () => notifier.onSaveProfile(context),
+                        onPressed: notifier.onSaveProfile,
                       ),
                     ),
                   ],

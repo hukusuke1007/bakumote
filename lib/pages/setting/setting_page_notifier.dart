@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bakumote/notifiers/app_info/app_info_notifier.dart';
 import 'package:bakumote/notifiers/my_profile/my_profile_notifier.dart';
 import 'package:bakumote/pages/edit_profile/edit_profile_page.dart';
+import 'package:bakumote/providers/navigator.dart';
 import 'package:bakumote/widgets/image_cropper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,13 +36,13 @@ class SettingPageNotifier extends StateNotifier<SettingPageState>
   AppInfoNotifier get appInfoNotifier => _read(appInfoNotifierProvider);
   MyProfileNotifier get myProfileNotifier => _read(myProfileNotifierProvider);
 
-  Future onShowEditProfile(BuildContext context) =>
-      Navigator.of(context, rootNavigator: true).push<void>(
-        CupertinoPageRoute(
-          builder: (BuildContext context) => const EditProfilePage(),
-          fullscreenDialog: true,
-        ),
-      );
+  Future onShowEditProfile() =>
+      _read(navigatorKeyProvider).currentState.push<void>(
+            CupertinoPageRoute(
+              builder: (BuildContext context) => const EditProfilePage(),
+              fullscreenDialog: true,
+            ),
+          );
 
   Future onTapCamera() async {
     final file = await ImagePicker().getImage(

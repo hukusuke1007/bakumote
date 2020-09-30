@@ -53,8 +53,9 @@ class MyProfileNotifier extends StateNotifier<MyProfileState>
   }
 
   Future saveProfileImage(File file) async {
-    state = state.copyWith(profile: state.profile.copyWith(image: file));
-    bakumoteRepository.saveProfileImage(file);
+    final userId = bakumoteRepository.saveProfileImage(file);
+    state = state.copyWith(
+        profile: state.profile.copyWith(id: userId, image: file));
   }
 
   Future saveProfile({
@@ -65,8 +66,10 @@ class MyProfileNotifier extends StateNotifier<MyProfileState>
     String hobby,
     String favoriteType,
   }) async {
+    final userId = bakumoteRepository.saveProfile(state.profile);
     state = state.copyWith(
       profile: state.profile.copyWith(
+        id: userId,
         name: name,
         birthday: birthday,
         genderId: genderId,
@@ -75,6 +78,5 @@ class MyProfileNotifier extends StateNotifier<MyProfileState>
         favoriteType: favoriteType ?? '',
       ),
     );
-    bakumoteRepository.saveProfile(state.profile);
   }
 }

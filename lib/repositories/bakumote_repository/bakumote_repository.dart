@@ -34,15 +34,15 @@ abstract class BakumoteRepository {
   LikeHistory loadLike(String userId);
   void saveBlockUser(String roomId, User user);
   BlockHistory loadBlockUser(String userId);
-  void saveProfile(domain_profile.Profile user);
-  void saveProfileImage(File image);
+  String saveProfile(domain_profile.Profile user);
+  String saveProfileImage(File image);
   String saveImage(
     File image, {
     String filename,
   });
   Profile loadProfile();
   File loadImage(String path);
-  void createRoom(domain_room.RoomState room, String myUserId);
+  String createRoom(domain_room.RoomState room, String myUserId);
   void updateLatestMessage(String roomId, String text);
   void updateUnreadCount(String roomId, int unreadCount);
   Room loadRoom(String roomId);
@@ -50,7 +50,7 @@ abstract class BakumoteRepository {
     int limit = 20,
     int offset = 0,
   });
-  void saveMessage(domain_message.MessageState message, String roomId);
+  String saveMessage(domain_message.MessageState message, String roomId);
   List<Message> loadMessages({
     @required String roomId,
     int limit = 20,
@@ -130,15 +130,15 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
   }
 
   @override
-  void saveProfile(domain_profile.Profile user) {
+  String saveProfile(domain_profile.Profile user) {
     final now = DateTime.now();
     final isUpdate = loadProfile() != null;
     final object = Profile(
       id: Profile.myProfileId(),
-      userId: isUpdate ? user.id : Uuid().v4(),
+      userId: user.id ?? Uuid().v4(),
       name: user.name,
-      imagePath: user.image.path,
-      birthday: user.birthday.millisecondsSinceEpoch,
+      imagePath: user.image?.path,
+      birthday: user.birthday?.millisecondsSinceEpoch,
       genderId: user.genderId,
       prefectureId: user.prefectureId,
       description: user.description,
@@ -150,16 +150,18 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
       object.createdAt = now.millisecondsSinceEpoch;
     }
     Box<Profile>(_store).put(object);
+    return object.userId;
   }
 
   @override
-  void saveProfileImage(File image) {
+  String saveProfileImage(File image) {
     final path = saveImage(image, filename: Profile.imageFilename());
     final now = DateTime.now();
     var object = loadProfile();
     if (object == null) {
       object = Profile(
         id: Profile.myProfileId(),
+        userId: Uuid().v4(),
         imagePath: path,
         createdAt: now.millisecondsSinceEpoch,
         updatedAt: now.millisecondsSinceEpoch,
@@ -170,6 +172,7 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
         ..updatedAt = now.millisecondsSinceEpoch;
     }
     Box<Profile>(_store).put(object);
+    return object.userId;
   }
 
   @override
@@ -206,7 +209,7 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
   }
 
   @override
-  void createRoom(domain_room.RoomState room, String myUserId) {
+  String createRoom(domain_room.RoomState room, String myUserId) {
     final now = DateTime.now();
     final object = Room(
       roomId: Uuid().v4(),
@@ -220,6 +223,7 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
       updatedAt: now.millisecondsSinceEpoch,
     );
     Box<Room>(_store).put(object);
+    return object.roomId;
   }
 
   @override
@@ -268,7 +272,7 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
   }
 
   @override
-  void saveMessage(domain_message.MessageState message, String roomId) {
+  String saveMessage(domain_message.MessageState message, String roomId) {
     final now = DateTime.now();
     final object = Message(
       messageId: Uuid().v4(),
@@ -280,6 +284,7 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
       updatedAt: now.millisecondsSinceEpoch,
     );
     Box<Message>(_store).put(object);
+    return object.messageId;
   }
 
   @override
