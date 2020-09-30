@@ -17,10 +17,8 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
     final raw = await rootBundle.loadString('assets/json/users.json');
     final json = jsonDecode(raw) as Map<String, dynamic>;
     final data = json['data'] as List<dynamic>;
-    final users = <User>[];
-    for (final item in data.toList()) {
-      users.add(User.fromJson(item as Map<String, dynamic>));
-    }
-    return users;
+    return data
+        .map((dynamic e) => User.fromJson(e as Map<String, dynamic>))
+        .toList();
   }
 }
