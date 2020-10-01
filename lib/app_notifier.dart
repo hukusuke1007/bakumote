@@ -6,6 +6,7 @@ import 'package:bakumote/notifiers/rooms/rooms_notifier.dart';
 import 'package:bakumote/notifiers/users/users_notifier.dart';
 import 'package:bakumote/pages/edit_profile/edit_profile_page.dart';
 import 'package:bakumote/providers/navigator.dart';
+import 'package:bakumote/widgets/dialog/matching_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -53,5 +54,19 @@ class AppNotifier extends StateNotifier<AppState> with LocatorMixin {
     }
     await roomsNotifier.load();
     state = state.copyWith(isLoading: false);
+    _fetch();
+  }
+
+  void _fetch() {
+    roomsNotifier.fetchNewRoom.listen((event) {
+      showMatchingDialog(
+        _read(navigatorKeyProvider).currentContext,
+        image: Image.asset(
+          event.imageName,
+          fit: BoxFit.fitWidth,
+        ),
+        title: event.name,
+      );
+    });
   }
 }

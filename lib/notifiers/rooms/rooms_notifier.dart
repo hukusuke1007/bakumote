@@ -2,6 +2,7 @@ import 'package:bakumote/notifiers/masters/masters_notifier.dart';
 import 'package:bakumote/repositories/bakumote_repository/bakumote_repository.dart';
 import 'package:bakumote/repositories/bakumote_repository/entities/room.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rxdart/rxdart.dart';
 
 import 'rooms_state.dart';
 
@@ -19,6 +20,15 @@ class RoomsNotifier extends StateNotifier<RoomsState> with LocatorMixin {
   BakumoteRepository get bakumoteRepository =>
       _read(bakumoteRepositoryProvider);
   MastersNotifier get masterNotifier => _read(mastersNotifierProvider);
+
+  final _newRoom = PublishSubject<RoomState>();
+  Stream<RoomState> get fetchNewRoom => _newRoom;
+
+  @override
+  Future<void> dispose() async {
+    super.dispose();
+    await _newRoom.close();
+  }
 
   Future<void> load() async {
     if (state.isLoading) {
@@ -62,6 +72,7 @@ class RoomsNotifier extends StateNotifier<RoomsState> with LocatorMixin {
       print(event);
       final roomState = await _roomStateWithRelation(event.room);
       if (event.actionType == RoomActionType.create) {
+        _newRoom.add(roomState);
         state = state.copyWith(
           rooms: [
             roomState,
