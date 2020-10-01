@@ -1,7 +1,6 @@
-import 'dart:async';
-
-import 'package:bakumote/helpers/date_helper.dart';
-import 'package:bakumote/master/assets.dart';
+import 'package:bakumote/notifiers/masters/masters_notifier.dart';
+import 'package:bakumote/repositories/bakumote_repository/bakumote_repository.dart';
+import 'package:bakumote/repositories/bakumote_repository/entities/room.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'rooms_state.dart';
@@ -12,31 +11,90 @@ final roomsNotifierProvider =
 class RoomsNotifier extends StateNotifier<RoomsState> with LocatorMixin {
   RoomsNotifier(
     this._read,
-  ) : super(RoomsState(rooms: []));
+  ) : super(RoomsState(rooms: [])) {
+    _configure();
+  }
 
   final Reader _read;
+  BakumoteRepository get bakumoteRepository =>
+      _read(bakumoteRepositoryProvider);
+  MastersNotifier get masterNotifier => _read(mastersNotifierProvider);
 
-  Future load() async {
-    // TODO(shohei): stub
+  Future<void> load() async {
     if (state.isLoading) {
       return;
     }
-    state = state.copyWith(isLoading: true);
-    final now = DateTime.now();
-    final list = List.generate(
-      100,
-      (index) => RoomState(
-        roomId: '$index',
-        userId: 'user_$index',
-        name: 'かおり',
-        latestMessage: 'イケメンですね！',
-        latestDate: DateHelper.setDate(
-            year: now.year, month: now.month, days: now.day - index),
-        imageName: Assets.womanSample.assetName,
-        unreadCount: index < 3 ? 100 : 0,
-      ),
+    try {
+      state = state.copyWith(isLoading: true);
+      final rooms = bakumoteRepository.loadRooms();
+      final roomStateList = <RoomState>[];
+      for (final room in rooms) {
+        final data = await _roomStateWithRelation(room);
+        roomStateList.add(data);
+      }
+      state = state.copyWith(
+        rooms: roomStateList,
+        isLoading: false,
+        isUnreadRoom:
+            roomStateList.indexWhere((element) => element.unreadCount > 0) !=
+                -1,
+      );
+    } on Exception catch (e) {
+      print(e);
+      state = state.copyWith(isLoading: false);
+    }
+  }
+
+  Future<void> loadMore() async {
+    // TODO(shohei): not implementation.
+  }
+
+  String createRoom(String userId) => bakumoteRepository.createRoom(userId);
+
+  void resetCache() => state = state.copyWith(rooms: [], isUnreadRoom: false);
+
+  void _configure() {
+    _fetch();
+  }
+
+  void _fetch() {
+    bakumoteRepository.fetchRoom.listen((event) async {
+      print(event);
+      final roomState = await _roomStateWithRelation(event.room);
+      if (event.actionType == RoomActionType.create) {
+        state = state.copyWith(
+          rooms: [
+            roomState,
+            ...state.rooms,
+          ],
+          isUnreadRoom: true,
+        );
+      } else if (event.actionType == RoomActionType.updateLatestMessage ||
+          event.actionType == RoomActionType.updateUnreadCount) {
+        final data = state.rooms
+            .map((e) => e.roomId == roomState.roomId ? roomState : e)
+            .toList()
+              ..sort((a, b) => b.latestMessageAt.compareTo(a.latestMessageAt));
+        state = state.copyWith(
+          rooms: data,
+          isUnreadRoom:
+              data.indexWhere((element) => element.unreadCount > 0) != -1,
+        );
+      }
+    });
+  }
+
+  Future<RoomState> _roomStateWithRelation(Room room) async {
+    final user = await bakumoteRepository.loadUser(room.friendUserId);
+    return RoomState(
+      roomId: room.roomId,
+      userId: user.id,
+      name: user.name,
+      latestMessage: room.latestMessage,
+      latestMessageAt:
+          DateTime.fromMillisecondsSinceEpoch(room.latestMessageAt),
+      imageName: user.imagePath,
+      unreadCount: room.unreadCount,
     );
-    print('list ${list.length}');
-    state = state.copyWith(rooms: list, isLoading: false);
   }
 }

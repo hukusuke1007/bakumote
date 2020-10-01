@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:bakumote/repositories/bakumote_repository/bakumote_repository.dart';
 import 'package:bakumote/repositories/bakumote_repository/entities/user/user.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -24,15 +22,12 @@ class LikeNotifier extends StateNotifier<LikeState> with LocatorMixin {
   BakumoteRepository get bakumoteRepository =>
       _read(bakumoteRepositoryProvider);
 
-  Future load() async {
+  void load() {
     final data = bakumoteRepository.loadLike(user.id);
     state = state.copyWith(isLiked: data != null);
   }
 
-  Future onLiked() async {
-    if (state.isLiked) {
-      return;
-    }
+  void like() {
     bakumoteRepository.saveLike(user);
     state = state.copyWith(isLiked: !state.isLiked);
   }

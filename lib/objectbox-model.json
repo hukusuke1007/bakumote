@@ -154,7 +154,7 @@
     },
     {
       "id": "4:4231027708447266082",
-      "lastPropertyId": "8:6316478419491217965",
+      "lastPropertyId": "9:1224031232392700051",
       "name": "Message",
       "properties": [
         {
@@ -202,7 +202,7 @@
     },
     {
       "id": "5:7406672419176415625",
-      "lastPropertyId": "6:7367073850068881798",
+      "lastPropertyId": "8:7480231624393133459",
       "name": "Room",
       "properties": [
         {
@@ -235,6 +235,16 @@
           "id": "6:7367073850068881798",
           "name": "updatedAt",
           "type": 6
+        },
+        {
+          "id": "7:2791686665106957065",
+          "name": "friendUserId",
+          "type": 9
+        },
+        {
+          "id": "8:7480231624393133459",
+          "name": "latestMessageAt",
+          "type": 6
         }
       ]
     }
@@ -248,7 +258,8 @@
   "retiredEntityUids": [],
   "retiredIndexUids": [],
   "retiredPropertyUids": [
-    1320883142978066224
+    1320883142978066224,
+    1224031232392700051
   ],
   "retiredRelationUids": [],
   "version": 1

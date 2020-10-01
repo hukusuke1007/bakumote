@@ -177,7 +177,7 @@ class _$RoomStateTearOff {
       String name,
       String imageName,
       String latestMessage,
-      DateTime latestDate,
+      DateTime latestMessageAt,
       int unreadCount = 0}) {
     return _RoomState(
       roomId: roomId,
@@ -185,7 +185,7 @@ class _$RoomStateTearOff {
       name: name,
       imageName: imageName,
       latestMessage: latestMessage,
-      latestDate: latestDate,
+      latestMessageAt: latestMessageAt,
       unreadCount: unreadCount,
     );
   }
@@ -202,7 +202,7 @@ mixin _$RoomState {
   String get name;
   String get imageName;
   String get latestMessage;
-  DateTime get latestDate;
+  DateTime get latestMessageAt;
   int get unreadCount;
 
   $RoomStateCopyWith<RoomState> get copyWith;
@@ -218,7 +218,7 @@ abstract class $RoomStateCopyWith<$Res> {
       String name,
       String imageName,
       String latestMessage,
-      DateTime latestDate,
+      DateTime latestMessageAt,
       int unreadCount});
 }
 
@@ -237,7 +237,7 @@ class _$RoomStateCopyWithImpl<$Res> implements $RoomStateCopyWith<$Res> {
     Object name = freezed,
     Object imageName = freezed,
     Object latestMessage = freezed,
-    Object latestDate = freezed,
+    Object latestMessageAt = freezed,
     Object unreadCount = freezed,
   }) {
     return _then(_value.copyWith(
@@ -248,8 +248,9 @@ class _$RoomStateCopyWithImpl<$Res> implements $RoomStateCopyWith<$Res> {
       latestMessage: latestMessage == freezed
           ? _value.latestMessage
           : latestMessage as String,
-      latestDate:
-          latestDate == freezed ? _value.latestDate : latestDate as DateTime,
+      latestMessageAt: latestMessageAt == freezed
+          ? _value.latestMessageAt
+          : latestMessageAt as DateTime,
       unreadCount:
           unreadCount == freezed ? _value.unreadCount : unreadCount as int,
     ));
@@ -268,7 +269,7 @@ abstract class _$RoomStateCopyWith<$Res> implements $RoomStateCopyWith<$Res> {
       String name,
       String imageName,
       String latestMessage,
-      DateTime latestDate,
+      DateTime latestMessageAt,
       int unreadCount});
 }
 
@@ -288,7 +289,7 @@ class __$RoomStateCopyWithImpl<$Res> extends _$RoomStateCopyWithImpl<$Res>
     Object name = freezed,
     Object imageName = freezed,
     Object latestMessage = freezed,
-    Object latestDate = freezed,
+    Object latestMessageAt = freezed,
     Object unreadCount = freezed,
   }) {
     return _then(_RoomState(
@@ -299,8 +300,9 @@ class __$RoomStateCopyWithImpl<$Res> extends _$RoomStateCopyWithImpl<$Res>
       latestMessage: latestMessage == freezed
           ? _value.latestMessage
           : latestMessage as String,
-      latestDate:
-          latestDate == freezed ? _value.latestDate : latestDate as DateTime,
+      latestMessageAt: latestMessageAt == freezed
+          ? _value.latestMessageAt
+          : latestMessageAt as DateTime,
       unreadCount:
           unreadCount == freezed ? _value.unreadCount : unreadCount as int,
     ));
@@ -315,7 +317,7 @@ class _$_RoomState extends _RoomState {
       this.name,
       this.imageName,
       this.latestMessage,
-      this.latestDate,
+      this.latestMessageAt,
       this.unreadCount = 0})
       : assert(unreadCount != null),
         super._();
@@ -331,14 +333,14 @@ class _$_RoomState extends _RoomState {
   @override
   final String latestMessage;
   @override
-  final DateTime latestDate;
+  final DateTime latestMessageAt;
   @JsonKey(defaultValue: 0)
   @override
   final int unreadCount;
 
   @override
   String toString() {
-    return 'RoomState(roomId: $roomId, userId: $userId, name: $name, imageName: $imageName, latestMessage: $latestMessage, latestDate: $latestDate, unreadCount: $unreadCount)';
+    return 'RoomState(roomId: $roomId, userId: $userId, name: $name, imageName: $imageName, latestMessage: $latestMessage, latestMessageAt: $latestMessageAt, unreadCount: $unreadCount)';
   }
 
   @override
@@ -357,9 +359,9 @@ class _$_RoomState extends _RoomState {
             (identical(other.latestMessage, latestMessage) ||
                 const DeepCollectionEquality()
                     .equals(other.latestMessage, latestMessage)) &&
-            (identical(other.latestDate, latestDate) ||
+            (identical(other.latestMessageAt, latestMessageAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.latestDate, latestDate)) &&
+                    .equals(other.latestMessageAt, latestMessageAt)) &&
             (identical(other.unreadCount, unreadCount) ||
                 const DeepCollectionEquality()
                     .equals(other.unreadCount, unreadCount)));
@@ -373,7 +375,7 @@ class _$_RoomState extends _RoomState {
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(imageName) ^
       const DeepCollectionEquality().hash(latestMessage) ^
-      const DeepCollectionEquality().hash(latestDate) ^
+      const DeepCollectionEquality().hash(latestMessageAt) ^
       const DeepCollectionEquality().hash(unreadCount);
 
   @override
@@ -389,7 +391,7 @@ abstract class _RoomState extends RoomState {
       String name,
       String imageName,
       String latestMessage,
-      DateTime latestDate,
+      DateTime latestMessageAt,
       int unreadCount}) = _$_RoomState;
 
   @override
@@ -403,7 +405,7 @@ abstract class _RoomState extends RoomState {
   @override
   String get latestMessage;
   @override
-  DateTime get latestDate;
+  DateTime get latestMessageAt;
   @override
   int get unreadCount;
   @override

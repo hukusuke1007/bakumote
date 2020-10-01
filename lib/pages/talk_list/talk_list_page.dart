@@ -29,93 +29,96 @@ class TalkListPage extends TabWidgetPage {
       appBar: AppBar(
         title: Text(context.l10n.talkList),
       ),
-      body: SmartRefresher(
-        controller: notifier.refreshController,
-        enablePullDown: true,
-        enablePullUp: true,
-        header: const SmartRefreshHeader(),
-        footer: const SmartRefreshFooter(),
-        onRefresh: () async {
-          await notifier.reload();
-        },
-        onLoading: () async {
-          await notifier.loadPaging();
-        },
-        child: ListView.separated(
-          controller: notifier.scrollController,
-          scrollDirection: Axis.vertical,
-          itemBuilder: (BuildContext context, int index) {
-            final room = rooms[index];
-            return ListTile(
-              key: UniqueKey(),
-              leading: SizedBox(
-                width: 56,
-                height: 56,
-                child: CircleAvatar(
-                  backgroundImage: Image.asset(
-                    room.imageName,
-                    fit: BoxFit.fill,
-                  ).image,
-                ),
-              ),
-              title: Text(
-                room.name,
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              subtitle: Text(
-                room.latestMessage,
-                style: const TextStyle(
-                  fontSize: 16,
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              trailing: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    TalkHelper.getDateLabel(context, room.latestDate),
-                    style: const TextStyle(fontSize: 14, color: Colors.grey),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 4),
-                    child: room.unreadCount > 0
-                        ? CircleText(
-                            size: 28,
-                            color: Colors.redAccent,
-                            child: Text(
-                              room.unreadLabel,
-                              style: const TextStyle(
-                                fontSize: 12,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          )
-                        : const SizedBox.shrink(),
-                  ),
-                ],
-              ),
-              onTap: () {
-                Navigator.of(context, rootNavigator: true).push<void>(
-                  CupertinoPageRoute(
-                    builder: (context) => TalkPage(
-                      roomState: room,
-                    ),
-                  ),
-                );
-              },
-            );
+      body: Padding(
+        padding: const EdgeInsets.only(top: 8),
+        child: SmartRefresher(
+          controller: notifier.refreshController,
+          enablePullDown: true,
+          enablePullUp: true,
+          header: const SmartRefreshHeader(),
+          footer: const SmartRefreshFooter(),
+          onRefresh: () async {
+            await notifier.reload();
           },
-          separatorBuilder: (context, _) => const Divider(),
-          itemCount: rooms.length,
+          onLoading: () async {
+            await notifier.loadPaging();
+          },
+          child: ListView.separated(
+            controller: notifier.scrollController,
+            scrollDirection: Axis.vertical,
+            itemBuilder: (BuildContext context, int index) {
+              final room = rooms[index];
+              return ListTile(
+                key: UniqueKey(),
+                leading: SizedBox(
+                  width: 56,
+                  height: 56,
+                  child: CircleAvatar(
+                    backgroundImage: Image.asset(
+                      room.imageName,
+                      fit: BoxFit.fill,
+                    ).image,
+                  ),
+                ),
+                title: Text(
+                  room.name,
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                subtitle: Text(
+                  room.latestMessage,
+                  style: const TextStyle(
+                    fontSize: 16,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                trailing: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      TalkHelper.getDateLabel(context, room.latestMessageAt),
+                      style: const TextStyle(fontSize: 14, color: Colors.grey),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: room.unreadCount > 0
+                          ? CircleText(
+                              size: 28,
+                              color: Colors.redAccent,
+                              child: Text(
+                                room.unreadLabel,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            )
+                          : const SizedBox.shrink(),
+                    ),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.of(context, rootNavigator: true).push<void>(
+                    CupertinoPageRoute(
+                      builder: (context) => TalkPage(
+                        roomState: room,
+                      ),
+                    ),
+                  );
+                },
+              );
+            },
+            separatorBuilder: (context, _) => const Divider(),
+            itemCount: rooms.length,
+          ),
         ),
       ),
     );

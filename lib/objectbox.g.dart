@@ -59,7 +59,7 @@ ModelDefinition getObjectBoxModel() {
       },
       {
         "id": "4:4231027708447266082",
-        "lastPropertyId": "8:6316478419491217965",
+        "lastPropertyId": "9:1224031232392700051",
         "name": "Message",
         "properties": [
           {"id": "1:244446210746449362", "name": "id", "type": 6, "flags": 1},
@@ -74,7 +74,7 @@ ModelDefinition getObjectBoxModel() {
       },
       {
         "id": "5:7406672419176415625",
-        "lastPropertyId": "6:7367073850068881798",
+        "lastPropertyId": "8:7480231624393133459",
         "name": "Room",
         "properties": [
           {"id": "1:4452680984568176132", "name": "id", "type": 6, "flags": 1},
@@ -82,7 +82,9 @@ ModelDefinition getObjectBoxModel() {
           {"id": "3:8662649729934230458", "name": "latestMessage", "type": 9},
           {"id": "4:2948623920476094551", "name": "unreadCount", "type": 6},
           {"id": "5:4672184548496578093", "name": "createdAt", "type": 6},
-          {"id": "6:7367073850068881798", "name": "updatedAt", "type": 6}
+          {"id": "6:7367073850068881798", "name": "updatedAt", "type": 6},
+          {"id": "7:2791686665106957065", "name": "friendUserId", "type": 9},
+          {"id": "8:7480231624393133459", "name": "latestMessageAt", "type": 6}
         ]
       }
     ],
@@ -200,7 +202,9 @@ ModelDefinition getObjectBoxModel() {
             "latestMessage": inst.latestMessage,
             "unreadCount": inst.unreadCount,
             "createdAt": inst.createdAt,
-            "updatedAt": inst.updatedAt
+            "updatedAt": inst.updatedAt,
+            "friendUserId": inst.friendUserId,
+            "latestMessageAt": inst.latestMessageAt
           },
       writer: (Map<String, dynamic> members) {
         Room r = Room();
@@ -210,6 +214,8 @@ ModelDefinition getObjectBoxModel() {
         r.unreadCount = members["unreadCount"];
         r.createdAt = members["createdAt"];
         r.updatedAt = members["updatedAt"];
+        r.friendUserId = members["friendUserId"];
+        r.latestMessageAt = members["latestMessageAt"];
         return r;
       });
 
@@ -307,4 +313,8 @@ class Room_ {
       QueryIntegerProperty(entityId: 5, propertyId: 5, obxType: 6);
   static final updatedAt =
       QueryIntegerProperty(entityId: 5, propertyId: 6, obxType: 6);
+  static final friendUserId =
+      QueryStringProperty(entityId: 5, propertyId: 7, obxType: 9);
+  static final latestMessageAt =
+      QueryIntegerProperty(entityId: 5, propertyId: 8, obxType: 6);
 }

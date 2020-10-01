@@ -4,6 +4,7 @@ import 'package:bakumote/notifiers/like/like_state.dart';
 import 'package:bakumote/notifiers/masters/masters_notifier.dart';
 import 'package:bakumote/notifiers/masters/masters_state.dart';
 import 'package:bakumote/notifiers/users/users_state.dart';
+import 'package:bakumote/pages/user_profile/user_profile_page_notifier.dart';
 import 'package:bakumote/repositories/bakumote_repository/entities/user/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,10 +23,10 @@ class UserProfilePage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = likeNotifierProvider(user);
-    final notifier = useProvider(provider);
-    final isLiked =
-        useProvider(provider.state.select((LikeState state) => state)).isLiked;
+    final notifier = useProvider(userProfilePageNotifierProvider(user));
+    final isLiked = useProvider(
+            likeNotifierProvider(user).state.select((LikeState state) => state))
+        .isLiked;
     final prefectures = useProvider(
             mastersNotifierProvider.state.select((MastersState state) => state))
         .prefectures;
@@ -154,7 +155,7 @@ class UserProfilePage extends HookWidget {
                 child: SizedBox(
                   width: 200,
                   child: RaisedButton(
-                    color: isLiked ? Colors.grey : Colors.redAccent,
+                    color: Colors.redAccent,
                     shape: const StadiumBorder(),
                     child: Text(
                       isLiked ? context.l10n.liked : context.l10n.like,
@@ -164,7 +165,7 @@ class UserProfilePage extends HookWidget {
                         color: Colors.white,
                       ),
                     ),
-                    onPressed: notifier.onLiked,
+                    onPressed: isLiked != true ? notifier.onLike : null,
                   ),
                 ),
               ),

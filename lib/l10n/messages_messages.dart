@@ -23,6 +23,8 @@ class MessageLookup extends MessageLookupByLibrary {
   static _notInlinedMessages(_) => <String, Function> {
     "appVersion" : MessageLookupByLibrary.simpleMessage("アプリバージョン"),
     "birth" : MessageLookupByLibrary.simpleMessage("生年月日"),
+    "confirmDataReset" : MessageLookupByLibrary.simpleMessage("データをリセットしますか?"),
+    "dataReset" : MessageLookupByLibrary.simpleMessage("データリセット"),
     "dayBeforeYesterday" : MessageLookupByLibrary.simpleMessage("一昨日"),
     "editProfile" : MessageLookupByLibrary.simpleMessage("プロフィール編集"),
     "favoriteType" : MessageLookupByLibrary.simpleMessage("好きなタイプ"),
@@ -36,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "photoCamera" : MessageLookupByLibrary.simpleMessage("カメラで撮影"),
     "prefectures" : MessageLookupByLibrary.simpleMessage("都道府県"),
     "required" : MessageLookupByLibrary.simpleMessage("必須"),
+    "saveProfile" : MessageLookupByLibrary.simpleMessage("プロフィールを保存"),
     "send" : MessageLookupByLibrary.simpleMessage("送信"),
     "tabSearch" : MessageLookupByLibrary.simpleMessage("さがす"),
     "tabSetting" : MessageLookupByLibrary.simpleMessage("マイページ"),

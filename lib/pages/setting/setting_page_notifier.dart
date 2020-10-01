@@ -1,7 +1,11 @@
 import 'dart:async';
 
+import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:bakumote/extensions/index.dart';
 import 'package:bakumote/notifiers/app_info/app_info_notifier.dart';
+import 'package:bakumote/notifiers/bakumote/bakumote_module.dart';
 import 'package:bakumote/notifiers/my_profile/my_profile_notifier.dart';
+import 'package:bakumote/notifiers/rooms/rooms_notifier.dart';
 import 'package:bakumote/pages/edit_profile/edit_profile_page.dart';
 import 'package:bakumote/providers/navigator.dart';
 import 'package:bakumote/widgets/image_cropper.dart';
@@ -35,6 +39,8 @@ class SettingPageNotifier extends StateNotifier<SettingPageState>
   final Reader _read;
   AppInfoNotifier get appInfoNotifier => _read(appInfoNotifierProvider);
   MyProfileNotifier get myProfileNotifier => _read(myProfileNotifierProvider);
+  RoomsNotifier get roomNotifier => _read(roomsNotifierProvider);
+  BakumoteModule get bakumoteModule => _read(bakumoteModuleProvider);
 
   Future onShowEditProfile() =>
       _read(navigatorKeyProvider).currentState.push<void>(
@@ -64,6 +70,19 @@ class SettingPageNotifier extends StateNotifier<SettingPageState>
     }
     final image = await cropAvatar(file.path);
     await myProfileNotifier.saveProfileImage(image);
+  }
+
+  Future<void> onReset() async {
+    final context = _read(navigatorKeyProvider).currentContext;
+    final result = await showOkCancelAlertDialog(
+      context: context,
+      title: context.l10n.dataReset,
+      message: context.l10n.confirmDataReset,
+    );
+    if (result == OkCancelResult.ok) {
+      bakumoteModule.reset();
+      roomNotifier.resetCache();
+    }
   }
 
   Future _configure() async {
