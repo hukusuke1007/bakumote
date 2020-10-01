@@ -22,17 +22,20 @@ class MastersNotifier extends StateNotifier<MastersState> with LocatorMixin {
     if (state.isLoading) {
       return;
     }
-    state = state.copyWith(isLoading: true);
-
-    final prefecturesRaw =
-        await resourceRepository.loadJson('assets/json/prefectures.json');
-    final genderRaw =
-        await resourceRepository.loadJson('assets/json/gender.json');
-
-    state = state.copyWith(
-        prefectures: _decode(prefecturesRaw),
-        gender: _decode(genderRaw),
-        isLoading: false);
+    try {
+      state = state.copyWith(isLoading: true);
+      final prefecturesRaw =
+          await resourceRepository.loadJson('assets/json/prefectures.json');
+      final genderRaw =
+          await resourceRepository.loadJson('assets/json/gender.json');
+      state = state.copyWith(
+          prefectures: _decode(prefecturesRaw),
+          gender: _decode(genderRaw),
+          isLoading: false);
+    } on Exception catch (e) {
+      print(e);
+      state = state.copyWith(isLoading: false);
+    }
   }
 
   List<MasterLabelState> _decode(Map<String, dynamic> raw) {

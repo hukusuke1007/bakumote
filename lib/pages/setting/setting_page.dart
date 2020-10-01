@@ -117,6 +117,16 @@ class SettingPage extends TabWidgetPage {
                   ),
                   ListTile(
                     leading: Text(
+                      context.l10n.dataReset,
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                    onTap: notifier.onReset,
+                  ),
+                  const Divider(
+                    height: 1,
+                  ),
+                  ListTile(
+                    leading: Text(
                       context.l10n.appVersion,
                       style: const TextStyle(fontSize: 16),
                     ),

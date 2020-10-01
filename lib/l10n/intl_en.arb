@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2020-09-29T20:56:28.434679",
+  "@@last_modified": "2020-10-01T16:04:42.351838",
   "title": "爆モテ",
   "@title": {
     "type": "text",
@@ -113,6 +113,21 @@
   },
   "required": "必須",
   "@required": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "saveProfile": "プロフィールを保存",
+  "@saveProfile": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "dataReset": "データリセット",
+  "@dataReset": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "confirmDataReset": "データをリセットしますか?",
+  "@confirmDataReset": {
     "type": "text",
     "placeholders": {}
   }

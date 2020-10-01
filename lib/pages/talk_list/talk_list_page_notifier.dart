@@ -23,9 +23,7 @@ class TalkListPageNotifier extends StateNotifier<TalkListPageState>
     with LocatorMixin {
   TalkListPageNotifier(
     this._read,
-  ) : super(const TalkListPageState()) {
-    _configure();
-  }
+  ) : super(const TalkListPageState());
 
   final Reader _read;
 
@@ -35,16 +33,12 @@ class TalkListPageNotifier extends StateNotifier<TalkListPageState>
   final RefreshController refreshController = RefreshController();
 
   Future reload() async {
+    await roomsNotifier.load();
     refreshController.refreshCompleted();
-    // TODO(shohei): not implement.
   }
 
   Future loadPaging() async {
-    refreshController.loadComplete();
     // TODO(shohei): not implement.
-  }
-
-  Future _configure() async {
-    await roomsNotifier.load();
+    refreshController.loadComplete();
   }
 }

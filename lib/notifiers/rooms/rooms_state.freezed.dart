@@ -14,9 +14,13 @@ class _$RoomsStateTearOff {
   const _$RoomsStateTearOff();
 
 // ignore: unused_element
-  _RoomsState call({List<RoomState> rooms, bool isLoading = false}) {
+  _RoomsState call(
+      {List<RoomState> rooms,
+      bool isUnreadRoom = false,
+      bool isLoading = false}) {
     return _RoomsState(
       rooms: rooms,
+      isUnreadRoom: isUnreadRoom,
       isLoading: isLoading,
     );
   }
@@ -29,6 +33,7 @@ const $RoomsState = _$RoomsStateTearOff();
 /// @nodoc
 mixin _$RoomsState {
   List<RoomState> get rooms;
+  bool get isUnreadRoom;
   bool get isLoading;
 
   $RoomsStateCopyWith<RoomsState> get copyWith;
@@ -39,7 +44,7 @@ abstract class $RoomsStateCopyWith<$Res> {
   factory $RoomsStateCopyWith(
           RoomsState value, $Res Function(RoomsState) then) =
       _$RoomsStateCopyWithImpl<$Res>;
-  $Res call({List<RoomState> rooms, bool isLoading});
+  $Res call({List<RoomState> rooms, bool isUnreadRoom, bool isLoading});
 }
 
 /// @nodoc
@@ -53,10 +58,13 @@ class _$RoomsStateCopyWithImpl<$Res> implements $RoomsStateCopyWith<$Res> {
   @override
   $Res call({
     Object rooms = freezed,
+    Object isUnreadRoom = freezed,
     Object isLoading = freezed,
   }) {
     return _then(_value.copyWith(
       rooms: rooms == freezed ? _value.rooms : rooms as List<RoomState>,
+      isUnreadRoom:
+          isUnreadRoom == freezed ? _value.isUnreadRoom : isUnreadRoom as bool,
       isLoading: isLoading == freezed ? _value.isLoading : isLoading as bool,
     ));
   }
@@ -68,7 +76,7 @@ abstract class _$RoomsStateCopyWith<$Res> implements $RoomsStateCopyWith<$Res> {
           _RoomsState value, $Res Function(_RoomsState) then) =
       __$RoomsStateCopyWithImpl<$Res>;
   @override
-  $Res call({List<RoomState> rooms, bool isLoading});
+  $Res call({List<RoomState> rooms, bool isUnreadRoom, bool isLoading});
 }
 
 /// @nodoc
@@ -84,10 +92,13 @@ class __$RoomsStateCopyWithImpl<$Res> extends _$RoomsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object rooms = freezed,
+    Object isUnreadRoom = freezed,
     Object isLoading = freezed,
   }) {
     return _then(_RoomsState(
       rooms: rooms == freezed ? _value.rooms : rooms as List<RoomState>,
+      isUnreadRoom:
+          isUnreadRoom == freezed ? _value.isUnreadRoom : isUnreadRoom as bool,
       isLoading: isLoading == freezed ? _value.isLoading : isLoading as bool,
     ));
   }
@@ -95,18 +106,22 @@ class __$RoomsStateCopyWithImpl<$Res> extends _$RoomsStateCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_RoomsState implements _RoomsState {
-  _$_RoomsState({this.rooms, this.isLoading = false})
-      : assert(isLoading != null);
+  _$_RoomsState({this.rooms, this.isUnreadRoom = false, this.isLoading = false})
+      : assert(isUnreadRoom != null),
+        assert(isLoading != null);
 
   @override
   final List<RoomState> rooms;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool isUnreadRoom;
   @JsonKey(defaultValue: false)
   @override
   final bool isLoading;
 
   @override
   String toString() {
-    return 'RoomsState(rooms: $rooms, isLoading: $isLoading)';
+    return 'RoomsState(rooms: $rooms, isUnreadRoom: $isUnreadRoom, isLoading: $isLoading)';
   }
 
   @override
@@ -115,6 +130,9 @@ class _$_RoomsState implements _RoomsState {
         (other is _RoomsState &&
             (identical(other.rooms, rooms) ||
                 const DeepCollectionEquality().equals(other.rooms, rooms)) &&
+            (identical(other.isUnreadRoom, isUnreadRoom) ||
+                const DeepCollectionEquality()
+                    .equals(other.isUnreadRoom, isUnreadRoom)) &&
             (identical(other.isLoading, isLoading) ||
                 const DeepCollectionEquality()
                     .equals(other.isLoading, isLoading)));
@@ -124,6 +142,7 @@ class _$_RoomsState implements _RoomsState {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(rooms) ^
+      const DeepCollectionEquality().hash(isUnreadRoom) ^
       const DeepCollectionEquality().hash(isLoading);
 
   @override
@@ -132,10 +151,15 @@ class _$_RoomsState implements _RoomsState {
 }
 
 abstract class _RoomsState implements RoomsState {
-  factory _RoomsState({List<RoomState> rooms, bool isLoading}) = _$_RoomsState;
+  factory _RoomsState(
+      {List<RoomState> rooms,
+      bool isUnreadRoom,
+      bool isLoading}) = _$_RoomsState;
 
   @override
   List<RoomState> get rooms;
+  @override
+  bool get isUnreadRoom;
   @override
   bool get isLoading;
   @override
@@ -153,7 +177,7 @@ class _$RoomStateTearOff {
       String name,
       String imageName,
       String latestMessage,
-      DateTime latestDate,
+      DateTime latestMessageAt,
       int unreadCount = 0}) {
     return _RoomState(
       roomId: roomId,
@@ -161,7 +185,7 @@ class _$RoomStateTearOff {
       name: name,
       imageName: imageName,
       latestMessage: latestMessage,
-      latestDate: latestDate,
+      latestMessageAt: latestMessageAt,
       unreadCount: unreadCount,
     );
   }
@@ -178,7 +202,7 @@ mixin _$RoomState {
   String get name;
   String get imageName;
   String get latestMessage;
-  DateTime get latestDate;
+  DateTime get latestMessageAt;
   int get unreadCount;
 
   $RoomStateCopyWith<RoomState> get copyWith;
@@ -194,7 +218,7 @@ abstract class $RoomStateCopyWith<$Res> {
       String name,
       String imageName,
       String latestMessage,
-      DateTime latestDate,
+      DateTime latestMessageAt,
       int unreadCount});
 }
 
@@ -213,7 +237,7 @@ class _$RoomStateCopyWithImpl<$Res> implements $RoomStateCopyWith<$Res> {
     Object name = freezed,
     Object imageName = freezed,
     Object latestMessage = freezed,
-    Object latestDate = freezed,
+    Object latestMessageAt = freezed,
     Object unreadCount = freezed,
   }) {
     return _then(_value.copyWith(
@@ -224,8 +248,9 @@ class _$RoomStateCopyWithImpl<$Res> implements $RoomStateCopyWith<$Res> {
       latestMessage: latestMessage == freezed
           ? _value.latestMessage
           : latestMessage as String,
-      latestDate:
-          latestDate == freezed ? _value.latestDate : latestDate as DateTime,
+      latestMessageAt: latestMessageAt == freezed
+          ? _value.latestMessageAt
+          : latestMessageAt as DateTime,
       unreadCount:
           unreadCount == freezed ? _value.unreadCount : unreadCount as int,
     ));
@@ -244,7 +269,7 @@ abstract class _$RoomStateCopyWith<$Res> implements $RoomStateCopyWith<$Res> {
       String name,
       String imageName,
       String latestMessage,
-      DateTime latestDate,
+      DateTime latestMessageAt,
       int unreadCount});
 }
 
@@ -264,7 +289,7 @@ class __$RoomStateCopyWithImpl<$Res> extends _$RoomStateCopyWithImpl<$Res>
     Object name = freezed,
     Object imageName = freezed,
     Object latestMessage = freezed,
-    Object latestDate = freezed,
+    Object latestMessageAt = freezed,
     Object unreadCount = freezed,
   }) {
     return _then(_RoomState(
@@ -275,8 +300,9 @@ class __$RoomStateCopyWithImpl<$Res> extends _$RoomStateCopyWithImpl<$Res>
       latestMessage: latestMessage == freezed
           ? _value.latestMessage
           : latestMessage as String,
-      latestDate:
-          latestDate == freezed ? _value.latestDate : latestDate as DateTime,
+      latestMessageAt: latestMessageAt == freezed
+          ? _value.latestMessageAt
+          : latestMessageAt as DateTime,
       unreadCount:
           unreadCount == freezed ? _value.unreadCount : unreadCount as int,
     ));
@@ -291,7 +317,7 @@ class _$_RoomState extends _RoomState {
       this.name,
       this.imageName,
       this.latestMessage,
-      this.latestDate,
+      this.latestMessageAt,
       this.unreadCount = 0})
       : assert(unreadCount != null),
         super._();
@@ -307,14 +333,14 @@ class _$_RoomState extends _RoomState {
   @override
   final String latestMessage;
   @override
-  final DateTime latestDate;
+  final DateTime latestMessageAt;
   @JsonKey(defaultValue: 0)
   @override
   final int unreadCount;
 
   @override
   String toString() {
-    return 'RoomState(roomId: $roomId, userId: $userId, name: $name, imageName: $imageName, latestMessage: $latestMessage, latestDate: $latestDate, unreadCount: $unreadCount)';
+    return 'RoomState(roomId: $roomId, userId: $userId, name: $name, imageName: $imageName, latestMessage: $latestMessage, latestMessageAt: $latestMessageAt, unreadCount: $unreadCount)';
   }
 
   @override
@@ -333,9 +359,9 @@ class _$_RoomState extends _RoomState {
             (identical(other.latestMessage, latestMessage) ||
                 const DeepCollectionEquality()
                     .equals(other.latestMessage, latestMessage)) &&
-            (identical(other.latestDate, latestDate) ||
+            (identical(other.latestMessageAt, latestMessageAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.latestDate, latestDate)) &&
+                    .equals(other.latestMessageAt, latestMessageAt)) &&
             (identical(other.unreadCount, unreadCount) ||
                 const DeepCollectionEquality()
                     .equals(other.unreadCount, unreadCount)));
@@ -349,7 +375,7 @@ class _$_RoomState extends _RoomState {
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(imageName) ^
       const DeepCollectionEquality().hash(latestMessage) ^
-      const DeepCollectionEquality().hash(latestDate) ^
+      const DeepCollectionEquality().hash(latestMessageAt) ^
       const DeepCollectionEquality().hash(unreadCount);
 
   @override
@@ -365,7 +391,7 @@ abstract class _RoomState extends RoomState {
       String name,
       String imageName,
       String latestMessage,
-      DateTime latestDate,
+      DateTime latestMessageAt,
       int unreadCount}) = _$_RoomState;
 
   @override
@@ -379,7 +405,7 @@ abstract class _RoomState extends RoomState {
   @override
   String get latestMessage;
   @override
-  DateTime get latestDate;
+  DateTime get latestMessageAt;
   @override
   int get unreadCount;
   @override

@@ -6,6 +6,7 @@ part 'rooms_state.freezed.dart';
 abstract class RoomsState with _$RoomsState {
   factory RoomsState({
     List<RoomState> rooms,
+    @Default(false) bool isUnreadRoom,
     @Default(false) bool isLoading,
   }) = _RoomsState;
 }
@@ -18,7 +19,7 @@ abstract class RoomState with _$RoomState {
     String name,
     String imageName,
     String latestMessage,
-    DateTime latestDate,
+    DateTime latestMessageAt,
     @Default(0) int unreadCount,
   }) = _RoomState;
   RoomState._();

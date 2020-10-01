@@ -27,4 +27,7 @@ mixin Messages {
   String get prefectures => Intl.message('都道府県', name: 'prefectures');
   String get required => Intl.message('必須', name: 'required');
   String get saveProfile => Intl.message('プロフィールを保存', name: 'saveProfile');
+  String get dataReset => Intl.message('データリセット', name: 'dataReset');
+  String get confirmDataReset =>
+      Intl.message('データをリセットしますか?', name: 'confirmDataReset');
 }

@@ -1,4 +1,7 @@
+import 'package:badges/badges.dart';
 import 'package:bakumote/extensions/context_extension.dart';
+import 'package:bakumote/notifiers/rooms/rooms_notifier.dart';
+import 'package:bakumote/notifiers/rooms/rooms_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -28,7 +31,15 @@ class AppPage extends HookWidget {
               title: Text(context.l10n.tabSearch),
             ),
             BottomNavigationBarItem(
-              icon: const Icon(Icons.message),
+              icon: Badge(
+                badgeContent: const Text(
+                  '',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+                showBadge: useProvider(roomsNotifierProvider.state
+                    .select((RoomsState state) => state)).isUnreadRoom,
+                child: const Icon(Icons.message),
+              ),
               title: Text(context.l10n.tabTalkList),
             ),
             BottomNavigationBarItem(

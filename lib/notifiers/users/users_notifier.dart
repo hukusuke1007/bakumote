@@ -21,8 +21,13 @@ class UsersNotifier extends StateNotifier<UsersState> with LocatorMixin {
     if (state.isLoading) {
       return;
     }
-    state = state.copyWith(isLoading: true);
-    final users = await bakumoteRepository.loadUsers();
-    state = state.copyWith(users: users, isLoading: false);
+    try {
+      state = state.copyWith(isLoading: true);
+      final users = await bakumoteRepository.loadUsers();
+      state = state.copyWith(users: users, isLoading: false);
+    } on Exception catch (e) {
+      print(e);
+      state = state.copyWith(isLoading: false);
+    }
   }
 }

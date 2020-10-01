@@ -22,6 +22,7 @@ dependencies:
   auto_size_text:
   adaptive_dialog:
   flutter_picker:
+  badges:
 
   # Database
   shared_preferences:
