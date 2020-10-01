@@ -29,8 +29,9 @@ class BakumoteModule extends StateNotifier<BakumoteModuleState>
     final num = Random().nextInt(5);
     await Future<void>.delayed(Duration(seconds: num));
     final roomId = bakumoteRepository.createRoom(user.id);
-    bakumoteRepository.saveMessage(
-        userId: user.id, roomId: roomId, text: 'こんにちは！');
+    bakumoteRepository
+      ..saveMessage(userId: user.id, roomId: roomId, text: 'こんにちは！')
+      ..saveCounter(incrementUnreadCount: 1);
     // TODO(shohei): 通知
   }
 

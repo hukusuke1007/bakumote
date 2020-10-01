@@ -53,6 +53,7 @@ class AppNotifier extends StateNotifier<AppState> with LocatorMixin {
           );
     }
     await roomsNotifier.load();
+    roomsNotifier.loadUnreadCount();
     state = state.copyWith(isLoading: false);
     _fetch();
   }

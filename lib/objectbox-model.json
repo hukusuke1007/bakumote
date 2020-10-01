@@ -247,9 +247,37 @@
           "type": 6
         }
       ]
+    },
+    {
+      "id": "6:6314685316149992662",
+      "lastPropertyId": "4:325201786129085543",
+      "name": "Counter",
+      "properties": [
+        {
+          "id": "1:4116018202874861290",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:8566528410759533121",
+          "name": "unreadCount",
+          "type": 6
+        },
+        {
+          "id": "3:2810343265920212191",
+          "name": "createdAt",
+          "type": 6
+        },
+        {
+          "id": "4:325201786129085543",
+          "name": "updatedAt",
+          "type": 6
+        }
+      ]
     }
   ],
-  "lastEntityId": "5:7406672419176415625",
+  "lastEntityId": "6:6314685316149992662",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

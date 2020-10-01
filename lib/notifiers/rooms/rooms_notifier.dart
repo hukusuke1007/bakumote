@@ -24,44 +24,71 @@ class RoomsNotifier extends StateNotifier<RoomsState> with LocatorMixin {
   final _newRoom = PublishSubject<RoomState>();
   Stream<RoomState> get fetchNewRoom => _newRoom;
 
+  final _limit = 20;
+  int _offset = 0;
+
   @override
   Future<void> dispose() async {
     super.dispose();
     await _newRoom.close();
   }
 
-  Future<void> load() async {
+  void loadUnreadCount() {
+    final counter = bakumoteRepository.loadCounter();
+    state = state.copyWith(
+        isUnreadRoom: counter != null && counter.unreadCount > 0);
+  }
+
+  Future<void> load({
+    int offset = 0,
+  }) async {
     if (state.isLoading) {
       return;
     }
     try {
       state = state.copyWith(isLoading: true);
-      final rooms = bakumoteRepository.loadRooms();
-      final roomStateList = <RoomState>[];
-      for (final room in rooms) {
-        final data = await _roomStateWithRelation(room);
-        roomStateList.add(data);
-      }
-      state = state.copyWith(
-        rooms: roomStateList,
-        isLoading: false,
-        isUnreadRoom:
-            roomStateList.indexWhere((element) => element.unreadCount > 0) !=
-                -1,
+      final rooms = bakumoteRepository.loadRooms(
+        limit: _limit,
+        offset: offset,
       );
+      if (rooms.isNotEmpty) {
+        final roomStateList = state.rooms.toList();
+        if (offset == 0) {
+          roomStateList.clear();
+        }
+        for (final room in rooms) {
+          final data = await _roomStateWithRelation(room);
+          roomStateList.add(data);
+        }
+        state = state.copyWith(
+          rooms: roomStateList,
+          isLoading: false,
+        );
+        _offset += _limit;
+      } else {
+        state = state.copyWith(isLoading: false);
+      }
     } on Exception catch (e) {
       print(e);
       state = state.copyWith(isLoading: false);
     }
   }
 
+  Future<void> refresh() async {
+    _offset = 0;
+    await load();
+  }
+
   Future<void> loadMore() async {
-    // TODO(shohei): not implementation.
+    await load(offset: _offset);
   }
 
   String createRoom(String userId) => bakumoteRepository.createRoom(userId);
 
-  void resetCache() => state = state.copyWith(rooms: [], isUnreadRoom: false);
+  void resetCache() {
+    state = state.copyWith(rooms: [], isUnreadRoom: false);
+    _offset = 0;
+  }
 
   void _configure() {
     _fetch();
@@ -86,10 +113,10 @@ class RoomsNotifier extends StateNotifier<RoomsState> with LocatorMixin {
             .map((e) => e.roomId == roomState.roomId ? roomState : e)
             .toList()
               ..sort((a, b) => b.latestMessageAt.compareTo(a.latestMessageAt));
+        final counter = bakumoteRepository.loadCounter();
         state = state.copyWith(
           rooms: data,
-          isUnreadRoom:
-              data.indexWhere((element) => element.unreadCount > 0) != -1,
+          isUnreadRoom: counter != null && counter.unreadCount > 0,
         );
       }
     });

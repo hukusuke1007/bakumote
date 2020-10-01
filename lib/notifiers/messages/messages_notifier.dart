@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bakumote/helpers/date_helper.dart';
+import 'package:bakumote/repositories/bakumote_repository/bakumote_repository.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'messages_state.dart';
@@ -15,8 +16,21 @@ class MessagesNotifier extends StateNotifier<MessagesState> with LocatorMixin {
   ) : super(MessagesState(messages: []));
 
   final Reader _read;
+  BakumoteRepository get bakumoteRepository =>
+      _read(bakumoteRepositoryProviderAutoDispose);
 
-  Future load() async {
+  final _limit = 20;
+  int _offset = 0;
+
+  @override
+  Future<void> dispose() async {
+    super.dispose();
+    await bakumoteRepository.dispose();
+  }
+
+  Future<void> load({
+    int offset = 0,
+  }) async {
     // TODO(shohei): stub
     if (state.isLoading) {
       return;
@@ -38,6 +52,10 @@ class MessagesNotifier extends StateNotifier<MessagesState> with LocatorMixin {
     state = state.copyWith(messages: list, isLoading: false);
   }
 
+  Future<void> loadMore() async {
+    await load(offset: _offset);
+  }
+
   Future save({String text}) async {
     print('save $text');
     if (text == null || text.isEmpty) {
@@ -48,14 +66,14 @@ class MessagesNotifier extends StateNotifier<MessagesState> with LocatorMixin {
     // TODO(shohei): not implement
     state = state.copyWith(
         messages: [
-      ...state.messages,
       MessageState(
         messageId: '${state.messages.length}',
         userId: '${state.messages.length}',
         text: text,
         createdAt: now,
         isRead: false,
-      )
-    ].reversed.toList());
+      ),
+      ...state.messages,
+    ].toList());
   }
 }

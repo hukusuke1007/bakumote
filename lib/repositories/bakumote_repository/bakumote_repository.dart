@@ -6,6 +6,7 @@ import 'package:bakumote/notifiers/my_profile/my_profile_state.dart'
     as domain_profile;
 import 'package:bakumote/objectbox.g.dart';
 import 'package:bakumote/repositories/bakumote_repository/entities/block_history.dart';
+import 'package:bakumote/repositories/bakumote_repository/entities/counter.dart';
 import 'package:bakumote/repositories/bakumote_repository/entities/like_history.dart';
 import 'package:bakumote/repositories/bakumote_repository/entities/message.dart';
 import 'package:bakumote/repositories/bakumote_repository/entities/profile.dart';
@@ -19,17 +20,23 @@ import 'package:objectbox/objectbox.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:uuid/uuid.dart';
 
-final bakumoteRepositoryProvider = Provider<BakumoteRepository>((_) {
+final bakumoteRepositoryProvider =
+    Provider<BakumoteRepository>((_) => _bakumoteRepositoryImpl);
+
+final bakumoteRepositoryProviderAutoDispose =
+    Provider.autoDispose<BakumoteRepository>((_) => _bakumoteRepositoryImpl);
+
+BakumoteRepositoryImpl get _bakumoteRepositoryImpl {
   final store =
       Store(getObjectBoxModel(), directory: '${appDocumentDir.path}/objectbox');
   final imageDir = Directory('${appDocumentDir.path}/images');
   return BakumoteRepositoryImpl(store, imageDir);
-});
+}
 
 abstract class BakumoteRepository {
   Stream<SnapshotRoom> get fetchRoom;
   Stream<Message> get fetchMessage;
-  Future dispose();
+  Future<void> dispose();
   Future<List<User>> loadUsers();
   Future<User> loadUser(String userId);
   void saveLike(User user);
@@ -61,6 +68,10 @@ abstract class BakumoteRepository {
     int limit = 20,
     int offset = 0,
   });
+  void saveCounter({
+    int incrementUnreadCount,
+  });
+  Counter loadCounter();
   void reset();
 }
 
@@ -81,7 +92,7 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
   Stream<Message> get fetchMessage => _snapshotMessage;
 
   @override
-  Future dispose() async {
+  Future<void> dispose() async {
     await _snapshotRoom.close();
     await _snapshotMessage.close();
   }
@@ -341,11 +352,42 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
   }
 
   @override
+  void saveCounter({
+    int incrementUnreadCount,
+  }) {
+    final now = DateTime.now();
+    final isUpdate = loadCounter() != null;
+    final object = Counter(
+      id: Counter.myCounterId(),
+      updatedAt: now.millisecondsSinceEpoch,
+    );
+    if (incrementUnreadCount != null) {
+      object.unreadCount += incrementUnreadCount;
+    }
+    if (!isUpdate) {
+      object.createdAt = now.millisecondsSinceEpoch;
+    }
+    Box<Counter>(_store).put(object);
+  }
+
+  @override
+  Counter loadCounter() {
+    try {
+      return Box<Counter>(_store).get(Counter.myCounterId());
+    } on Exception catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  @override
   void reset() {
     Box<LikeHistory>(_store).removeAll();
     Box<BlockHistory>(_store).removeAll();
     Box<Message>(_store).removeAll();
     Box<Room>(_store).removeAll();
+    Box<Counter>(_store).removeAll();
+    saveCounter();
   }
 
   void _updateLatestMessage({

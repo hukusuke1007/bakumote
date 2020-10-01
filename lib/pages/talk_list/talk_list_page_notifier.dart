@@ -32,13 +32,13 @@ class TalkListPageNotifier extends StateNotifier<TalkListPageState>
   final ScrollController scrollController = ScrollController();
   final RefreshController refreshController = RefreshController();
 
-  Future reload() async {
-    await roomsNotifier.load();
+  Future<void> onRefresh() async {
+    await roomsNotifier.refresh();
     refreshController.refreshCompleted();
   }
 
-  Future loadPaging() async {
-    // TODO(shohei): not implement.
+  Future<void> onLoadMore() async {
+    await roomsNotifier.loadMore();
     refreshController.loadComplete();
   }
 }

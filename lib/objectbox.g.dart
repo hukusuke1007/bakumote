@@ -7,6 +7,7 @@ import 'repositories/bakumote_repository/entities/profile.dart';
 import 'repositories/bakumote_repository/entities/message.dart';
 import 'repositories/bakumote_repository/entities/block_history.dart';
 import 'repositories/bakumote_repository/entities/like_history.dart';
+import 'repositories/bakumote_repository/entities/counter.dart';
 
 ModelDefinition getObjectBoxModel() {
   final model = ModelInfo.fromMap({
@@ -86,9 +87,20 @@ ModelDefinition getObjectBoxModel() {
           {"id": "7:2791686665106957065", "name": "friendUserId", "type": 9},
           {"id": "8:7480231624393133459", "name": "latestMessageAt", "type": 6}
         ]
+      },
+      {
+        "id": "6:6314685316149992662",
+        "lastPropertyId": "4:325201786129085543",
+        "name": "Counter",
+        "properties": [
+          {"id": "1:4116018202874861290", "name": "id", "type": 6, "flags": 1},
+          {"id": "2:8566528410759533121", "name": "unreadCount", "type": 6},
+          {"id": "3:2810343265920212191", "name": "createdAt", "type": 6},
+          {"id": "4:325201786129085543", "name": "updatedAt", "type": 6}
+        ]
       }
     ],
-    "lastEntityId": "5:7406672419176415625",
+    "lastEntityId": "6:6314685316149992662",
     "lastIndexId": "0:0",
     "lastRelationId": "0:0",
     "lastSequenceId": "0:0",
@@ -218,6 +230,22 @@ ModelDefinition getObjectBoxModel() {
         r.latestMessageAt = members["latestMessageAt"];
         return r;
       });
+  bindings[Counter] = EntityDefinition<Counter>(
+      model: model.findEntityByUid(6314685316149992662),
+      reader: (Counter inst) => {
+            "id": inst.id,
+            "unreadCount": inst.unreadCount,
+            "createdAt": inst.createdAt,
+            "updatedAt": inst.updatedAt
+          },
+      writer: (Map<String, dynamic> members) {
+        Counter r = Counter();
+        r.id = members["id"];
+        r.unreadCount = members["unreadCount"];
+        r.createdAt = members["createdAt"];
+        r.updatedAt = members["updatedAt"];
+        return r;
+      });
 
   return ModelDefinition(model, bindings);
 }
@@ -317,4 +345,15 @@ class Room_ {
       QueryStringProperty(entityId: 5, propertyId: 7, obxType: 9);
   static final latestMessageAt =
       QueryIntegerProperty(entityId: 5, propertyId: 8, obxType: 6);
+}
+
+class Counter_ {
+  static final id =
+      QueryIntegerProperty(entityId: 6, propertyId: 1, obxType: 6);
+  static final unreadCount =
+      QueryIntegerProperty(entityId: 6, propertyId: 2, obxType: 6);
+  static final createdAt =
+      QueryIntegerProperty(entityId: 6, propertyId: 3, obxType: 6);
+  static final updatedAt =
+      QueryIntegerProperty(entityId: 6, propertyId: 4, obxType: 6);
 }

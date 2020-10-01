@@ -38,10 +38,10 @@ class TalkListPage extends TabWidgetPage {
           header: const SmartRefreshHeader(),
           footer: const SmartRefreshFooter(),
           onRefresh: () async {
-            await notifier.reload();
+            await notifier.onRefresh();
           },
           onLoading: () async {
-            await notifier.loadPaging();
+            await notifier.onLoadMore();
           },
           child: ListView.separated(
             controller: notifier.scrollController,
