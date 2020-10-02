@@ -47,7 +47,7 @@ class TalkPage extends HookWidget {
                 footer: const SmartRefreshFooter(),
                 reverse: true,
                 onLoading: () async {
-                  await notifier.loadPaging();
+                  notifier.loadPaging();
                   print('onLoading');
                 },
                 child: ListView.builder(

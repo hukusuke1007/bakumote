@@ -29,7 +29,7 @@ class TalkPageNotifier extends StateNotifier<TalkPageState> with LocatorMixin {
     this._read,
     this.roomState,
   ) : super(const TalkPageState()) {
-    _configure();
+    Future<void>.delayed(Duration.zero, _configure);
   }
 
   final Reader _read;
@@ -53,14 +53,9 @@ class TalkPageNotifier extends StateNotifier<TalkPageState> with LocatorMixin {
     await _disposer?.cancel();
   }
 
-  Future reload() async {
-    refreshController.refreshCompleted();
-    // TODO(shohei): not implement.
-  }
-
-  Future loadPaging() async {
+  void loadPaging() {
+    messagesNotifier.loadMore();
     refreshController.loadComplete();
-    // TODO(shohei): not implement.
   }
 
   Future onSend() async {
@@ -73,8 +68,8 @@ class TalkPageNotifier extends StateNotifier<TalkPageState> with LocatorMixin {
     textEditingController.clear();
   }
 
-  Future _configure() async {
-    await messagesNotifier.load();
+  void _configure() {
+    messagesNotifier.load();
     roomsNotifier.resetUnreadCount(roomState.roomId);
     state = state.copyWith(
       myProfileId: myProfileNotifier.state.profile.id,

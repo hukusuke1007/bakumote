@@ -39,9 +39,9 @@ class MessagesNotifier extends StateNotifier<MessagesState> with LocatorMixin {
     await _fetchMessage.close();
   }
 
-  Future<void> load({
+  void load({
     int offset = 0,
-  }) async {
+  }) {
     if (state.isLoading) {
       return;
     }
@@ -82,8 +82,8 @@ class MessagesNotifier extends StateNotifier<MessagesState> with LocatorMixin {
     }
   }
 
-  Future<void> loadMore() async {
-    await load(offset: _offset);
+  void loadMore() {
+    load(offset: _offset);
   }
 
   void _configure() {
