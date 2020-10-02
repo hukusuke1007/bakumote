@@ -1,6 +1,6 @@
 {
   "@@locale": "ja",
-  "@@last_modified": "2020-10-01T16:04:42.351838",
+  "@@last_modified": "2020-10-02T17:55:19.703396",
   "title": "爆モテ",
   "@title": {
     "type": "text",
@@ -130,5 +130,32 @@
   "@confirmDataReset": {
     "type": "text",
     "placeholders": {}
+  },
+  "ok": "OK",
+  "@ok": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "matchingDone": "マッチングしました！",
+  "@matchingDone": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "confirmSettingNotification": "通知設定を確認",
+  "@confirmSettingNotification": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "notificationMatchingTitle": "❤️マッチング❤️",
+  "@notificationMatchingTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "notificationMatchingBody": "{value} さんとマッチングしました！メッセージを送ってみましょう😊",
+  "@notificationMatchingBody": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
   }
 }

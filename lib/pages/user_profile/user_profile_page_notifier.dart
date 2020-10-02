@@ -34,6 +34,6 @@ class UserProfilePageNotifier extends StateNotifier<UserProfilePageState>
       return;
     }
     likeNotifier.like();
-    bakumoteModule.createRoomAndNewMessage(user);
+    bakumoteModule.createRoomAndNewMessage(user.id);
   }
 }

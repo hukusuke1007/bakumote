@@ -17,7 +17,7 @@ class UsersNotifier extends StateNotifier<UsersState> with LocatorMixin {
   BakumoteRepository get bakumoteRepository =>
       _read(bakumoteRepositoryProvider);
 
-  Future load() async {
+  Future<void> load() async {
     if (state.isLoading) {
       return;
     }

@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 part 'setting_page_notifier.freezed.dart';
 
@@ -71,6 +72,8 @@ class SettingPageNotifier extends StateNotifier<SettingPageState>
     final image = await cropAvatar(file.path);
     await myProfileNotifier.saveProfileImage(image);
   }
+
+  Future<void> onShowSetting() => openAppSettings();
 
   Future<void> onReset() async {
     final context = _read(navigatorKeyProvider).currentContext;

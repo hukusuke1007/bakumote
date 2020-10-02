@@ -32,4 +32,11 @@ mixin Messages {
       Intl.message('データをリセットしますか?', name: 'confirmDataReset');
   String get ok => Intl.message('OK', name: 'ok');
   String get matchingDone => Intl.message('マッチングしました！', name: 'matchingDone');
+  String get confirmSettingNotification =>
+      Intl.message('通知設定を確認', name: 'confirmSettingNotification');
+  String get notificationMatchingTitle =>
+      Intl.message('❤️マッチング❤️', name: 'notificationMatchingTitle');
+  String notificationMatchingBody(String value) =>
+      Intl.message('$value さんとマッチングしました！メッセージを送ってみましょう😊',
+          name: 'notificationMatchingBody', args: [value]);
 }

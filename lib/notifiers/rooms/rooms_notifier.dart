@@ -35,7 +35,6 @@ class RoomsNotifier extends StateNotifier<RoomsState> with LocatorMixin {
 
   void loadUnreadCount() {
     final counter = bakumoteRepository.loadCounter();
-    print('loadCounter ${counter.unreadCount}');
     state = state.copyWith(
         isUnreadRoom: counter != null && counter.unreadCount > 0);
   }
@@ -45,7 +44,6 @@ class RoomsNotifier extends StateNotifier<RoomsState> with LocatorMixin {
       ..updateUnreadCount(roomId, 0)
       ..saveCounter(incrementUnreadCount: -1);
     final counter = bakumoteRepository.loadCounter();
-    print('counter ${counter.unreadCount}');
     state = state.copyWith(
         isUnreadRoom: counter != null && counter.unreadCount > 0);
   }

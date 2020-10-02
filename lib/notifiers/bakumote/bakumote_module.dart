@@ -33,18 +33,34 @@ class BakumoteModule extends StateNotifier<BakumoteModuleState>
     _bakumoteMessages = await bakumoteRepository.loadBakumoteMessages();
   }
 
-  Future<void> createRoomAndNewMessage(User user) async {
+  Future<void> createRoomAndNewMessage(String userId) async {
     final num = Random().nextInt(5);
     await Future<void>.delayed(Duration(seconds: num));
+    final roomId = bakumoteRepository.createRoom(userId);
+    bakumoteRepository
+      ..saveMessage(
+        userId: userId,
+        roomId: roomId,
+        text: _messageText(_bakumoteMessages.greetings),
+      )
+      ..saveCounter(incrementUnreadCount: 1);
+  }
+
+  Future<User> createRoomAndNewMessageFromFriend() async {
+    final user = await loadUnlikeUser();
+    if (user == null) {
+      return null;
+    }
     final roomId = bakumoteRepository.createRoom(user.id);
     bakumoteRepository
+      ..saveLike(user)
       ..saveMessage(
         userId: user.id,
         roomId: roomId,
         text: _messageText(_bakumoteMessages.greetings),
       )
       ..saveCounter(incrementUnreadCount: 1);
-    // TODO(shohei): 通知
+    return user;
   }
 
   Future<void> sendMessage({
@@ -73,6 +89,24 @@ class BakumoteModule extends StateNotifier<BakumoteModuleState>
   }
 
   void reset() => bakumoteRepository.reset();
+
+  Future<User> loadUnlikeUser() async {
+    final users = await bakumoteRepository.loadUsers();
+    final likes = bakumoteRepository.loadLikes();
+    if (likes == null || likes.isEmpty || users.length == likes.length) {
+      return users.first;
+    }
+    User result;
+    for (final user in users) {
+      final likeUser = likes.firstWhere((element) => element.userId == user.id,
+          orElse: () => null);
+      if (likeUser == null) {
+        result = user;
+        break;
+      }
+    }
+    return result;
+  }
 
   String _messageText(List<BakumoteMessage> messages) {
     final index = Random().nextInt(messages.length);

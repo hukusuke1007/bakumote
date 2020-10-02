@@ -109,12 +109,20 @@ class SettingPage extends TabWidgetPage {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 16,
+                  const SizedBox(height: 16),
+                  const Divider(height: 1),
+                  ListTile(
+                    leading: Text(
+                      context.l10n.confirmSettingNotification,
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                    trailing: const Icon(
+                      Icons.arrow_forward_ios,
+                      size: 16,
+                    ),
+                    onTap: notifier.onShowSetting,
                   ),
-                  const Divider(
-                    height: 1,
-                  ),
+                  const Divider(height: 1),
                   ListTile(
                     leading: Text(
                       context.l10n.dataReset,
@@ -123,9 +131,7 @@ class SettingPage extends TabWidgetPage {
                     trailing: const Icon(Icons.refresh),
                     onTap: notifier.onReset,
                   ),
-                  const Divider(
-                    height: 1,
-                  ),
+                  const Divider(height: 1),
                   ListTile(
                     leading: Text(
                       context.l10n.appVersion,
@@ -137,9 +143,7 @@ class SettingPage extends TabWidgetPage {
                       style: const TextStyle(fontSize: 16, color: Colors.grey),
                     ),
                   ),
-                  const Divider(
-                    height: 1,
-                  ),
+                  const Divider(height: 1),
                 ],
               ),
             ),
