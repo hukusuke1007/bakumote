@@ -28,7 +28,7 @@ class AppPage extends HookWidget {
           items: [
             BottomNavigationBarItem(
               icon: const Icon(Icons.search),
-              title: Text(context.l10n.tabSearch),
+              label: context.l10n.tabSearch,
             ),
             BottomNavigationBarItem(
               icon: Badge(
@@ -40,11 +40,11 @@ class AppPage extends HookWidget {
                     .select((RoomsState state) => state)).isUnreadRoom,
                 child: const Icon(Icons.message),
               ),
-              title: Text(context.l10n.tabTalkList),
+              label: context.l10n.tabTalkList,
             ),
             BottomNavigationBarItem(
               icon: const Icon(Icons.perm_identity),
-              title: Text(context.l10n.tabSetting),
+              label: context.l10n.tabSetting,
             ),
           ],
           type: BottomNavigationBarType.fixed,
