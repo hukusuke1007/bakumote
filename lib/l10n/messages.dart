@@ -30,4 +30,6 @@ mixin Messages {
   String get dataReset => Intl.message('データリセット', name: 'dataReset');
   String get confirmDataReset =>
       Intl.message('データをリセットしますか?', name: 'confirmDataReset');
+  String get ok => Intl.message('OK', name: 'ok');
+  String get matchingDone => Intl.message('マッチングしました！', name: 'matchingDone');
 }

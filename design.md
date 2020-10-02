@@ -57,6 +57,7 @@ package repositories <<Node>> {
 
 package entities <<Node>> {
   class Profile {}
+  class Counter {}
   class User {}
   class Room {}
   class Message {}

@@ -38,10 +38,10 @@ class TalkListPage extends TabWidgetPage {
           header: const SmartRefreshHeader(),
           footer: const SmartRefreshFooter(),
           onRefresh: () async {
-            await notifier.reload();
+            await notifier.onRefresh();
           },
           onLoading: () async {
-            await notifier.loadPaging();
+            await notifier.onLoadMore();
           },
           child: ListView.separated(
             controller: notifier.scrollController,
@@ -80,7 +80,8 @@ class TalkListPage extends TabWidgetPage {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      TalkHelper.getDateLabel(context, room.latestMessageAt),
+                      TalkHelper.getDateTalkListLabel(
+                          context, room.latestMessageAt),
                       style: const TextStyle(fontSize: 14, color: Colors.grey),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,

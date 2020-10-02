@@ -1,16 +1,20 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:bakumote/directory.dart';
 import 'package:bakumote/notifiers/my_profile/my_profile_state.dart'
     as domain_profile;
 import 'package:bakumote/objectbox.g.dart';
+import 'package:bakumote/repositories/bakumote_repository/entities/bakumote_message/bakumote_messages.dart';
 import 'package:bakumote/repositories/bakumote_repository/entities/block_history.dart';
+import 'package:bakumote/repositories/bakumote_repository/entities/counter.dart';
 import 'package:bakumote/repositories/bakumote_repository/entities/like_history.dart';
 import 'package:bakumote/repositories/bakumote_repository/entities/message.dart';
 import 'package:bakumote/repositories/bakumote_repository/entities/profile.dart';
 import 'package:bakumote/repositories/bakumote_repository/entities/room.dart';
 import 'package:bakumote/repositories/bakumote_repository/entities/user/user.dart';
+import 'package:bakumote/repositories/bakumote_repository/entities/user_metadata.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -29,7 +33,7 @@ final bakumoteRepositoryProvider = Provider<BakumoteRepository>((_) {
 abstract class BakumoteRepository {
   Stream<SnapshotRoom> get fetchRoom;
   Stream<Message> get fetchMessage;
-  Future dispose();
+  Future<void> dispose();
   Future<List<User>> loadUsers();
   Future<User> loadUser(String userId);
   void saveLike(User user);
@@ -61,6 +65,16 @@ abstract class BakumoteRepository {
     int limit = 20,
     int offset = 0,
   });
+  void saveCounter({
+    int incrementUnreadCount,
+  });
+  Counter loadCounter();
+  void saveUserMetadata(
+    String userId, {
+    int incrementMessageCount,
+  });
+  UserMetadata loadUserMetadata(String userId);
+  Future<BakumoteMessages> loadBakumoteMessages();
   void reset();
 }
 
@@ -81,7 +95,7 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
   Stream<Message> get fetchMessage => _snapshotMessage;
 
   @override
-  Future dispose() async {
+  Future<void> dispose() async {
     await _snapshotRoom.close();
     await _snapshotMessage.close();
   }
@@ -319,6 +333,7 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
       updatedAt: now.millisecondsSinceEpoch,
     );
     Box<Message>(_store).put(object);
+    _snapshotMessage.add(object);
     final profile = loadProfile();
     _updateLatestMessage(
         roomId: roomId, text: text, isUnread: userId != profile.userId);
@@ -341,11 +356,101 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
   }
 
   @override
+  void saveCounter({
+    int incrementUnreadCount,
+  }) {
+    final now = DateTime.now();
+    var object = loadCounter();
+    if (object != null) {
+      object.updatedAt = now.millisecondsSinceEpoch;
+    } else {
+      object = Counter(
+        id: Counter.myCounterId(),
+        updatedAt: now.millisecondsSinceEpoch,
+        createdAt: now.millisecondsSinceEpoch,
+      );
+    }
+    if (incrementUnreadCount != null) {
+      object.unreadCount = max(object.unreadCount + incrementUnreadCount, 0);
+    }
+    Box<Counter>(_store).put(object);
+  }
+
+  @override
+  Counter loadCounter() {
+    try {
+      return Box<Counter>(_store).get(Counter.myCounterId());
+    } on Exception catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  @override
+  void saveUserMetadata(
+    String userId, {
+    int incrementMessageCount,
+  }) {
+    var object = loadUserMetadata(userId);
+    final now = DateTime.now();
+    object ??= UserMetadata(
+      userId: userId,
+      createdAt: now.millisecondsSinceEpoch,
+    );
+    if (incrementMessageCount != null) {
+      object
+        ..messageCount = max(object.messageCount + incrementMessageCount, 0)
+        ..updatedAt = now.millisecondsSinceEpoch;
+    }
+    Box<UserMetadata>(_store).put(object);
+  }
+
+  @override
+  UserMetadata loadUserMetadata(String userId) {
+    final query = Box<UserMetadata>(_store)
+        .query(UserMetadata_.userId.equals(userId))
+        .build();
+    final dynamic item = query.findFirst();
+    query.close();
+    if (item == null) {
+      return null;
+    }
+    return item as UserMetadata;
+  }
+
+  @override
+  Future<BakumoteMessages> loadBakumoteMessages() async {
+    final raw = await rootBundle.loadString('assets/json/messages.json');
+    final json = jsonDecode(raw) as Map<String, dynamic>;
+    final dynamic data = json['data'];
+    final rawGreetings = data['greetings'] as List<dynamic>;
+    final rawQuestions = data['questions'] as List<dynamic>;
+    final rawThoughts = data['thoughts'] as List<dynamic>;
+    return BakumoteMessages(
+      greetings: rawGreetings
+          .map((dynamic e) =>
+              BakumoteMessage.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      questions: rawQuestions
+          .map((dynamic e) =>
+              BakumoteMessage.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      thoughts: rawThoughts
+          .map((dynamic e) =>
+              BakumoteMessage.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+  }
+
+  @override
   void reset() {
     Box<LikeHistory>(_store).removeAll();
     Box<BlockHistory>(_store).removeAll();
     Box<Message>(_store).removeAll();
     Box<Room>(_store).removeAll();
+    Box<Counter>(_store).removeAll();
+    Box<UserMetadata>(_store).removeAll();
+    saveCounter();
   }
 
   void _updateLatestMessage({
