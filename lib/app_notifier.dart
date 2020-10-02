@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:bakumote/extensions/index.dart';
 import 'package:bakumote/notifiers/bakumote/bakumote_module.dart';
 import 'package:bakumote/notifiers/masters/masters_notifier.dart';
 import 'package:bakumote/notifiers/my_profile/my_profile_notifier.dart';
@@ -28,7 +27,7 @@ abstract class AppState with _$AppState {
 }
 
 class AppNotifier extends StateNotifier<AppState>
-    with LocatorMixin, WidgetsBindingObserver {
+    with LocatorMixin {
   AppNotifier(
     this._read,
   ) : super(const AppState()) {
@@ -43,39 +42,6 @@ class AppNotifier extends StateNotifier<AppState>
   BakumoteModule get bakumoteModule => _read(bakumoteModuleProvider);
   NotificationNotifier get notificationNotifier =>
       _read(notificationNotifierProvider);
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    switch (state) {
-      case AppLifecycleState.resumed:
-        break;
-      case AppLifecycleState.inactive:
-        break;
-      case AppLifecycleState.paused:
-        _background();
-        break;
-      case AppLifecycleState.detached:
-        break;
-    }
-  }
-
-  Future<void> _background() async {
-    final user = await bakumoteModule.createRoomAndNewMessageFromFriend();
-    if (user != null) {
-      final context = _read(navigatorKeyProvider).currentContext;
-      await notificationNotifier.showDelayed(
-        title: context.l10n.notificationMatchingTitle,
-        body: context.l10n.notificationMatchingBody(user.name),
-        duration: const Duration(seconds: 5),
-      );
-    }
-  }
 
   Future _configure() async {
     // 起動時の読み込みはここで実施
@@ -99,7 +65,6 @@ class AppNotifier extends StateNotifier<AppState>
     state = state.copyWith(isLoading: false);
     await notificationNotifier.requestPermissions();
     _fetch();
-    WidgetsBinding.instance.addObserver(this);
   }
 
   void _fetch() {

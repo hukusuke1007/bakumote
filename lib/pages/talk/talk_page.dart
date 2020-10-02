@@ -48,7 +48,6 @@ class TalkPage extends HookWidget {
                 reverse: true,
                 onLoading: () async {
                   notifier.loadPaging();
-                  print('onLoading');
                 },
                 child: ListView.builder(
                   controller: notifier.scrollController,
@@ -102,12 +101,6 @@ class TalkPage extends HookWidget {
                             maxLines: 256,
                             clearButtonMode: OverlayVisibilityMode.editing,
                             textInputAction: TextInputAction.newline,
-                            onChanged: (value) {
-                              print('onChanged $value');
-                            },
-                            onTap: () {
-                              print('onTap');
-                            },
                           ),
                         ),
                       ),
