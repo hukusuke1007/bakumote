@@ -25,6 +25,7 @@ class SearchPage extends TabWidgetPage {
       ),
       body: GridView.count(
         crossAxisCount: 2,
+        childAspectRatio: 0.9,
         children:
             useProvider(provider.state.select((UsersState state) => state))
                 .users
@@ -98,18 +99,16 @@ class SearchTile extends HookWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                child: Row(
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                          fontSize: 17, fontWeight: FontWeight.bold),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-              )
+              ),
             ],
           ),
           onTap: onTap,
