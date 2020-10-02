@@ -80,7 +80,8 @@ class TalkListPage extends TabWidgetPage {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      TalkHelper.getDateLabel(context, room.latestMessageAt),
+                      TalkHelper.getDateTalkListLabel(
+                          context, room.latestMessageAt),
                       style: const TextStyle(fontSize: 14, color: Colors.grey),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,

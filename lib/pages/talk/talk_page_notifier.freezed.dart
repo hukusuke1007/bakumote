@@ -14,8 +14,9 @@ class _$TalkPageStateTearOff {
   const _$TalkPageStateTearOff();
 
 // ignore: unused_element
-  _TalkPageState call({bool isLoading = false}) {
+  _TalkPageState call({String myProfileId, bool isLoading = false}) {
     return _TalkPageState(
+      myProfileId: myProfileId,
       isLoading: isLoading,
     );
   }
@@ -27,6 +28,7 @@ const $TalkPageState = _$TalkPageStateTearOff();
 
 /// @nodoc
 mixin _$TalkPageState {
+  String get myProfileId;
   bool get isLoading;
 
   $TalkPageStateCopyWith<TalkPageState> get copyWith;
@@ -37,7 +39,7 @@ abstract class $TalkPageStateCopyWith<$Res> {
   factory $TalkPageStateCopyWith(
           TalkPageState value, $Res Function(TalkPageState) then) =
       _$TalkPageStateCopyWithImpl<$Res>;
-  $Res call({bool isLoading});
+  $Res call({String myProfileId, bool isLoading});
 }
 
 /// @nodoc
@@ -51,9 +53,12 @@ class _$TalkPageStateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object myProfileId = freezed,
     Object isLoading = freezed,
   }) {
     return _then(_value.copyWith(
+      myProfileId:
+          myProfileId == freezed ? _value.myProfileId : myProfileId as String,
       isLoading: isLoading == freezed ? _value.isLoading : isLoading as bool,
     ));
   }
@@ -66,7 +71,7 @@ abstract class _$TalkPageStateCopyWith<$Res>
           _TalkPageState value, $Res Function(_TalkPageState) then) =
       __$TalkPageStateCopyWithImpl<$Res>;
   @override
-  $Res call({bool isLoading});
+  $Res call({String myProfileId, bool isLoading});
 }
 
 /// @nodoc
@@ -82,9 +87,12 @@ class __$TalkPageStateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object myProfileId = freezed,
     Object isLoading = freezed,
   }) {
     return _then(_TalkPageState(
+      myProfileId:
+          myProfileId == freezed ? _value.myProfileId : myProfileId as String,
       isLoading: isLoading == freezed ? _value.isLoading : isLoading as bool,
     ));
   }
@@ -92,21 +100,27 @@ class __$TalkPageStateCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_TalkPageState implements _TalkPageState {
-  const _$_TalkPageState({this.isLoading = false}) : assert(isLoading != null);
+  const _$_TalkPageState({this.myProfileId, this.isLoading = false})
+      : assert(isLoading != null);
 
+  @override
+  final String myProfileId;
   @JsonKey(defaultValue: false)
   @override
   final bool isLoading;
 
   @override
   String toString() {
-    return 'TalkPageState(isLoading: $isLoading)';
+    return 'TalkPageState(myProfileId: $myProfileId, isLoading: $isLoading)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _TalkPageState &&
+            (identical(other.myProfileId, myProfileId) ||
+                const DeepCollectionEquality()
+                    .equals(other.myProfileId, myProfileId)) &&
             (identical(other.isLoading, isLoading) ||
                 const DeepCollectionEquality()
                     .equals(other.isLoading, isLoading)));
@@ -114,7 +128,9 @@ class _$_TalkPageState implements _TalkPageState {
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(isLoading);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(myProfileId) ^
+      const DeepCollectionEquality().hash(isLoading);
 
   @override
   _$TalkPageStateCopyWith<_TalkPageState> get copyWith =>
@@ -122,8 +138,11 @@ class _$_TalkPageState implements _TalkPageState {
 }
 
 abstract class _TalkPageState implements TalkPageState {
-  const factory _TalkPageState({bool isLoading}) = _$_TalkPageState;
+  const factory _TalkPageState({String myProfileId, bool isLoading}) =
+      _$_TalkPageState;
 
+  @override
+  String get myProfileId;
   @override
   bool get isLoading;
   @override

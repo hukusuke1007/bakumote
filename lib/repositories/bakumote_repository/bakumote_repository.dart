@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:bakumote/directory.dart';
 import 'package:bakumote/notifiers/my_profile/my_profile_state.dart'
@@ -356,16 +357,18 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
     int incrementUnreadCount,
   }) {
     final now = DateTime.now();
-    final isUpdate = loadCounter() != null;
-    final object = Counter(
-      id: Counter.myCounterId(),
-      updatedAt: now.millisecondsSinceEpoch,
-    );
-    if (incrementUnreadCount != null) {
-      object.unreadCount += incrementUnreadCount;
+    var object = loadCounter();
+    if (object != null) {
+      object.updatedAt = now.millisecondsSinceEpoch;
+    } else {
+      object = Counter(
+        id: Counter.myCounterId(),
+        updatedAt: now.millisecondsSinceEpoch,
+        createdAt: now.millisecondsSinceEpoch,
+      );
     }
-    if (!isUpdate) {
-      object.createdAt = now.millisecondsSinceEpoch;
+    if (incrementUnreadCount != null) {
+      object.unreadCount = max(object.unreadCount + incrementUnreadCount, 0);
     }
     Box<Counter>(_store).put(object);
   }

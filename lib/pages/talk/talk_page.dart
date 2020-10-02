@@ -22,8 +22,12 @@ class TalkPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final notifier = useProvider(talkPageNotifierProvider);
-    final messages = useProvider(messagesNotifierProvider.state
+    final notifier = useProvider(talkPageNotifierProvider(roomState));
+    final myProfileId = useProvider(talkPageNotifierProvider(roomState)
+        .state
+        .select((TalkPageState state) => state)).myProfileId;
+    final messages = useProvider(messagesNotifierProvider(roomState)
+        .state
         .select((MessagesState state) => state)).messages;
     print('messages ${messages.length}');
     return Scaffold(
@@ -53,10 +57,11 @@ class TalkPage extends HookWidget {
                     final data = messages[index];
                     return TalkTile(
                       key: UniqueKey(),
-                      isFriend: index % 2 == 0,
+                      isFriend: data.userId != myProfileId,
                       imageName: roomState.imageName,
-                      message: data.text,
-                      date: TalkHelper.getDateLabel(context, data.createdAt),
+                      text: data.text,
+                      date:
+                          TalkHelper.getDateTalkLabel(context, data.createdAt),
                       isRead: data.isRead,
                     );
                   },
@@ -147,14 +152,14 @@ class TalkTile extends HookWidget {
     Key key,
     @required this.isFriend,
     this.imageName,
-    @required this.message,
+    @required this.text,
     @required this.date,
     this.isRead = false,
   }) : super(key: key);
 
   final bool isFriend;
   final String imageName;
-  final String message;
+  final String text;
   final String date;
   final bool isRead;
 
@@ -188,7 +193,7 @@ class TalkTile extends HookWidget {
                   nip: BubbleNip.leftBottom,
                   color: Colors.grey[350],
                   child: SelectableText(
-                    message,
+                    text,
                     textAlign: TextAlign.left,
                     style: const TextStyle(
                       color: Colors.black,
@@ -222,9 +227,9 @@ class TalkTile extends HookWidget {
           nip: BubbleNip.rightBottom,
           color: Colors.blueAccent,
           child: SelectableText(
-            'こんにちは！',
+            text,
             textAlign: TextAlign.right,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 16,
             ),
@@ -233,7 +238,7 @@ class TalkTile extends HookWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
           child: Text(
-            '10:20',
+            date,
             style: const TextStyle(fontSize: 14, color: Colors.grey),
           ),
         )
