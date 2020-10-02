@@ -120,6 +120,7 @@ class SettingPage extends TabWidgetPage {
                       context.l10n.dataReset,
                       style: const TextStyle(fontSize: 16),
                     ),
+                    trailing: const Icon(Icons.refresh),
                     onTap: notifier.onReset,
                   ),
                   const Divider(

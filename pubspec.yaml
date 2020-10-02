@@ -41,6 +41,7 @@ dependencies:
   simple_logger:
   date_calc:
   uuid:
+  hashids2:
 
 dev_dependencies:
   flutter_test:

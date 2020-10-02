@@ -8,6 +8,7 @@ import 'repositories/bakumote_repository/entities/message.dart';
 import 'repositories/bakumote_repository/entities/block_history.dart';
 import 'repositories/bakumote_repository/entities/like_history.dart';
 import 'repositories/bakumote_repository/entities/counter.dart';
+import 'repositories/bakumote_repository/entities/user_metadata.dart';
 
 ModelDefinition getObjectBoxModel() {
   final model = ModelInfo.fromMap({
@@ -98,9 +99,21 @@ ModelDefinition getObjectBoxModel() {
           {"id": "3:2810343265920212191", "name": "createdAt", "type": 6},
           {"id": "4:325201786129085543", "name": "updatedAt", "type": 6}
         ]
+      },
+      {
+        "id": "7:316019549021726277",
+        "lastPropertyId": "5:6430666938105990302",
+        "name": "UserMetadata",
+        "properties": [
+          {"id": "1:6224095363693657395", "name": "id", "type": 6, "flags": 1},
+          {"id": "2:2588455149429865378", "name": "userId", "type": 9},
+          {"id": "3:4781299324659273082", "name": "messageCount", "type": 6},
+          {"id": "4:2849172395602332854", "name": "createdAt", "type": 6},
+          {"id": "5:6430666938105990302", "name": "updatedAt", "type": 6}
+        ]
       }
     ],
-    "lastEntityId": "6:6314685316149992662",
+    "lastEntityId": "7:316019549021726277",
     "lastIndexId": "0:0",
     "lastRelationId": "0:0",
     "lastSequenceId": "0:0",
@@ -246,6 +259,24 @@ ModelDefinition getObjectBoxModel() {
         r.updatedAt = members["updatedAt"];
         return r;
       });
+  bindings[UserMetadata] = EntityDefinition<UserMetadata>(
+      model: model.findEntityByUid(316019549021726277),
+      reader: (UserMetadata inst) => {
+            "id": inst.id,
+            "userId": inst.userId,
+            "messageCount": inst.messageCount,
+            "createdAt": inst.createdAt,
+            "updatedAt": inst.updatedAt
+          },
+      writer: (Map<String, dynamic> members) {
+        UserMetadata r = UserMetadata();
+        r.id = members["id"];
+        r.userId = members["userId"];
+        r.messageCount = members["messageCount"];
+        r.createdAt = members["createdAt"];
+        r.updatedAt = members["updatedAt"];
+        return r;
+      });
 
   return ModelDefinition(model, bindings);
 }
@@ -356,4 +387,17 @@ class Counter_ {
       QueryIntegerProperty(entityId: 6, propertyId: 3, obxType: 6);
   static final updatedAt =
       QueryIntegerProperty(entityId: 6, propertyId: 4, obxType: 6);
+}
+
+class UserMetadata_ {
+  static final id =
+      QueryIntegerProperty(entityId: 7, propertyId: 1, obxType: 6);
+  static final userId =
+      QueryStringProperty(entityId: 7, propertyId: 2, obxType: 9);
+  static final messageCount =
+      QueryIntegerProperty(entityId: 7, propertyId: 3, obxType: 6);
+  static final createdAt =
+      QueryIntegerProperty(entityId: 7, propertyId: 4, obxType: 6);
+  static final updatedAt =
+      QueryIntegerProperty(entityId: 7, propertyId: 5, obxType: 6);
 }

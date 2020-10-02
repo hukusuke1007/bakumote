@@ -275,9 +275,42 @@
           "type": 6
         }
       ]
+    },
+    {
+      "id": "7:316019549021726277",
+      "lastPropertyId": "5:6430666938105990302",
+      "name": "UserMetadata",
+      "properties": [
+        {
+          "id": "1:6224095363693657395",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:2588455149429865378",
+          "name": "userId",
+          "type": 9
+        },
+        {
+          "id": "3:4781299324659273082",
+          "name": "messageCount",
+          "type": 6
+        },
+        {
+          "id": "4:2849172395602332854",
+          "name": "createdAt",
+          "type": 6
+        },
+        {
+          "id": "5:6430666938105990302",
+          "name": "updatedAt",
+          "type": 6
+        }
+      ]
     }
   ],
-  "lastEntityId": "6:6314685316149992662",
+  "lastEntityId": "7:316019549021726277",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

@@ -13,6 +13,7 @@ import 'package:bakumote/repositories/bakumote_repository/entities/message.dart'
 import 'package:bakumote/repositories/bakumote_repository/entities/profile.dart';
 import 'package:bakumote/repositories/bakumote_repository/entities/room.dart';
 import 'package:bakumote/repositories/bakumote_repository/entities/user/user.dart';
+import 'package:bakumote/repositories/bakumote_repository/entities/user_metadata.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -67,6 +68,11 @@ abstract class BakumoteRepository {
     int incrementUnreadCount,
   });
   Counter loadCounter();
+  void saveUserMetadata(
+    String userId, {
+    int incrementMessageCount,
+  });
+  UserMetadata loadUserMetadata(String userId);
   void reset();
 }
 
@@ -379,12 +385,45 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
   }
 
   @override
+  void saveUserMetadata(
+    String userId, {
+    int incrementMessageCount,
+  }) {
+    var object = loadUserMetadata(userId);
+    final now = DateTime.now();
+    object ??= UserMetadata(
+      userId: userId,
+      createdAt: now.millisecondsSinceEpoch,
+    );
+    if (incrementMessageCount != null) {
+      object
+        ..messageCount = max(object.messageCount + incrementMessageCount, 0)
+        ..updatedAt = now.millisecondsSinceEpoch;
+    }
+    Box<UserMetadata>(_store).put(object);
+  }
+
+  @override
+  UserMetadata loadUserMetadata(String userId) {
+    final query = Box<UserMetadata>(_store)
+        .query(UserMetadata_.userId.equals(userId))
+        .build();
+    final dynamic item = query.findFirst();
+    query.close();
+    if (item == null) {
+      return null;
+    }
+    return item as UserMetadata;
+  }
+
+  @override
   void reset() {
     Box<LikeHistory>(_store).removeAll();
     Box<BlockHistory>(_store).removeAll();
     Box<Message>(_store).removeAll();
     Box<Room>(_store).removeAll();
     Box<Counter>(_store).removeAll();
+    Box<UserMetadata>(_store).removeAll();
     saveCounter();
   }
 
