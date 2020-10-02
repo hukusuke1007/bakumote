@@ -21,18 +21,12 @@ import 'package:objectbox/objectbox.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:uuid/uuid.dart';
 
-final bakumoteRepositoryProvider =
-    Provider<BakumoteRepository>((_) => _bakumoteRepositoryImpl);
-
-final bakumoteRepositoryProviderAutoDispose =
-    Provider.autoDispose<BakumoteRepository>((_) => _bakumoteRepositoryImpl);
-
-BakumoteRepositoryImpl get _bakumoteRepositoryImpl {
+final bakumoteRepositoryProvider = Provider<BakumoteRepository>((_) {
   final store =
       Store(getObjectBoxModel(), directory: '${appDocumentDir.path}/objectbox');
   final imageDir = Directory('${appDocumentDir.path}/images');
   return BakumoteRepositoryImpl(store, imageDir);
-}
+});
 
 abstract class BakumoteRepository {
   Stream<SnapshotRoom> get fetchRoom;
@@ -331,6 +325,7 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
       updatedAt: now.millisecondsSinceEpoch,
     );
     Box<Message>(_store).put(object);
+    _snapshotMessage.add(object);
     final profile = loadProfile();
     _updateLatestMessage(
         roomId: roomId, text: text, isUnread: userId != profile.userId);

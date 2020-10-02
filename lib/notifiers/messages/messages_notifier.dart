@@ -15,12 +15,16 @@ class MessagesNotifier extends StateNotifier<MessagesState> with LocatorMixin {
   MessagesNotifier(
     this._read,
     this.roomState,
-  ) : super(MessagesState(messages: []));
+  ) : super(MessagesState(messages: [])) {
+    _configure();
+  }
 
   final Reader _read;
   final RoomState roomState;
   BakumoteRepository get bakumoteRepository =>
-      _read(bakumoteRepositoryProviderAutoDispose);
+      _read(bakumoteRepositoryProvider);
+
+  StreamSubscription _disposer;
 
   final _limit = 20;
   int _offset = 0;
@@ -28,13 +32,12 @@ class MessagesNotifier extends StateNotifier<MessagesState> with LocatorMixin {
   @override
   Future<void> dispose() async {
     super.dispose();
-    await bakumoteRepository.dispose();
+    await _disposer?.cancel();
   }
 
   Future<void> load({
     int offset = 0,
   }) async {
-    // TODO(shohei): stub
     if (state.isLoading) {
       return;
     }
@@ -84,24 +87,33 @@ class MessagesNotifier extends StateNotifier<MessagesState> with LocatorMixin {
     @required String userId,
     bool isRead = false,
   }) async {
-    print('save $text');
     if (text == null || text.isEmpty) {
       return;
     }
-    final messageId = bakumoteRepository.saveMessage(
+    bakumoteRepository.saveMessage(
         userId: userId, text: text, roomId: roomState.roomId);
+  }
 
-    final now = DateTime.now();
-    state = state.copyWith(
-        messages: [
-      MessageState(
-        messageId: messageId,
-        userId: userId,
-        text: text,
-        createdAt: now,
-        isRead: isRead,
-      ),
-      ...state.messages,
-    ].toList());
+  void _configure() {
+    _fetch();
+  }
+
+  void _fetch() {
+    _disposer = bakumoteRepository.fetchMessage
+        .where((event) => event != null)
+        .listen((event) {
+      print('roomId: ${event.roomId}, messageId: ${event.messageId}');
+      state = state.copyWith(
+          messages: [
+        MessageState(
+          messageId: event.messageId,
+          userId: event.userId,
+          text: event.text,
+          createdAt: DateTime.fromMillisecondsSinceEpoch(event.createdAt),
+          isRead: event.isUnread,
+        ),
+        ...state.messages,
+      ].toList());
+    });
   }
 }

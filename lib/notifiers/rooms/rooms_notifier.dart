@@ -107,7 +107,7 @@ class RoomsNotifier extends StateNotifier<RoomsState> with LocatorMixin {
 
   void _fetch() {
     bakumoteRepository.fetchRoom.listen((event) async {
-      print(event);
+      print(event.actionType);
       final roomState = await _roomStateWithRelation(event.room);
       if (event.actionType == RoomActionType.create) {
         _newRoom.add(roomState);
