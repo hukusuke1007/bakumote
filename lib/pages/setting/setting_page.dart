@@ -110,17 +110,6 @@ class SettingPage extends TabWidgetPage {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  ListTile(
-                    leading: Text(
-                      '通知テスト',
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                    trailing: const Icon(
-                      Icons.arrow_forward_ios,
-                      size: 16,
-                    ),
-                    onTap: notifier.onNotificationTest,
-                  ),
                   const Divider(height: 1),
                   ListTile(
                     leading: Text(

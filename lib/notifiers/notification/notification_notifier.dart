@@ -92,7 +92,7 @@ class NotificationNotifier extends StateNotifier<NotificationState>
     return null;
   }
 
-  Future showDelayed({
+  Future<void> showDelayed({
     @required String title,
     @required String body,
     String payload,
@@ -116,4 +116,6 @@ class NotificationNotifier extends StateNotifier<NotificationState>
       payload: payload,
     );
   }
+
+  Future<void> cancel() => _flutterLocalNotificationsPlugin.cancelAll();
 }

@@ -19,7 +19,7 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ja';
 
-  static m0(value) => "${value} さんとマッチングしました！";
+  static m0(value) => "${value} さんとマッチングしました！メッセージを送ってみましょう😊";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -38,7 +38,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "matchingDone" : MessageLookupByLibrary.simpleMessage("マッチングしました！"),
     "messagePlaceholder" : MessageLookupByLibrary.simpleMessage("Aa"),
     "name" : MessageLookupByLibrary.simpleMessage("名前"),
-    "notificationMatchingDone" : m0,
+    "notificationMatchingBody" : m0,
+    "notificationMatchingTitle" : MessageLookupByLibrary.simpleMessage("❤️マッチング❤️"),
     "ok" : MessageLookupByLibrary.simpleMessage("OK"),
     "photoAlbum" : MessageLookupByLibrary.simpleMessage("写真から選択"),
     "photoCamera" : MessageLookupByLibrary.simpleMessage("カメラで撮影"),

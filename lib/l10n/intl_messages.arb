@@ -1,6 +1,6 @@
 {
   "@@locale": "messages",
-  "@@last_modified": "2020-10-02T16:53:01.489584",
+  "@@last_modified": "2020-10-02T17:55:19.703396",
   "title": "爆モテ",
   "@title": {
     "type": "text",
@@ -146,8 +146,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "notificationMatchingDone": "{value} さんとマッチングしました！",
-  "@notificationMatchingDone": {
+  "notificationMatchingTitle": "❤️マッチング❤️",
+  "@notificationMatchingTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "notificationMatchingBody": "{value} さんとマッチングしました！メッセージを送ってみましょう😊",
+  "@notificationMatchingBody": {
     "type": "text",
     "placeholders": {
       "value": {}

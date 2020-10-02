@@ -5,7 +5,6 @@ import 'package:bakumote/extensions/index.dart';
 import 'package:bakumote/notifiers/app_info/app_info_notifier.dart';
 import 'package:bakumote/notifiers/bakumote/bakumote_module.dart';
 import 'package:bakumote/notifiers/my_profile/my_profile_notifier.dart';
-import 'package:bakumote/notifiers/notification/notification_notifier.dart';
 import 'package:bakumote/notifiers/rooms/rooms_notifier.dart';
 import 'package:bakumote/pages/edit_profile/edit_profile_page.dart';
 import 'package:bakumote/providers/navigator.dart';
@@ -72,12 +71,6 @@ class SettingPageNotifier extends StateNotifier<SettingPageState>
     }
     final image = await cropAvatar(file.path);
     await myProfileNotifier.saveProfileImage(image);
-  }
-
-  Future<void> onNotificationTest() async {
-    final provider = _read(notificationNotifierProvider);
-    await provider.showDelayed(
-        title: 'テスト', body: 'あああああ', duration: const Duration(seconds: 1));
   }
 
   Future<void> onShowSetting() => openAppSettings();

@@ -38,6 +38,7 @@ abstract class BakumoteRepository {
   Future<User> loadUser(String userId);
   void saveLike(User user);
   LikeHistory loadLike(String userId);
+  List<LikeHistory> loadLikes();
   void saveBlockUser(String roomId, User user);
   BlockHistory loadBlockUser(String userId);
   String saveProfile(domain_profile.Profile user);
@@ -145,6 +146,11 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
       return null;
     }
     return item as LikeHistory;
+  }
+
+  @override
+  List<LikeHistory> loadLikes() {
+    return Box<LikeHistory>(_store).getAll();
   }
 
   @override
