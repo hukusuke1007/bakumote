@@ -6,6 +6,7 @@ import 'package:bakumote/directory.dart';
 import 'package:bakumote/notifiers/my_profile/my_profile_state.dart'
     as domain_profile;
 import 'package:bakumote/objectbox.g.dart';
+import 'package:bakumote/repositories/bakumote_repository/entities/bakumote_message/bakumote_messages.dart';
 import 'package:bakumote/repositories/bakumote_repository/entities/block_history.dart';
 import 'package:bakumote/repositories/bakumote_repository/entities/counter.dart';
 import 'package:bakumote/repositories/bakumote_repository/entities/like_history.dart';
@@ -73,6 +74,7 @@ abstract class BakumoteRepository {
     int incrementMessageCount,
   });
   UserMetadata loadUserMetadata(String userId);
+  Future<BakumoteMessages> loadBakumoteMessages();
   void reset();
 }
 
@@ -414,6 +416,30 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
       return null;
     }
     return item as UserMetadata;
+  }
+
+  @override
+  Future<BakumoteMessages> loadBakumoteMessages() async {
+    final raw = await rootBundle.loadString('assets/json/messages.json');
+    final json = jsonDecode(raw) as Map<String, dynamic>;
+    final dynamic data = json['data'];
+    final rawGreetings = data['greetings'] as List<dynamic>;
+    final rawQuestions = data['questions'] as List<dynamic>;
+    final rawThoughts = data['thoughts'] as List<dynamic>;
+    return BakumoteMessages(
+      greetings: rawGreetings
+          .map((dynamic e) =>
+              BakumoteMessage.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      questions: rawQuestions
+          .map((dynamic e) =>
+              BakumoteMessage.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      thoughts: rawThoughts
+          .map((dynamic e) =>
+              BakumoteMessage.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
   }
 
   @override

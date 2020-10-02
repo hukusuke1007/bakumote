@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bakumote/notifiers/bakumote/bakumote_module.dart';
 import 'package:bakumote/notifiers/masters/masters_notifier.dart';
 import 'package:bakumote/notifiers/my_profile/my_profile_notifier.dart';
 import 'package:bakumote/notifiers/rooms/rooms_notifier.dart';
@@ -36,10 +37,12 @@ class AppNotifier extends StateNotifier<AppState> with LocatorMixin {
   UsersNotifier get usersNotifier => _read(usersNotifierProvider);
   MyProfileNotifier get myProfileNotifier => _read(myProfileNotifierProvider);
   RoomsNotifier get roomsNotifier => _read(roomsNotifierProvider);
+  BakumoteModule get bakumoteModule => _read(bakumoteModuleProvider);
 
   Future _configure() async {
     // 起動時の読み込みはここで実施
     await masterNotifier.load();
+    await bakumoteModule.load();
     await usersNotifier.load();
     myProfileNotifier.load();
     if (myProfileNotifier.state.profile.id == null) {
