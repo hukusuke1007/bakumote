@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bakumote/notifiers/bakumote/bakumote_module.dart';
 import 'package:bakumote/notifiers/messages/messages_notifier.dart';
 import 'package:bakumote/notifiers/my_profile/my_profile_notifier.dart';
 import 'package:bakumote/notifiers/rooms/rooms_notifier.dart';
@@ -36,13 +37,21 @@ class TalkPageNotifier extends StateNotifier<TalkPageState> with LocatorMixin {
 
   MessagesNotifier get messagesNotifier =>
       _read(messagesNotifierProvider(roomState));
-
   RoomsNotifier get roomsNotifier => _read(roomsNotifierProvider);
   MyProfileNotifier get myProfileNotifier => _read(myProfileNotifierProvider);
+  BakumoteModule get bakumoteModule => _read(bakumoteModuleProvider);
 
   final ScrollController scrollController = ScrollController();
   final RefreshController refreshController = RefreshController();
   final TextEditingController textEditingController = TextEditingController();
+
+  StreamSubscription _disposer;
+
+  @override
+  Future<void> dispose() async {
+    super.dispose();
+    await _disposer?.cancel();
+  }
 
   Future reload() async {
     refreshController.refreshCompleted();
@@ -55,9 +64,11 @@ class TalkPageNotifier extends StateNotifier<TalkPageState> with LocatorMixin {
   }
 
   Future onSend() async {
-    await messagesNotifier.save(
+    await bakumoteModule.sendMessage(
+      myProfileId: state.myProfileId,
+      friendId: roomState.userId,
+      roomId: roomState.roomId,
       text: textEditingController.text,
-      userId: state.myProfileId,
     );
     textEditingController.clear();
   }
@@ -68,5 +79,14 @@ class TalkPageNotifier extends StateNotifier<TalkPageState> with LocatorMixin {
     state = state.copyWith(
       myProfileId: myProfileNotifier.state.profile.id,
     );
+    _fetch();
+  }
+
+  void _fetch() {
+    _disposer = messagesNotifier.fetchMessage.listen((event) {
+      if (event.userId != state.myProfileId) {
+        roomsNotifier.resetUnreadCount(roomState.roomId);
+      }
+    });
   }
 }

@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:bakumote/notifiers/rooms/rooms_state.dart';
 import 'package:bakumote/repositories/bakumote_repository/bakumote_repository.dart';
-import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rxdart/rxdart.dart';
 
 import 'messages_state.dart';
 
@@ -26,6 +26,9 @@ class MessagesNotifier extends StateNotifier<MessagesState> with LocatorMixin {
 
   StreamSubscription _disposer;
 
+  final _fetchMessage = PublishSubject<MessageState>();
+  Stream<MessageState> get fetchMessage => _fetchMessage;
+
   final _limit = 20;
   int _offset = 0;
 
@@ -33,6 +36,7 @@ class MessagesNotifier extends StateNotifier<MessagesState> with LocatorMixin {
   Future<void> dispose() async {
     super.dispose();
     await _disposer?.cancel();
+    await _fetchMessage.close();
   }
 
   Future<void> load({
@@ -82,18 +86,6 @@ class MessagesNotifier extends StateNotifier<MessagesState> with LocatorMixin {
     await load(offset: _offset);
   }
 
-  Future save({
-    @required String text,
-    @required String userId,
-    bool isRead = false,
-  }) async {
-    if (text == null || text.isEmpty) {
-      return;
-    }
-    bakumoteRepository.saveMessage(
-        userId: userId, text: text, roomId: roomState.roomId);
-  }
-
   void _configure() {
     _fetch();
   }
@@ -103,17 +95,19 @@ class MessagesNotifier extends StateNotifier<MessagesState> with LocatorMixin {
         .where((event) => event != null)
         .listen((event) {
       print('roomId: ${event.roomId}, messageId: ${event.messageId}');
+      final messageState = MessageState(
+        messageId: event.messageId,
+        userId: event.userId,
+        text: event.text,
+        createdAt: DateTime.fromMillisecondsSinceEpoch(event.createdAt),
+        isRead: event.isUnread,
+      );
       state = state.copyWith(
           messages: [
-        MessageState(
-          messageId: event.messageId,
-          userId: event.userId,
-          text: event.text,
-          createdAt: DateTime.fromMillisecondsSinceEpoch(event.createdAt),
-          isRead: event.isUnread,
-        ),
+        messageState,
         ...state.messages,
       ].toList());
+      _fetchMessage.add(messageState);
     });
   }
 }

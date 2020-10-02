@@ -35,5 +35,23 @@ class BakumoteModule extends StateNotifier<BakumoteModuleState>
     // TODO(shohei): 通知
   }
 
+  Future<void> sendMessage({
+    @required String myProfileId,
+    @required String text,
+    @required String friendId,
+    @required String roomId,
+  }) async {
+    if (text == null || text.isEmpty) {
+      return;
+    }
+    bakumoteRepository.saveMessage(
+        userId: myProfileId, roomId: roomId, text: text);
+    Future<void>.delayed(const Duration(seconds: 1), () {
+      // TODO(shohei): 女の子から連絡
+      bakumoteRepository.saveMessage(
+          userId: friendId, roomId: roomId, text: 'えーそんなことないですよ！');
+    });
+  }
+
   void reset() => bakumoteRepository.reset();
 }
