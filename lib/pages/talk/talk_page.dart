@@ -29,7 +29,6 @@ class TalkPage extends HookWidget {
     final messages = useProvider(messagesNotifierProvider(roomState)
         .state
         .select((MessagesState state) => state)).messages;
-    print('messages ${messages.length}');
     return Scaffold(
       appBar: AppBar(
         title: Text(roomState.name),

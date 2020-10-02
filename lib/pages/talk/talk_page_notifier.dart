@@ -70,7 +70,9 @@ class TalkPageNotifier extends StateNotifier<TalkPageState> with LocatorMixin {
 
   void _configure() {
     messagesNotifier.load();
-    roomsNotifier.resetUnreadCount(roomState.roomId);
+    if (roomState.unreadCount != 0) {
+      roomsNotifier.resetUnreadCount(roomState.roomId);
+    }
     state = state.copyWith(
       myProfileId: myProfileNotifier.state.profile.id,
     );
