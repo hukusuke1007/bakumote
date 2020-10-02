@@ -23,9 +23,8 @@ class TalkPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final notifier = useProvider(talkPageNotifierProvider(roomState));
-    final myProfileId = useProvider(talkPageNotifierProvider(roomState)
-        .state
-        .select((TalkPageState state) => state)).myProfileId;
+    final myProfileId =
+        useProvider(talkPageNotifierProvider(roomState).state).myProfileId;
     final messages = useProvider(messagesNotifierProvider(roomState)
         .state
         .select((MessagesState state) => state)).messages;

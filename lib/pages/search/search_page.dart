@@ -99,8 +99,7 @@ class SearchTile extends HookWidget {
               ),
               Flexible(
                 child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
