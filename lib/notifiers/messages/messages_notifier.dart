@@ -92,7 +92,7 @@ class MessagesNotifier extends StateNotifier<MessagesState> with LocatorMixin {
 
   void _fetch() {
     _disposer = bakumoteRepository.fetchMessage
-        .where((event) => event != null)
+        .where((event) => event != null && event.roomId == roomState.roomId)
         .listen((event) {
       print('roomId: ${event.roomId}, messageId: ${event.messageId}');
       final messageState = MessageState(
