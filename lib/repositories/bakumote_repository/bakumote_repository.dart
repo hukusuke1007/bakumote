@@ -43,12 +43,12 @@ abstract class BakumoteRepository {
   BlockHistory loadBlockUser(String userId);
   String saveProfile(domain_profile.Profile user);
   String saveProfileImage(File image);
-  String saveImage(
+  void saveImage(
     File image, {
-    String filename,
+    @required String filename,
   });
   Profile loadProfile();
-  File loadImage(String path);
+  File loadImage(String filename);
   String createRoom(String userId);
   void updateUnreadCount(String roomId, int unreadCount);
   Room loadRoom(String roomId);
@@ -190,7 +190,7 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
       id: Profile.myProfileId(),
       userId: user.id ?? Uuid().v4(),
       name: user.name,
-      imagePath: user.image?.path,
+      imageName: Profile.imageFilename(),
       birthday: user.birthday?.millisecondsSinceEpoch,
       genderId: user.genderId,
       prefectureId: user.prefectureId,
@@ -208,20 +208,21 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
 
   @override
   String saveProfileImage(File image) {
-    final path = saveImage(image, filename: Profile.imageFilename());
+    final filename = Profile.imageFilename();
+    saveImage(image, filename: filename);
     final now = DateTime.now();
     var object = loadProfile();
     if (object == null) {
       object = Profile(
         id: Profile.myProfileId(),
         userId: Uuid().v4(),
-        imagePath: path,
+        imageName: filename,
         createdAt: now.millisecondsSinceEpoch,
         updatedAt: now.millisecondsSinceEpoch,
       );
     } else {
       object
-        ..imagePath = path
+        ..imageName = filename
         ..updatedAt = now.millisecondsSinceEpoch;
     }
     Box<Profile>(_store).put(object);
@@ -229,9 +230,9 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
   }
 
   @override
-  String saveImage(
+  void saveImage(
     File image, {
-    String filename = 'image',
+    @required String filename,
   }) {
     if (!_imageDir.existsSync()) {
       _imageDir.createSync();
@@ -242,7 +243,6 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
       newFile.deleteSync();
     }
     newFile.writeAsBytesSync(image.readAsBytesSync());
-    return newFile.path;
   }
 
   @override
@@ -256,8 +256,8 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
   }
 
   @override
-  File loadImage(String path) {
-    final file = File(path);
+  File loadImage(String filename) {
+    final file = File('${_imageDir.path}/$filename');
     return file;
   }
 

@@ -9,7 +9,7 @@ class Profile {
     this.birthday,
     this.genderId = 0,
     this.prefectureId = 0,
-    this.imagePath,
+    this.imageName,
     this.description = '',
     this.hobby = '',
     this.favoriteType = '',
@@ -28,7 +28,7 @@ class Profile {
   int birthday;
   int genderId;
   int prefectureId;
-  String imagePath;
+  String imageName;
   String description;
   String hobby;
   String favoriteType;

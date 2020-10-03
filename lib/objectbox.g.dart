@@ -42,7 +42,7 @@ ModelDefinition getObjectBoxModel() {
       },
       {
         "id": "3:91527956825714340",
-        "lastPropertyId": "13:1320883142978066224",
+        "lastPropertyId": "14:7622048054011001534",
         "name": "Profile",
         "properties": [
           {"id": "1:8658089794062962487", "name": "id", "type": 6, "flags": 1},
@@ -51,12 +51,12 @@ ModelDefinition getObjectBoxModel() {
           {"id": "4:3710605293618322777", "name": "birthday", "type": 6},
           {"id": "5:1071734602730400485", "name": "genderId", "type": 6},
           {"id": "6:3469061368025945753", "name": "prefectureId", "type": 6},
-          {"id": "7:2568293958252728464", "name": "imagePath", "type": 9},
           {"id": "8:3675689743520593084", "name": "description", "type": 9},
           {"id": "9:3411924965816063076", "name": "hobby", "type": 9},
           {"id": "10:2909051831281808972", "name": "favoriteType", "type": 9},
           {"id": "11:5114152655753241483", "name": "createdAt", "type": 6},
-          {"id": "12:3193093107236268744", "name": "updatedAt", "type": 6}
+          {"id": "12:3193093107236268744", "name": "updatedAt", "type": 6},
+          {"id": "14:7622048054011001534", "name": "imageName", "type": 9}
         ]
       },
       {
@@ -172,12 +172,12 @@ ModelDefinition getObjectBoxModel() {
             "birthday": inst.birthday,
             "genderId": inst.genderId,
             "prefectureId": inst.prefectureId,
-            "imagePath": inst.imagePath,
             "description": inst.description,
             "hobby": inst.hobby,
             "favoriteType": inst.favoriteType,
             "createdAt": inst.createdAt,
-            "updatedAt": inst.updatedAt
+            "updatedAt": inst.updatedAt,
+            "imageName": inst.imageName
           },
       writer: (Map<String, dynamic> members) {
         Profile r = Profile();
@@ -187,12 +187,12 @@ ModelDefinition getObjectBoxModel() {
         r.birthday = members["birthday"];
         r.genderId = members["genderId"];
         r.prefectureId = members["prefectureId"];
-        r.imagePath = members["imagePath"];
         r.description = members["description"];
         r.hobby = members["hobby"];
         r.favoriteType = members["favoriteType"];
         r.createdAt = members["createdAt"];
         r.updatedAt = members["updatedAt"];
+        r.imageName = members["imageName"];
         return r;
       });
   bindings[Message] = EntityDefinition<Message>(
@@ -326,8 +326,6 @@ class Profile_ {
       QueryIntegerProperty(entityId: 3, propertyId: 5, obxType: 6);
   static final prefectureId =
       QueryIntegerProperty(entityId: 3, propertyId: 6, obxType: 6);
-  static final imagePath =
-      QueryStringProperty(entityId: 3, propertyId: 7, obxType: 9);
   static final description =
       QueryStringProperty(entityId: 3, propertyId: 8, obxType: 9);
   static final hobby =
@@ -338,6 +336,8 @@ class Profile_ {
       QueryIntegerProperty(entityId: 3, propertyId: 11, obxType: 6);
   static final updatedAt =
       QueryIntegerProperty(entityId: 3, propertyId: 12, obxType: 6);
+  static final imageName =
+      QueryStringProperty(entityId: 3, propertyId: 14, obxType: 9);
 }
 
 class Message_ {

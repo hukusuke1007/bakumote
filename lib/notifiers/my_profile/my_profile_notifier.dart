@@ -44,8 +44,8 @@ class MyProfileNotifier extends StateNotifier<MyProfileState>
     if (profile != null) {
       state = state.copyWith(
         profile: Profile.fromEntity(profile).copyWith(
-          image: profile.imagePath != null
-              ? bakumoteRepository.loadImage(profile.imagePath)
+          image: profile.imageName != null
+              ? bakumoteRepository.loadImage(profile.imageName)
               : null,
         ),
       );

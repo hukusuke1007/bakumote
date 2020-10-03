@@ -86,7 +86,7 @@
     },
     {
       "id": "3:91527956825714340",
-      "lastPropertyId": "13:1320883142978066224",
+      "lastPropertyId": "14:7622048054011001534",
       "name": "Profile",
       "properties": [
         {
@@ -121,11 +121,6 @@
           "type": 6
         },
         {
-          "id": "7:2568293958252728464",
-          "name": "imagePath",
-          "type": 9
-        },
-        {
           "id": "8:3675689743520593084",
           "name": "description",
           "type": 9
@@ -149,6 +144,11 @@
           "id": "12:3193093107236268744",
           "name": "updatedAt",
           "type": 6
+        },
+        {
+          "id": "14:7622048054011001534",
+          "name": "imageName",
+          "type": 9
         }
       ]
     },
@@ -320,7 +320,8 @@
   "retiredIndexUids": [],
   "retiredPropertyUids": [
     1320883142978066224,
-    1224031232392700051
+    1224031232392700051,
+    2568293958252728464
   ],
   "retiredRelationUids": [],
   "version": 1
