@@ -1,14 +1,16 @@
 # bakumote
 
-「出会い系アプリで全然出会えないから爆モテするアプリを作ったww」企画
+[「出会い系アプリで全然出会えないから爆モテするアプリを作ったww」企画](TODO)
 
-[YouTube](TODO)
 
-チャンネル登録よろしくお願いします。
+
+[貧乏エンジニア社長もくもくさんチャンネル](https://www.youtube.com/c/mokudev)
+
+チャンネル登録よろしくお願いしますm(__)m
 
 ## 設計図
 
-<img src="./figure/design.png" width="80%">
+<img src="./design.png" width="80%">
 
 Riverpod + StateNotifierで実装
 
@@ -49,7 +51,7 @@ $ flutter run -d all
 
 ## その他
 
-freezedとObjectBoxのコード生成コマンドと、l10n文言ファイルのコード生成コマンドをshellにまとめている。
+freezedとObjectBoxのコード生成コマンドとl10n文言ファイルのコード生成コマンドをshellにまとめている。
 
 ```sh
 # freezedとObjectBoxのコード生成
