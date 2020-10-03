@@ -55,9 +55,18 @@ dev_dependencies:
   freezed:
   objectbox_generator:
   json_serializable:
+  flutter_launcher_icons:
 
 dependency_overrides:
   analyzer: '>=0.39.5 <0.40.0'
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path_android: "assets/icon/icon_android.png"
+  image_path_ios: "assets/icon/icon_ios.png"
+  adaptive_icon_foreground: "assets/icon/adaptive_icon_foreground.png"
+  adaptive_icon_background: "#FFF"
 
 flutter:
   uses-material-design: true
@@ -65,4 +74,5 @@ flutter:
     - assets/
     - assets/images/
     - assets/json/
+    - assets/icon/
 
