@@ -5,12 +5,14 @@ class EditTextFiled extends StatelessWidget {
   const EditTextFiled({
     Key key,
     this.controller,
+    this.textInputAction,
     this.suffixText,
     this.labelText,
     this.onChanged,
     this.borderColor = Colors.grey,
   }) : super(key: key);
   final TextEditingController controller;
+  final TextInputAction textInputAction;
   final String suffixText;
   final String labelText;
   final Function(String) onChanged;
@@ -32,6 +34,7 @@ class EditTextFiled extends StatelessWidget {
               ),
             ),
           TextField(
+            textInputAction: textInputAction ?? TextInputAction.next,
             decoration: InputDecoration(
               filled: true,
               fillColor: Colors.transparent,
