@@ -3,8 +3,6 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:bakumote/directory.dart';
-import 'package:bakumote/notifiers/my_profile/my_profile_state.dart'
-    as domain_profile;
 import 'package:bakumote/objectbox.g.dart';
 import 'package:bakumote/repositories/bakumote_repository/entities/bakumote_message/bakumote_messages.dart';
 import 'package:bakumote/repositories/bakumote_repository/entities/block_history.dart';
@@ -41,7 +39,17 @@ abstract class BakumoteRepository {
   List<LikeHistory> loadLikes();
   void saveBlockUser(String roomId, User user);
   BlockHistory loadBlockUser(String userId);
-  String saveProfile(domain_profile.Profile user);
+  String saveProfile({
+    @required String userId,
+    @required String name,
+    @required File image,
+    @required DateTime birthday,
+    @required int genderId,
+    @required int prefectureId,
+    @required String description,
+    @required String hobby,
+    @required String favoriteType,
+  });
   String saveProfileImage(File image);
   void saveImage(
     File image, {
@@ -183,25 +191,34 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
   }
 
   @override
-  String saveProfile(domain_profile.Profile user) {
+  String saveProfile({
+    @required String userId,
+    @required String name,
+    @required File image,
+    @required DateTime birthday,
+    @required int genderId,
+    @required int prefectureId,
+    @required String description,
+    @required String hobby,
+    @required String favoriteType,
+  }) {
     final now = DateTime.now();
-    final isUpdate = loadProfile() != null;
-    final object = Profile(
+    var object = loadProfile();
+    object ??= Profile(
       id: Profile.myProfileId(),
-      userId: user.id ?? Uuid().v4(),
-      name: user.name,
-      imageName: user.image != null ? Profile.imageFilename() : null,
-      birthday: user.birthday?.millisecondsSinceEpoch,
-      genderId: user.genderId,
-      prefectureId: user.prefectureId,
-      description: user.description,
-      hobby: user.hobby,
-      favoriteType: user.favoriteType,
-      updatedAt: now.millisecondsSinceEpoch,
+      createdAt: now.millisecondsSinceEpoch,
     );
-    if (!isUpdate) {
-      object.createdAt = now.millisecondsSinceEpoch;
-    }
+    object
+      ..userId = userId ?? Uuid().v4()
+      ..name = name
+      ..imageName = image != null ? Profile.imageFilename() : null
+      ..birthday = birthday?.millisecondsSinceEpoch
+      ..genderId = genderId
+      ..prefectureId = prefectureId
+      ..description = description
+      ..hobby = hobby
+      ..favoriteType = favoriteType
+      ..updatedAt = now.millisecondsSinceEpoch;
     Box<Profile>(_store).put(object);
     return object.userId;
   }

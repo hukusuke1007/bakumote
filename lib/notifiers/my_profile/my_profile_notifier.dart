@@ -66,7 +66,17 @@ class MyProfileNotifier extends StateNotifier<MyProfileState>
     String hobby,
     String favoriteType,
   }) async {
-    final userId = bakumoteRepository.saveProfile(state.profile);
+    final userId = bakumoteRepository.saveProfile(
+      userId: state.profile.id,
+      name: name,
+      image: state.profile.image,
+      birthday: birthday,
+      genderId: genderId,
+      prefectureId: prefectureId,
+      description: state.profile.description,
+      hobby: hobby,
+      favoriteType: favoriteType,
+    );
     state = state.copyWith(
       profile: state.profile.copyWith(
         id: userId,

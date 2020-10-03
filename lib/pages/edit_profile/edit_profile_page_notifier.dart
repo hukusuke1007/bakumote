@@ -89,7 +89,7 @@ class EditProfilePageNotifier extends StateNotifier<EditProfilePageState>
         master.prefectures.firstWhere((element) => element.id == value).text;
   }
 
-  Future onSaveProfile() async {
+  Future<void> onSaveProfile() async {
     await myProfileNotifier.saveProfile(
       name: nameTextEditController.text,
       birthday: state.birthday,

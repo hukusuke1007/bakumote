@@ -155,6 +155,7 @@ class _Birthday extends HookWidget {
                 initialDateTime: birthday,
                 onDateTimeChanged: notifier.onSaveBirthday,
                 minimumYear: 1950,
+                maximumYear: DateTime.now().year - 18,
                 mode: CupertinoDatePickerMode.date,
               ),
             );
