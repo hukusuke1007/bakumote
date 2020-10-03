@@ -152,7 +152,7 @@ class _Birthday extends HookWidget {
             return SizedBox(
               height: context.deviceHeight / 3,
               child: CupertinoDatePicker(
-                initialDateTime: birthday,
+                initialDateTime: birthday ?? DateTime(2000),
                 onDateTimeChanged: notifier.onSaveBirthday,
                 minimumYear: 1950,
                 maximumYear: DateTime.now().year - 18,
