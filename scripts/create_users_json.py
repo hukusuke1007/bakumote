@@ -10,6 +10,7 @@ from models.user import User
 from helpers.file_helper import default_method
 
 CSV_PATH = os.path.dirname(os.path.abspath(__file__)) + '/../csv_data/users/data.csv'
+IMAGES_DIR_PATH = os.path.dirname(os.path.abspath(__file__)) + '/../assets/images'
 OUTPUT_PATH = os.path.dirname(os.path.abspath(__file__)) + '/../csv_data/users/users.json'
 GENDER_ID = 1
 PREFECTURE_MAX = 47
@@ -49,16 +50,23 @@ def output_json():
             favoriteTypeList.append(row[3])
         # print(row)
     
+    # images => List
+    images = os.listdir(IMAGES_DIR_PATH)
+    random.shuffle(images)
+    print(images)
+
     # List => users
+    MAX_USER_COUNT = len(images)
     users = []
-    for name in nameList:
+    for i in range(MAX_USER_COUNT):
+      name = nameList[i]
       id = str(uuid.uuid4())
       birthday = get_birthday()
       description = description_temp(name)
       hobbyIndex = random.randrange(len(hobbyList))
       favoriteTypeIndex = random.randrange(len(favoriteTypeList))
       prefectureId = random.randrange(PREFECTURE_MAX)
-      imageName = 'woman_example.jpg'
+      imageName = images[i]
       user = User(id, name, birthday, description, GENDER_ID, prefectureId, imageName, hobbyList[hobbyIndex], favoriteTypeList[favoriteTypeIndex])
       users.append(user)
 
