@@ -32,7 +32,7 @@ class UserProfilePage extends HookWidget {
         .prefectures;
     return Scaffold(
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Flexible(
             flex: 9,
@@ -59,7 +59,7 @@ class UserProfilePage extends HookWidget {
                       child: SizedBox(
                         child: Image.asset(
                           user.imagePath,
-                          fit: BoxFit.fitWidth,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
