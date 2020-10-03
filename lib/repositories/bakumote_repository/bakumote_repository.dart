@@ -190,7 +190,7 @@ class BakumoteRepositoryImpl extends BakumoteRepository {
       id: Profile.myProfileId(),
       userId: user.id ?? Uuid().v4(),
       name: user.name,
-      imageName: Profile.imageFilename(),
+      imageName: user.image != null ? Profile.imageFilename() : null,
       birthday: user.birthday?.millisecondsSinceEpoch,
       genderId: user.genderId,
       prefectureId: user.prefectureId,

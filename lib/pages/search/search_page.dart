@@ -25,7 +25,7 @@ class SearchPage extends TabWidgetPage {
       ),
       body: GridView.count(
         crossAxisCount: 2,
-        childAspectRatio: 0.9,
+        childAspectRatio: (context.deviceWidth / 2) / 220, //0.9,
         children:
             useProvider(provider.state.select((UsersState state) => state))
                 .users
@@ -37,7 +37,7 @@ class SearchPage extends TabWidgetPage {
               title: e.nameWithAge,
               image: Image.asset(
                 e.imagePath,
-                fit: BoxFit.fitWidth,
+                fit: BoxFit.cover,
               ),
               onTap: () {
                 Navigator.of(context, rootNavigator: true).push<void>(
@@ -86,9 +86,11 @@ class SearchTile extends HookWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(
-                height: 150,
-                child: Center(
+              Align(
+                alignment: Alignment.topCenter,
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 150,
                   child: ClipRRect(
                     borderRadius: const BorderRadius.vertical(
                       top: Radius.circular(radius),
