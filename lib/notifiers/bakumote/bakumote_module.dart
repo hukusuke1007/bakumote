@@ -96,6 +96,7 @@ class BakumoteModule extends StateNotifier<BakumoteModuleState>
     if (likes == null || likes.isEmpty || users.length == likes.length) {
       return users.first;
     }
+    users.shuffle();
     User result;
     for (final user in users) {
       final likeUser = likes.firstWhere((element) => element.userId == user.id,

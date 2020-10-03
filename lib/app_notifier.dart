@@ -26,8 +26,7 @@ abstract class AppState with _$AppState {
   }) = _AppState;
 }
 
-class AppNotifier extends StateNotifier<AppState>
-    with LocatorMixin {
+class AppNotifier extends StateNotifier<AppState> with LocatorMixin {
   AppNotifier(
     this._read,
   ) : super(const AppState()) {
@@ -73,7 +72,7 @@ class AppNotifier extends StateNotifier<AppState>
         _read(navigatorKeyProvider).currentContext,
         image: Image.asset(
           event.imageName,
-          fit: BoxFit.fitWidth,
+          fit: BoxFit.cover,
         ),
         title: event.name,
       );

@@ -20,6 +20,8 @@ Future showMatchingDialog(
           height: 300,
           child: Center(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Flexible(
                   child: SizedBox(
