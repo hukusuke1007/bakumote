@@ -8,6 +8,8 @@ package main <<Node>> {
 }
 
 package pages <<Node>> {
+  class AppPage {}
+  class AppPageNotifier {}
   class SearchPage {}
   class TalkListPage {}
   class TalkListPageNotifier {}
@@ -48,6 +50,9 @@ package notifiers <<Node>> {
   class RoomsState {}
   class UsersNotifier {}
   class UsersState {}
+  class NotificationNotifier {}
+  class NotificationState {}
+
 }
 
 package repositories <<Node>> {
@@ -63,6 +68,9 @@ package entities <<Node>> {
   class Message {}
   class LikeHistory {}
   class BlockHistory {}
+  class BakumoteMessages {}
+  class BakumoteMessage {}
+  class UserMetadata {}
 }
 
 package local <<Node>> {
@@ -78,11 +86,16 @@ package Common <<Node>> {
   package helpers <<Node>> {
     class DateHelper {}
     class TalkHelper {}
+    class HashHelper {}
   }
 
   package extensions <<Node>> {
     class ContextExtension {}
     class DateExtension {}
+  }
+
+  package l10n <<Node>> {
+    class L10n {}
   }
 }
 
@@ -91,6 +104,10 @@ App --> AppNotifier
 
 ' 関連
 main --> pages
+AppPage --> AppPageNotifier
+AppPage *- SearchPage
+AppPage *- TalkListPage
+AppPage *- SettingPage
 TalkListPage --> TalkListPageNotifier
 SettingPage --> SettingPageNotifier
 TalkPage --> TalkPageNotifier
@@ -107,6 +124,7 @@ MessagesNotifier --> MessagesState
 MyProfileNotifier --> MyProfileState
 RoomsNotifier --> RoomsState
 UsersNotifier --> UsersState
+NotificationNotifier --> NotificationState
   
 notifiers --> repositories
 ResourceRepository --> Assets
