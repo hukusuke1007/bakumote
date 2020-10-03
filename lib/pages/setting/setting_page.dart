@@ -54,7 +54,7 @@ class SettingPage extends TabWidgetPage {
                               profile.image,
                               width: 84,
                               height: 84,
-                              fit: BoxFit.fill,
+                              fit: BoxFit.cover,
                             )
                           : null,
                       size: 84,
