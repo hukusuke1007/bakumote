@@ -6,15 +6,13 @@
 
 ・開発者のチャンネル
 
-[貧乏エンジニア社長もくもくさんチャンネル](https://www.youtube.com/c/mokudev)
+[貧乏エンジニア社長もくもくさん](https://www.youtube.com/c/mokudev)
 
 チャンネル登録よろしくお願いしますm(__)m
 
 ## 設計
 
-GoogleのクロスプラットフォームフレームワークのFlutterで開発しました。
-
-設計は Riverpod + StateNotifier です。
+クロスプラットフォームフレームワークのFlutterで開発しました。設計は Riverpod + StateNotifier です。
 
 <img src="./design.png" width="80%">
 
@@ -40,9 +38,15 @@ Doctor summary (to see all details, run flutter doctor -v):
 
 Flutter SDKとそれをビルドできるIDEが必要です。
 
+[https://flutter.dev/docs/get-started/install](https://flutter.dev/docs/get-started/install)
+
 ### 実行
 
 ```sh
+# Clone source code.
+$ git clone https://github.com/hukusuke1007/bakumote.git
+$ cd bakumote
+
 # Install plugins.
 $ flutter pub get
 
@@ -56,7 +60,7 @@ $ flutter run --release
 $ flutter run -d all
 ```
 
-### 実装
+### 実装について
 
 freezedとObjectBoxのコード生成コマンドとl10n文言ファイルのコード生成コマンドをshellにまとめている。
 
@@ -70,7 +74,7 @@ freezedとObjectBoxのコード生成コマンドとl10n文言ファイルのコ
 
 ## その他
 
-コードはご自由にお使いください。PRも受け付けています笑
+コードはご自由にお使いください。PRも受け付けています（笑）
 
 ## 画像のフリー素材
 
