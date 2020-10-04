@@ -2,7 +2,7 @@
 
 [「マッチングアプリで出会えないから自分ひいきのアプリを1週間で作ったwww」企画](https://www.youtube.com/watch?v=wkYzBdeIT_E)
 
-・YouTubeチャンネル
+・YouTubeチャンネル<br>
 [貧乏エンジニア社長もくもくさん](https://www.youtube.com/c/mokudev)
 
 チャンネル登録よろしくお願いしますm(__)m
