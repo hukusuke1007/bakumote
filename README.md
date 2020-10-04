@@ -1,18 +1,22 @@
 # bakumote
 
-[「出会い系アプリで全然出会えないから爆モテするアプリを作ったww」企画](TODO)
+[「マッチングアプリで出会えないから自分ひいきのアプリを1週間で作ったwww」企画](https://www.youtube.com/watch?v=wkYzBdeIT_E)
 
 
+
+・開発者のチャンネル
 
 [貧乏エンジニア社長もくもくさんチャンネル](https://www.youtube.com/c/mokudev)
 
 チャンネル登録よろしくお願いしますm(__)m
 
-## 設計図
+## 設計
+
+GoogleのクロスプラットフォームフレームワークのFlutterで開発しました。
+
+設計は Riverpod + StateNotifier です。
 
 <img src="./design.png" width="80%">
-
-Riverpod + StateNotifierで実装
 
 ## 使い方
 
@@ -42,14 +46,17 @@ Flutter SDKとそれをビルドできるIDEが必要です。
 # Install plugins.
 $ flutter pub get
 
-# Launching
+# Launching with debug version.
 $ flutter run
 
-# Launching both iOS and Android.
+# Launching with release version.
+$ flutter run --release
+
+# Launching both iOS and Android with debug version.
 $ flutter run -d all
 ```
 
-## その他
+### 実装
 
 freezedとObjectBoxのコード生成コマンドとl10n文言ファイルのコード生成コマンドをshellにまとめている。
 
@@ -60,6 +67,20 @@ freezedとObjectBoxのコード生成コマンドとl10n文言ファイルのコ
 # l10n文言ファイルのコード生成
 ./sh/generate_l10n_message
 ```
+
+## その他
+
+コードはご自由にお使いください。PRも受け付けています笑
+
+## 画像のフリー素材
+
+[O-DAN](https://o-dan.net/ja/)
+
+[Flicker](https://ccphotosearch.com/)
+
+[ぱんたくそ](https://www.pakutaso.com/)
+
+[ICOOON MONO](https://icooon-mono.com/)
 
 ## 参考文献
 

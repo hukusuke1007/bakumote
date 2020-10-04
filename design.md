@@ -10,6 +10,7 @@ package main <<Node>> {
 package pages <<Node>> {
   class AppPage {}
   class AppPageNotifier {}
+  class AppPageState {}
   class SearchPage {}
   class TalkListPage {}
   class TalkListPageNotifier {}
@@ -21,6 +22,7 @@ package pages <<Node>> {
   class UserProfilePageNotifier {}
   class EditProfilePage {}
   class EditProfilePageNotifier {}
+  class EditProfilePageState {}
 }
 
 package widgets <<Node>> {
@@ -105,6 +107,8 @@ App --> AppNotifier
 ' 関連
 main --> pages
 AppPage --> AppPageNotifier
+AppPage --> AppPageState
+AppPageNotifier *- AppPageState
 AppPage *- SearchPage
 AppPage *- TalkListPage
 AppPage *- SettingPage
@@ -113,6 +117,8 @@ SettingPage --> SettingPageNotifier
 TalkPage --> TalkPageNotifier
 UserProfilePage --> UserProfilePageNotifier
 EditProfilePage --> EditProfilePageNotifier
+EditProfilePage --> EditProfilePageState
+EditProfilePageNotifier *- EditProfilePageState
 pages --> widgets
 pages --> notifiers
 
@@ -129,10 +135,12 @@ NotificationNotifier --> NotificationState
 notifiers --> repositories
 ResourceRepository --> Assets
 BakumoteRepository --> ObjectBox
+BakumoteRepository --> Assets
 
 BakumoteRepository --> entities
 
 ObjectBox --> ApplicationDocumentDirectory
 BakumoteRepository --> ApplicationDocumentDirectory
+
 @enduml
 ```
