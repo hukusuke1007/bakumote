@@ -11,7 +11,8 @@ from helpers.file_helper import default_method
 
 CSV_PATH = os.path.dirname(os.path.abspath(__file__)) + '/../csv_data/users/data.csv'
 IMAGES_DIR_PATH = os.path.dirname(os.path.abspath(__file__)) + '/../assets/images'
-OUTPUT_PATH = os.path.dirname(os.path.abspath(__file__)) + '/../csv_data/users/users.json'
+OUTPUT_PATH = os.path.dirname(os.path.abspath(__file__)) + '/../assets/json/users.json'
+#OUTPUT_PATH = os.path.dirname(os.path.abspath(__file__)) + '/../csv_data/users/users.json'
 GENDER_ID = 1
 PREFECTURE_MAX = 47
 
@@ -51,7 +52,8 @@ def output_json():
         # print(row)
     
     # images => List
-    images = os.listdir(IMAGES_DIR_PATH)
+    #images = os.listdir(IMAGES_DIR_PATH)
+    images =  os.listdir(IMAGES_DIR_PATH) +  os.listdir(IMAGES_DIR_PATH) +  os.listdir(IMAGES_DIR_PATH)
     random.shuffle(images)
     print(images)
 
