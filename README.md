@@ -84,6 +84,10 @@ freezedとObjectBoxのコード生成コマンドとl10n文言ファイルのコ
 
 [ぱんたくそ](https://www.pakutaso.com/)
 
+[ピクト缶](https://pictkan.com/)
+
+[GAHAG](http://gahag.net/)
+
 [ICOOON MONO](https://icooon-mono.com/)
 
 ## 参考文献
