@@ -75,16 +75,6 @@ freezedとObjectBoxのコード生成コマンドとl10n文言ファイルのコ
 
 ## 利用したフリー素材
 
-[O-DAN](https://o-dan.net/ja/)
-
-[Flicker](https://ccphotosearch.com/)
-
-[ぱんたくそ](https://www.pakutaso.com/)
-
-[ピクト缶](https://pictkan.com/)
-
-[GAHAG](http://gahag.net/)
-
 [ICOOON MONO](https://icooon-mono.com/)
 
 ## 参考文献
