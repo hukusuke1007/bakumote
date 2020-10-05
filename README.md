@@ -1,6 +1,6 @@
-# bakumote
+# 爆モテアプリ（bakumote）
 
-[「マッチングアプリで出会えないから自分ひいきのアプリを1週間で作ったwww」企画](https://www.youtube.com/watch?v=wkYzBdeIT_E)
+[「マッチングアプリで出会えないから自分ひいきのアプリを1週間で作ったwww」企画](https://www.youtube.com/watch?v=gdW0Hz1i6WU)
 
 ・YouTubeチャンネル<br>
 [貧乏エンジニア社長もくもくさん](https://www.youtube.com/c/mokudev)
@@ -71,7 +71,10 @@ freezedとObjectBoxのコード生成コマンドとl10n文言ファイルのコ
 
 ## その他
 
-コードはご自由にお使いください。PRも受け付けています（笑）
+コードはご自由にお使いください。<br>
+但し、このアプリをそのままストアへリリースすることはやめてください。
+
+PRを受け付けています（笑）
 
 ## 利用したフリー素材
 
