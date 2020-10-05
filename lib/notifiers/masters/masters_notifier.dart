@@ -40,15 +40,14 @@ class MastersNotifier extends StateNotifier<MastersState> with LocatorMixin {
 
   List<MasterLabelState> _decode(Map<String, dynamic> raw) {
     final list = raw['data'] as List<dynamic>;
-    final result = <MasterLabelState>[];
-    for (final item in list.toList()) {
-      result.add(
-        MasterLabelState(
-            id: item['id'] as int,
-            ja: item['ja'] as String,
-            en: item['ja'] as String),
-      );
-    }
-    return result;
+    return list
+        .map(
+          (dynamic e) => MasterLabelState(
+            id: e['id'] as int,
+            ja: e['ja'] as String,
+            en: e['en'] as String,
+          ),
+        )
+        .toList();
   }
 }
