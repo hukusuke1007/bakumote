@@ -2,7 +2,7 @@
 
 [「マッチングアプリで出会えないから自分ひいきのアプリを1週間で作ったwww」企画](https://www.youtube.com/watch?v=gdW0Hz1i6WU)
 
-<img src="./thumbnail.jpg" width="80%"><br>
+[<img src="./thumbnail.jpg" width="80%">](https://www.youtube.com/watch?v=gdW0Hz1i6WU)<br>
 <br>
 
 ・YouTubeチャンネル<br>
