@@ -2,6 +2,9 @@
 
 [「マッチングアプリで出会えないから自分ひいきのアプリを1週間で作ったwww」企画](https://www.youtube.com/watch?v=gdW0Hz1i6WU)
 
+<img src="./thumbnail.jpg" width="80%"><br>
+<br>
+
 ・YouTubeチャンネル<br>
 [貧乏エンジニア社長もくもくさん](https://www.youtube.com/c/mokudev)
 
@@ -15,7 +18,7 @@
 
 ## 使い方
 
-### 確認済みビルド環境
+Flutter SDK 1.22.0(stable)で確認済みです。
 
 ```sh
 $ flutter doctor
@@ -63,10 +66,10 @@ freezedとObjectBoxのコード生成コマンドとl10n文言ファイルのコ
 
 ```sh
 # freezedとObjectBoxのコード生成
-./sh/build_runner
+./sh/build_runner.sh
 
 # l10n文言ファイルのコード生成
-./sh/generate_l10n_message
+./sh/generate_l10n_message.sh
 ```
 
 ## その他
