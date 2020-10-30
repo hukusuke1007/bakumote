@@ -31,6 +31,8 @@
 
 /* Begin PBXFileReference section */
 		0A19C94068BF1EA28CFE29A8 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0C221A5F254BE8330058D88A /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
+		0C221A60254BE8330058D88A /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
 		3AB478259037E93FDBD85618 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ja,
 			);
 			mainGroup = 97C146E51CF9000F007C117D;
 			productRefGroup = 97C146EF1CF9000F007C117D /* Products */;
@@ -283,6 +286,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				97C146FB1CF9000F007C117D /* Base */,
+				0C221A5F254BE8330058D88A /* ja */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -291,6 +295,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				97C147001CF9000F007C117D /* Base */,
+				0C221A60254BE8330058D88A /* ja */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -302,6 +307,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -382,6 +388,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -437,6 +444,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
