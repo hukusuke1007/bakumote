@@ -2,12 +2,12 @@
 
 ```plantuml
 @startuml
-package main <<Node>> {
+package main {
   class App {}
   class AppNotifier {}
 }
 
-package pages <<Node>> {
+package pages {
   class AppPage {}
   class AppPageNotifier {}
   class AppPageState {}
@@ -25,7 +25,7 @@ package pages <<Node>> {
   class EditProfilePageState {}
 }
 
-package widgets <<Node>> {
+package widgets {
   class Dialog {}
   class Circle {}
   class CircleText {}
@@ -35,7 +35,7 @@ package widgets <<Node>> {
   class SmartRefresherCustom {}
 } 
 
-package notifiers <<Node>> {
+package notifiers {
   class AppInfoNotifier {}
   class AppInfoState {}
   class BakumoteNotifier {}
@@ -57,12 +57,12 @@ package notifiers <<Node>> {
 
 }
 
-package repositories <<Node>> {
+package repositories {
   class BakumoteRepository {}
   class ResourceRepository {}
 }
 
-package entities <<Node>> {
+package entities {
   class Profile {}
   class Counter {}
   class User {}
@@ -75,7 +75,7 @@ package entities <<Node>> {
   class UserMetadata {}
 }
 
-package local <<Node>> {
+package local {
   database ObjectBox {
   }
   storage Assets {
@@ -84,7 +84,7 @@ package local <<Node>> {
   }
 }
 
-package Common <<Node>> {
+package commons {
   package helpers <<Node>> {
     class DateHelper {}
     class TalkHelper {}
@@ -105,7 +105,6 @@ package Common <<Node>> {
 App --> AppNotifier
 
 ' 関連
-main --> pages
 AppPage --> AppPageNotifier
 AppPage --> AppPageState
 AppPageNotifier *- AppPageState
@@ -119,8 +118,6 @@ UserProfilePage --> UserProfilePageNotifier
 EditProfilePage --> EditProfilePageNotifier
 EditProfilePage --> EditProfilePageState
 EditProfilePageNotifier *- EditProfilePageState
-pages --> widgets
-pages --> notifiers
 
 AppInfoNotifier --> AppInfoState
 BakumoteNotifier --> BakumoteState
@@ -132,7 +129,7 @@ RoomsNotifier --> RoomsState
 UsersNotifier --> UsersState
 NotificationNotifier --> NotificationState
   
-notifiers --> repositories
+
 ResourceRepository --> Assets
 BakumoteRepository --> ObjectBox
 BakumoteRepository --> Assets
@@ -141,6 +138,12 @@ BakumoteRepository --> entities
 
 ObjectBox --> ApplicationDocumentDirectory
 BakumoteRepository --> ApplicationDocumentDirectory
+
+main --> pages
+pages --> widgets
+pages --> notifiers
+notifiers --> repositories
+repositories --> local
 
 @enduml
 ```
