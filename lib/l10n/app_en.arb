@@ -1,67 +1,67 @@
 {
-  "@@locale": "messages",
+  "@@locale": "en",
   "@@last_modified": "2020-10-02T17:55:19.703396",
   "title": "爆モテ",
   "@title": {
     "type": "text",
     "placeholders": {}
   },
-  "tabSearch": "さがす",
+  "tabSearch": "Search",
   "@tabSearch": {
     "type": "text",
     "placeholders": {}
   },
-  "tabTalkList": "やりとり",
+  "tabTalkList": "Talk",
   "@tabTalkList": {
     "type": "text",
     "placeholders": {}
   },
-  "tabSetting": "マイページ",
+  "tabSetting": "MyPage",
   "@tabSetting": {
     "type": "text",
     "placeholders": {}
   },
-  "hobby": "趣味",
+  "hobby": "Hobby",
   "@hobby": {
     "type": "text",
     "placeholders": {}
   },
-  "favoriteType": "好きなタイプ",
+  "favoriteType": "Favorite",
   "@favoriteType": {
     "type": "text",
     "placeholders": {}
   },
-  "like": "いいね",
+  "like": "Like",
   "@like": {
     "type": "text",
     "placeholders": {}
   },
-  "liked": "いいね済み",
+  "liked": "Liked",
   "@liked": {
     "type": "text",
     "placeholders": {}
   },
-  "talkList": "やりとり一覧",
+  "talkList": "Talk List",
   "@talkList": {
     "type": "text",
     "placeholders": {}
   },
-  "send": "送信",
+  "send": "=>",
   "@send": {
     "type": "text",
     "placeholders": {}
   },
-  "today": "今日",
+  "today": "Today",
   "@today": {
     "type": "text",
     "placeholders": {}
   },
-  "yesterday": "昨日",
+  "yesterday": "Yesterday",
   "@yesterday": {
     "type": "text",
     "placeholders": {}
   },
-  "dayBeforeYesterday": "一昨日",
+  "dayBeforeYesterday": "Day Before Yesterday",
   "@dayBeforeYesterday": {
     "type": "text",
     "placeholders": {}
@@ -71,62 +71,62 @@
     "type": "text",
     "placeholders": {}
   },
-  "appVersion": "アプリバージョン",
+  "appVersion": "Version",
   "@appVersion": {
     "type": "text",
     "placeholders": {}
   },
-  "editProfile": "プロフィール編集",
+  "editProfile": "Edit profile",
   "@editProfile": {
     "type": "text",
     "placeholders": {}
   },
-  "photoCamera": "カメラで撮影",
+  "photoCamera": "Camera",
   "@photoCamera": {
     "type": "text",
     "placeholders": {}
   },
-  "photoAlbum": "写真から選択",
+  "photoAlbum": "Album",
   "@photoAlbum": {
     "type": "text",
     "placeholders": {}
   },
-  "name": "名前",
+  "name": "Name",
   "@name": {
     "type": "text",
     "placeholders": {}
   },
-  "gender": "性別",
+  "gender": "Gender",
   "@gender": {
     "type": "text",
     "placeholders": {}
   },
-  "birth": "生年月日",
+  "birth": "Birthday",
   "@birth": {
     "type": "text",
     "placeholders": {}
   },
-  "prefectures": "都道府県",
+  "prefectures": "Prefectures",
   "@prefectures": {
     "type": "text",
     "placeholders": {}
   },
-  "required": "必須",
+  "required": "Required",
   "@required": {
     "type": "text",
     "placeholders": {}
   },
-  "saveProfile": "プロフィールを保存",
+  "saveProfile": "Save",
   "@saveProfile": {
     "type": "text",
     "placeholders": {}
   },
-  "dataReset": "データリセット",
+  "dataReset": "Reset Data",
   "@dataReset": {
     "type": "text",
     "placeholders": {}
   },
-  "confirmDataReset": "データをリセットしますか?",
+  "confirmDataReset": "Do you reset all datas?",
   "@confirmDataReset": {
     "type": "text",
     "placeholders": {}
@@ -136,22 +136,22 @@
     "type": "text",
     "placeholders": {}
   },
-  "matchingDone": "マッチングしました！",
+  "matchingDone": "Matching!",
   "@matchingDone": {
     "type": "text",
     "placeholders": {}
   },
-  "confirmSettingNotification": "通知設定を確認",
+  "confirmSettingNotification": "Notification",
   "@confirmSettingNotification": {
     "type": "text",
     "placeholders": {}
   },
-  "notificationMatchingTitle": "❤️マッチング❤️",
+  "notificationMatchingTitle": "❤️Matching❤️",
   "@notificationMatchingTitle": {
     "type": "text",
     "placeholders": {}
   },
-  "notificationMatchingBody": "{value} さんとマッチングしました！メッセージを送ってみましょう😊",
+  "notificationMatchingBody": "Matching with {value}-san!Let's send messages😊",
   "@notificationMatchingBody": {
     "type": "text",
     "placeholders": {
